@@ -54,6 +54,13 @@ class categoryController extends Controller
         $category->nome = $request->input('nome');
         $category->descricao = $request->input('descricao');
         $category->ind_ativo = $request->input('ind_ativo');
+
+        if($request->ind_ativo){
+            $category->data_fim = null;
+        }else{
+            $category->data_fim = now();
+        }
+        
         $category->save();
 
         return redirect()->route('category.index')->with('success', 'Categoria atualizada com sucesso!');

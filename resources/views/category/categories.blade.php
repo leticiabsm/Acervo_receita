@@ -6,7 +6,8 @@
             <h2 class="mb-4">Consulta de Categoria</h2>
             <div class="d-flex justify-content-between mb-4">
                 <input type="text" placeholder="Pesquisar Categorias" class="search-bar">
-                <a href="{{ route('category.create') }}" class="btn btn-add-categoria">Incluir Categoria <i class="fa-solid fa-utensils"></i></a>
+                <a href="{{ route('category.create') }}" class="btn btn-add-categoria">Incluir Categoria <i
+                        class="fa-solid fa-utensils"></i></a>
             </div>
             <table class="table table-striped table-hover">
                 <thead>
@@ -35,14 +36,9 @@
                             <td>
                                 <a href="{{ route('category.edit', $categoria->id) }}" class="btn btn-sm btn-edit"><i
                                         class="fas fa-edit"></i></a>
-                                <form action="{{ route('category.delete', $categoria->id) }}" method="POST"
-                                    style="display: inline-block;">
-                                    @csrf
-                                    @method('DELETE')
-                                    <button type="submit" class="btn btn-sm btn-delete">
-                                        <i class="fas fa-trash"></i>
-                                    </button>
-                                </form>
+                                <a href="{{ route('category.delete', $categoria->id) }}" class="btn btn-sm btn-delete">
+                                    <i class="fas fa-trash"></i>
+                                </a>
                             </td>
                         </tr>
                     @endforeach
