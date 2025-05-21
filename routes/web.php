@@ -8,5 +8,10 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/categorias', [categoryController::class, 'index']);
-Route::get('/category/create', [categoryController::class, 'create']);
+Route::get('/categories', [categoryController::class, 'index'])->name('category.index');
+
+Route::get('/category/create', [categoryController::class, 'create'])->name('category.create');
+Route::post('/categories', [categoryController::class, 'store'])->name('category.store');
+Route::get('/category/{id}/edit', [CategoryController::class, 'edit'])->name('category.edit');
+Route::put('/category/{id}', [CategoryController::class, 'update'])->name('category.update');
+Route::delete('/category/{id}/delete', [CategoryController::class, 'delete'])->name('category.delete');

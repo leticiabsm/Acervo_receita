@@ -12,7 +12,11 @@
     <!--CSS da aplicação-->
     <link rel="stylesheet" href="/css/style.css">
     <script src="/js/script.js"></script>
+    <!--ionicon-->
     <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+    <!-- Ícones Font Awesome -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
 </head>
 <body>
     <header>
