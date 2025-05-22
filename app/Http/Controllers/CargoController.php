@@ -61,7 +61,6 @@ class CargoController extends Controller
         ];
 
         if ($request->has('ind_ativo')) {
-            // Está sendo marcado como ativo → limpar data_fim
             $dados['ind_ativo'] = 1;
             $dados['data_fim'] = null;
         } else {
@@ -69,9 +68,19 @@ class CargoController extends Controller
             $dados['data_fim'] = $request->data_fim;
         }
 
-        $cargo->update($dados);
+        // Preenche os dados no model, mas não salva ainda
+        $cargo->fill($dados);
 
-        return redirect()->route('cargos.index')->with('success', 'Cargo atualizado com sucesso.');
+        if ($cargo->isDirty()) {
+            $cargo->save();
+            return redirect()->route('cargos.index')
+                ->with('success', 'Cargo "' . $cargo->nome_cargo . '" atualizado com sucesso.')
+                ->with('alert_type', 'success');
+        } else {
+            return redirect()->route('cargos.index')
+                ->with('success', 'Nenhuma alteração foi feita.')
+                ->with('alert_type', 'danger');
+        }
     }
 
 
@@ -82,6 +91,8 @@ class CargoController extends Controller
             'data_fim' => now(),
         ]);
 
-        return redirect()->route('cargos.index')->with('success', 'Cargo desativado com sucesso.');
+        return redirect()->route('cargos.index')
+            ->with('success', 'Cargo "' . $cargo->nome_cargo . '" desativado com sucesso.')
+            ->with('alert_type', 'danger');
     }
 }

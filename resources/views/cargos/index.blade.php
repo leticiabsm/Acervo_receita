@@ -2,7 +2,8 @@
 
 @section('content')
 <style>
-    body, html {
+    body,
+    html {
         height: 100%;
     }
 </style>
@@ -15,8 +16,25 @@
         </div>
 
         @if (session('success'))
-            <div class="alert alert-success text-center">{{ session('success') }}</div>
+        <div
+            class="alert alert-{{ session('alert_type', 'success') }} text-center user-select-none position-fixed top-0 start-50 translate-middle-x mt-3 shadow"
+            id="successAlert"
+            style="z-index: 1050; min-width: 300px;"
+            role="alert">
+            {{ session('success') }}
+        </div>
         @endif
+
+        @push('scripts')
+        <script>
+            setTimeout(function() {
+                var alert = document.getElementById('successAlert');
+                if (alert) {
+                    alert.style.display = 'none';
+                }
+            }, 5000);
+        </script>
+        @endpush
 
         <div class="table-responsive">
             <table class="table table-bordered table-hover align-middle text-center">
