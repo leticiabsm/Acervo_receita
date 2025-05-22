@@ -8,6 +8,8 @@ Este módulo faz parte do sistema de gerenciamento de acervo de receitas e é re
 
 - ✅ Cadastro de novos cargos com nome, descrição e datas.
 - ✏️ Edição de cargos existentes.
+    - 🟢 Pop-up informando sucesso na atualização.
+    - 🔴 Pop-up alertando nenhuma alteração detectada.
 - 🗑️ Desativação lógica de cargos (sem exclusão do banco).
 - 🔄 Reativação automática com limpeza da data de fim.
 - 📆 Controle de datas: início, fim e verificação de validade.
