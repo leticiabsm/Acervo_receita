@@ -6,8 +6,7 @@
         <form action="{{ route('category.index') }}" method="GET" class="d-flex" style="gap: 10px;">
             <input type="text" name="search" class="form-control" placeholder="Pesquisar Categorias"
                 value="{{ request('search') }}">
-            <!--<button type="submit" class="btn btn-primary">Buscar</button>-->
-            <a href="{{ route('category.create') }}" class="btn btn-add-categoria">Incluir Categoria
+            <a href="{{ route('category.create') }}" class="btn btn-success d-flex align-items-center gap-2 shadow rounded px-3 py-2">Incluir Categoria
                 <i class="fa-solid fa-utensils"></i>
             </a>
         </form>

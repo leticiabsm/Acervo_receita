@@ -21,6 +21,9 @@ h1{
 h2{
    color: #FFF; 
 }
+a{
+    color: #FFC300;
+}
 /*navbar*/
 #navbar img{
     width: 50px;
