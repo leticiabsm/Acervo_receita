@@ -1,37 +1,39 @@
-@extends('layouts.main')
-
-@section('title', 'Editar Categoria')
+@extends('layouts.app')
+@section('title', 'Desativar Categoria')
 
 @section('content')
-<div class="container">
-    <h1>Desativar Categoria</h1>
+    <div class="container my-5">
+        <div class="text-center mb-4">
+            <h2>Desativar Categoria</h2>
+        </div>
 
-    <form action="{{ route('category.destroy', $category->id) }}" method="POST">
-    @csrf
-    @method('PUT')
-    
-    <div class="mb-3">
-        <label for="nome" class="form-label">Categoria</label>
-        <input type="text" name="nome" id="nome" class="form-control"
-               value="{{ old('nome', $category->nome) }}" required readonly>
+        <div class="card shadow mx-auto p-4" style="max-width: 500px;">
+            <form action="{{ route('category.destroy', $category->id) }}" method="POST">
+                @csrf
+                @method('DELETE')
+
+                <div class="mb-3">
+                    <label class="form-label fw-bold">Nome da Categoria</label>
+                    <input type="text" class="form-control" value="{{ $category->nome }}" readonly>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label fw-bold">Descrição</label>
+                    <textarea class="form-control" rows="3" readonly>{{ $category->descricao }}</textarea>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label fw-bold">Status</label>
+                    <input type="text" class="form-control"
+                        value="{{ $category->ind_ativo ? 'ATIVO' : 'INATIVO' }}" readonly>
+                </div>
+
+                <div class="d-flex justify-content-between">
+                    <a href="{{ route('category.index') }}" class="btn btn-secondary">Cancelar</a>
+                    <button type="submit" class="btn btn-danger"
+                        onclick="return confirm('Tem certeza que deseja desativar esta categoria?')">Desativar</button>
+                </div>
+            </form>
+        </div>
     </div>
-
-    <div class="mb-3">
-        <label for="descricao" class="form-label">Descrição</label>
-        <textarea name="descricao" id="descricao" class="form-control" rows="3" readonly>{{ old('descricao', $category->descricao) }}</textarea>
-    </div>
-
-    <div class="mb-3">
-        <label class="form-label">Ativo?</label>
-        <select name="ind_ativo" class="form-select" required disabled>
-            <option value="1" {{ $category->ind_ativo ? 'selected' : '' }}>ATIVO</option>
-            <option value="0" {{ !$category->ind_ativo ? 'selected' : '' }}>INATIVO</option>
-        </select>
-    </div>
-
-    <button type="submit" class="btn btn-danger" onclick="return confirm('Tem certeza que deseja desativar esta categoria?')">Desativar</button>
-    <a href="{{ route('category.index') }}" class="btn btn-secondary">Cancelar</a>
-</form>
-
-</div>
 @endsection

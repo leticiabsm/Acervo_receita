@@ -18,6 +18,9 @@ header{
 h1{
     color: #FFF;
 }
+h2{
+   color: #FFF; 
+}
 /*navbar*/
 #navbar img{
     width: 50px;

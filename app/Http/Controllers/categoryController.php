@@ -82,4 +82,9 @@ class categoryController extends Controller
 
     return redirect()->route('category.index')->with('success', 'Categoria desativada com sucesso!');
     }
+
+    public function show($id){
+        $categoria = Category::find($id);
+        return view('category.show', compact('categoria'));
+    }
 }

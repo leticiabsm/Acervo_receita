@@ -1,14 +1,19 @@
-@extends('layouts.main')
+@extends('layouts.app')
 @section('title', 'categorias')
 @section('content')
     <div class="container my-5">
+        <h2 class="mb-4">Consulta de Categoria</h2>
+        <form action="{{ route('category.index') }}" method="GET" class="d-flex" style="gap: 10px;">
+            <input type="text" name="search" class="form-control" placeholder="Pesquisar Categorias"
+                value="{{ request('search') }}">
+            <!--<button type="submit" class="btn btn-primary">Buscar</button>-->
+            <a href="{{ route('category.create') }}" class="btn btn-add-categoria">Incluir Categoria
+                <i class="fa-solid fa-utensils"></i>
+            </a>
+        </form>
+        <form action="{{ route('category.index') }}" method="GET" class="d-flex mb-4 right" style="gap: 10px;">
+        </form>
         <div class="card shadow">
-            <h2 class="mb-4">Consulta de Categoria</h2>
-            <div class="d-flex justify-content-between mb-4">
-                <input type="text" placeholder="Pesquisar Categorias" class="search-bar">
-                <a href="{{ route('category.create') }}" class="btn btn-add-categoria">Incluir Categoria <i
-                        class="fa-solid fa-utensils"></i></a>
-            </div>
             <table class="table table-striped table-hover">
                 <thead>
                     <tr>
@@ -23,7 +28,7 @@
                 <tbody>
                     @foreach ($categorias as $categoria)
                         <tr>
-                            <td><span class="categoria-link">{{ $categoria->nome }}</span></td>
+                            <td><a href="{{route('category.show', $categoria->id)}}"><span class="categoria-link">{{ $categoria->nome }}</span></a></td>
                             <td>{{ $categoria->descricao }}</td>
                             <td>
                                 {{ $categoria->data_inicio ? date('d/m/Y', strtotime($categoria->data_inicio)) : '-' }}
