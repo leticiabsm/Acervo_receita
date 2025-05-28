@@ -7,11 +7,31 @@ use Illuminate\Http\Request;
 
 class categoryController extends Controller
 {
-    public function index()
+
+    public function index(Request $request)
+    {
+        $search = $request->input('search');
+
+        $categorias = Category::query()
+            ->when($search, function ($query, $search) {
+                $query->where('nome', 'like', '%' . $search . '%')
+                    ->orWhere('descricao', 'like', '%' . $search . '%')
+                    ->orWhere('data_inicio', 'like', '%' . $search . '%')
+                    ->orWhere('data_fim', 'like', '%' . $search . '%')
+                    ->orWhere('ind_ativo', 'like', '%' . $search . '%');
+            })
+            ->orderBy('nome', 'asc')
+            ->get();
+
+        return view('category.categories', compact('categorias'));
+    }
+
+
+    /*public function index()
     {
         $categorias = Category::all();
         return view('category.categories', ['categorias' => $categorias]);
-    }
+    }*/
 
     public function create()
     {
@@ -55,12 +75,12 @@ class categoryController extends Controller
         $category->descricao = $request->input('descricao');
         $category->ind_ativo = $request->input('ind_ativo');
 
-        if($request->ind_ativo){
+        if ($request->ind_ativo) {
             $category->data_fim = null;
-        }else{
+        } else {
             $category->data_fim = now();
         }
-        
+
         $category->save();
 
         return redirect()->route('category.index')->with('success', 'Categoria atualizada com sucesso!');
@@ -75,15 +95,16 @@ class categoryController extends Controller
     public function destroy($id)
     {
 
-    $category = Category::findOrFail($id);
-    $category->ind_ativo = 0;
-    $category->data_fim = now();
-    $category->save();
+        $category = Category::findOrFail($id);
+        $category->ind_ativo = 0;
+        $category->data_fim = now();
+        $category->save();
 
-    return redirect()->route('category.index')->with('success', 'Categoria desativada com sucesso!');
+        return redirect()->route('category.index')->with('success', 'Categoria desativada com sucesso!');
     }
 
-    public function show($id){
+    public function show($id)
+    {
         $categoria = Category::find($id);
         return view('category.show', compact('categoria'));
     }

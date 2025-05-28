@@ -6,7 +6,8 @@
         <form action="{{ route('category.index') }}" method="GET" class="d-flex" style="gap: 10px;">
             <input type="text" name="search" class="form-control" placeholder="Pesquisar Categorias"
                 value="{{ request('search') }}">
-            <a href="{{ route('category.create') }}" class="btn btn-success d-flex align-items-center gap-2 shadow rounded px-3 py-2">Incluir Categoria
+            <a href="{{ route('category.create') }}"
+                class="btn btn-success d-flex align-items-center gap-2 shadow rounded px-3 py-2">Incluir Categoria
                 <i class="fa-solid fa-utensils"></i>
             </a>
         </form>
@@ -25,9 +26,10 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach ($categorias as $categoria)
+                    @forelse ($categorias as $categoria)
                         <tr>
-                            <td><a href="{{route('category.show', $categoria->id)}}"><span class="categoria-link">{{ $categoria->nome }}</span></a></td>
+                            <td><a href="{{ route('category.show', $categoria->id) }}"><span
+                                        class="categoria-link">{{ $categoria->nome }}</span></a></td>
                             <td>{{ $categoria->descricao }}</td>
                             <td>
                                 {{ $categoria->data_inicio ? date('d/m/Y', strtotime($categoria->data_inicio)) : '-' }}
@@ -38,16 +40,20 @@
 
                             <td class="status-active">{{ $categoria->ind_ativo == 1 ? 'ATIVO' : 'INATIVO' }}</td>
                             <td>
-                                <a href="{{ route('category.edit', $categoria->id) }}" class="btn btn-sm btn-edit"><i
+                                <a href="{{ route('category.edit', $categoria->id) }}" class="btn btn-primary"><i
                                         class="fas fa-edit"></i></a>
-                                <a href="{{ route('category.delete', $categoria->id) }}" class="btn btn-sm btn-delete">
+                                <a href="{{ route('category.delete', $categoria->id) }}" class="btn btn-danger">
                                     <i class="fas fa-trash"></i>
                                 </a>
                             </td>
                         </tr>
-                    @endforeach
-                </tbody>
-            </table>
-        </div>
+                    @empty
+                        <tr>
+                            <td colspan="6" class="text-center">Nenhuma categoria encontrada.</td>
+                        </tr>
+                @endforelse
+            </tbody>
+        </table>
     </div>
+</div>
 @endsection
