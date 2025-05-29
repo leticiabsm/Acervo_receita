@@ -3,16 +3,34 @@
 namespace App\Http\Controllers;
 
 use App\Models\Medida;
-use Illuminate\Http\Request;
+use Illuminate\Http\Request; // Importe a classe Request para acessar os dados da requisição
 
 class MedidaController extends Controller
 {
     /**
      * Display a listing of the resource.
+     * Exibe uma lista de todas as medidas, agora com funcionalidade de pesquisa.
      */
-    public function index()
+    public function index(Request $request) // O método index agora recebe a instância de Request
     {
-        $medidas = Medida::all();
+        // Inicia uma nova query para o modelo Medida
+        $query = Medida::query();
+
+        // Verifica se há um termo de pesquisa ('search') na requisição
+        if ($request->has('search')) {
+            $searchTerm = $request->input('search'); // Pega o valor do campo de pesquisa
+
+            // Adiciona condições 'WHERE' para filtrar por 'tipo', 'item' ou 'descricao'
+            // O operador 'like' com '%' permite buscar por ocorrências parciais
+            $query->where('tipo', 'like', '%' . $searchTerm . '%')
+                  ->orWhere('item', 'like', '%' . $searchTerm . '%')
+                  ->orWhere('descricao', 'like', '%' . $searchTerm . '%');
+        }
+
+        // Executa a query para obter as medidas (filtradas ou todas, se não houver pesquisa)
+        $medidas = $query->get();
+
+        // Retorna a view 'medidas.index' e passa a coleção de medidas para ela
         return view('medidas.index', compact('medidas'));
     }
 
@@ -29,18 +47,18 @@ class MedidaController extends Controller
      */
     public function store(Request $request)
     {
-        // Novas regras de validação para as colunas 'tipo', 'item' e 'descricao'
+        // Regras de validação para as colunas 'tipo', 'item' e 'descricao'
         $request->validate([
-            'tipo'      => 'required|string|max:45',
-            'item'      => 'required|string|max:45',
-            'descricao' => 'required|string|max:20', // Certifique-se que o nome 'descricao' corresponde à sua nova coluna de quantidade
+            'tipo'        => 'required|string|max:45',
+            'item'        => 'required|string|max:45',
+            'descricao'   => 'required|string|max:20', // Verifique se 'descricao' é para a quantidade
         ]);
 
         // Criação do registro com as novas colunas
         Medida::create([
-            'tipo'      => $request->input('tipo'),
-            'item'      => $request->input('item'),
-            'descricao' => $request->input('descricao'),
+            'tipo'        => $request->input('tipo'),
+            'item'        => $request->input('item'),
+            'descricao'   => $request->input('descricao'),
         ]);
 
         return redirect()->route('medidas.index')
@@ -52,6 +70,9 @@ class MedidaController extends Controller
      */
     public function show(Medida $medida)
     {
+        // Se você precisar carregar ingredientes associados à medida nesta view,
+        // adicione a linha abaixo (certifique-se de configurar o relacionamento no Medida model)
+        // $medida->load('ingredientes');
         return view('medidas.show', compact('medida'));
     }
 
@@ -68,18 +89,18 @@ class MedidaController extends Controller
      */
     public function update(Request $request, Medida $medida)
     {
-        // Novas regras de validação para as colunas 'tipo', 'item' e 'descricao'
+        // Regras de validação para as colunas 'tipo', 'item' e 'descricao'
         $request->validate([
-            'tipo'      => 'required|string|max:45',
-            'item'      => 'required|string|max:45',
-            'descricao' => 'required|string|max:20', // Certifique-se que o nome 'descricao' corresponde à sua nova coluna de quantidade
+            'tipo'        => 'required|string|max:45',
+            'item'        => 'required|string|max:45',
+            'descricao'   => 'required|string|max:45', // Verifique se 'descricao' é para a quantidade
         ]);
 
         // Atualização do registro com as novas colunas
         $medida->update([
-            'tipo'      => $request->input('tipo'),
-            'item'      => $request->input('item'),
-            'descricao' => $request->input('descricao'),
+            'tipo'        => $request->input('tipo'),
+            'item'        => $request->input('item'),
+            'descricao'   => $request->input('descricao'),
         ]);
 
         return redirect()->route('medidas.index')

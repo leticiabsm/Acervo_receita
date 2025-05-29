@@ -3,18 +3,31 @@
 namespace App\Http\Controllers;
 
 use App\Models\Ingrediente; // Certifique-se de que o Model importado é 'Ingrediente'
-use Illuminate\Http\Request;
+use Illuminate\Http\Request; // Importe a classe Request
 
 class IngredienteController extends Controller
 {
     /**
      * Display a listing of the resource.
-     * Exibe uma lista de todos os ingredientes.
+     * Exibe uma lista de todos os ingredientes, com funcionalidade de pesquisa.
      */
-    public function index()
+    public function index(Request $request) // Agora, o método recebe a instância de Request
     {
-        // Obtém todos os ingredientes do banco de dados usando o Model Ingrediente
-        $ingredientes = Ingrediente::all();
+        // Inicia uma nova query para o modelo Ingrediente
+        $query = Ingrediente::query();
+
+        // Verifica se há um termo de pesquisa ('search') na requisição
+        if ($request->has('search')) {
+            $searchTerm = $request->input('search'); // Pega o valor do campo de pesquisa
+
+            // Adiciona condições 'WHERE' para filtrar por nome ou descrição
+            // O operador 'like' com '%' permite buscar por ocorrências parciais
+            $query->where('nome', 'like', '%' . $searchTerm . '%')
+                  ->orWhere('descricao', 'like', '%' . $searchTerm . '%');
+        }
+
+        // Executa a query para obter os ingredientes (filtrados ou todos, se não houver pesquisa)
+        $ingredientes = $query->get();
 
         // Retorna a view 'ingredientes.index' e passa a coleção de ingredientes para ela
         return view('ingredientes.index', compact('ingredientes'));
@@ -63,6 +76,9 @@ class IngredienteController extends Controller
     public function show(Ingrediente $ingrediente)
     {
         // O Laravel já injetou o objeto Ingrediente correspondente ao ID na URL.
+        // Adicionalmente, carregamos as medidas associadas para a view show.
+        $ingrediente->load('medidas'); // Garante que as medidas relacionadas sejam carregadas
+
         // Basta passar este objeto para a view 'ingredientes.show'.
         return view('ingredientes.show', compact('ingrediente'));
     }
@@ -101,8 +117,6 @@ class IngredienteController extends Controller
             'nome' => $request->input('nome'),
             'descricao' => $request->input('descricao'),
         ]);
-        // Ou de forma mais concisa, se `fillable` estiver configurado corretamente:
-        // $ingrediente->update($request->all());
 
         // Redireciona o usuário para a rota 'ingredientes.index'
         // e adiciona uma mensagem de sucesso na sessão flash

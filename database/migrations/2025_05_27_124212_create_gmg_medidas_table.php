@@ -22,7 +22,7 @@ return new class extends Migration
             $table->string('item', 45)->comment('Contém o tamanho da medida (ex: grande, médio, pequeno).');
 
             // 'descricao' para a quantidade (como você mencionou agora)
-            $table->string('descricao', 20)->comment('Contém a quantidade/descrição da medida (ex: 200, 100g, 1 xícara).');
+            $table->string('descricao', 45)->comment('Contém a quantidade/descrição da medida (ex: 200, 100g, 1 xícara).');
 
             // Colunas de timestamp (created_at, updated_at)
             $table->timestamps();
