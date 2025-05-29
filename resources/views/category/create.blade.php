@@ -12,7 +12,7 @@
 
                 <div class="mb-3">
                     <label for="nome" class="form-label fw-bold">Nome da Categoria</label>
-                    <input type="text" name="nome" id="nome" class="form-control" required value="{{ old('nome') }}">
+                    <input type="text" name="nome_categoria" id="nome" class="form-control" required value="{{ old('nome_categoria') }}">
                 </div>
 
                 <div class="mb-3">

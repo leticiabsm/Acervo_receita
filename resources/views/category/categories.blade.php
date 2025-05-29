@@ -28,21 +28,21 @@
                 <tbody>
                     @forelse ($categorias as $categoria)
                         <tr>
-                            <td><a href="{{ route('category.show', $categoria->id) }}"><span
-                                        class="categoria-link">{{ $categoria->nome }}</span></a></td>
+                            <td><a href="{{ route('category.show', $categoria->idCategoria) }}"><span
+                                        class="categoria-link">{{ $categoria->nome_categoria }}</span></a></td>
                             <td>{{ $categoria->descricao }}</td>
                             <td>
-                                {{ $categoria->data_inicio ? date('d/m/Y', strtotime($categoria->data_inicio)) : '-' }}
+                                {{ $categoria->data_inicio_categoria ? date('d/m/Y', strtotime($categoria->data_inicio_categoria)) : '-' }}
                             </td>
                             <td>
-                                {{ $categoria->data_fim ? date('d/m/Y', strtotime($categoria->data_fim)) : '-' }}
+                                {{ $categoria->data_fim_categoria ? date('d/m/Y', strtotime($categoria->data_fim_categoria)) : '-' }}
                             </td>
 
                             <td class="status-active">{{ $categoria->ind_ativo == 1 ? 'ATIVO' : 'INATIVO' }}</td>
                             <td>
-                                <a href="{{ route('category.edit', $categoria->id) }}" class="btn btn-primary"><i
+                                <a href="{{ route('category.edit', $categoria->idCategoria) }}" class="btn btn-primary"><i
                                         class="fas fa-edit"></i></a>
-                                <a href="{{ route('category.delete', $categoria->id) }}" class="btn btn-danger">
+                                <a href="{{ route('category.delete', $categoria->idCategoria) }}" class="btn btn-danger">
                                     <i class="fas fa-trash"></i>
                                 </a>
                             </td>
@@ -51,9 +51,9 @@
                         <tr>
                             <td colspan="6" class="text-center">Nenhuma categoria encontrada.</td>
                         </tr>
-                @endforelse
-            </tbody>
-        </table>
+                    @endforelse
+                </tbody>
+            </table>
+        </div>
     </div>
-</div>
 @endsection

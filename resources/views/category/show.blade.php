@@ -10,7 +10,7 @@
         <div class="card shadow mx-auto p-4" style="max-width: 500px;">
             <div class="mb-3">
                 <label class="form-label fw-bold">Categoria</label>
-                <p class="form-control-plaintext">{{ $categoria->nome }}</p>
+                <p class="form-control-plaintext">{{ $categoria->nome_categoria }}</p>
             </div>
 
             <div class="mb-3">
@@ -21,14 +21,14 @@
             <div class="mb-3">
                 <label class="form-label fw-bold">Data Início</label>
                 <p class="form-control-plaintext">
-                    {{ $categoria->data_inicio ? \Carbon\Carbon::parse($categoria->data_inicio)->format('d/m/Y') : '-' }}
+                    {{ $categoria->data_inicio_categoria ? \Carbon\Carbon::parse($categoria->data_inicio_categoria)->format('d/m/Y') : '-' }}
                 </p>
             </div>
 
             <div class="mb-3">
                 <label class="form-label fw-bold">Data Fim</label>
                 <p class="form-control-plaintext">
-                    {{ $categoria->data_fim ? \Carbon\Carbon::parse($categoria->data_fim)->format('d/m/Y') : '-' }}
+                    {{ $categoria->data_fim_categoria ? \Carbon\Carbon::parse($categoria->data_fim_categoria)->format('d/m/Y') : '-' }}
                 </p>
             </div>
 

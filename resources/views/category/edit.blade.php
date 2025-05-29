@@ -9,13 +9,13 @@
         </div>
 
         <div class="card shadow mx-auto p-4" style="max-width: 500px;">
-            <form action="{{ route('category.update', $category->id) }}" method="POST">
+            <form action="{{ route('category.update', $category->idCategoria) }}" method="POST">
                 @csrf
                 @method('PUT')
 
                 <div class="mb-3">
                     <label for="nome" class="form-label fw-bold">Nome da Categoria</label>
-                    <input type="text" name="nome" id="nome" class="form-control" required value="{{ old('nome', $category->nome) }}">
+                    <input type="text" name="nome_categoria" id="nome" class="form-control" required value="{{ old('nome_categoria', $category->nome_categoria) }}">
                 </div>
 
                 <div class="mb-3">

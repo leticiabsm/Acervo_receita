@@ -14,13 +14,13 @@ class categoryController extends Controller
 
         $categorias = Category::query()
             ->when($search, function ($query, $search) {
-                $query->where('nome', 'like', '%' . $search . '%')
+                $query->where('nome_categoria', 'like', '%' . $search . '%')
                     ->orWhere('descricao', 'like', '%' . $search . '%')
-                    ->orWhere('data_inicio', 'like', '%' . $search . '%')
-                    ->orWhere('data_fim', 'like', '%' . $search . '%')
+                    ->orWhere('data_inicio_categoria', 'like', '%' . $search . '%')
+                    ->orWhere('data_fim_categoria', 'like', '%' . $search . '%')
                     ->orWhere('ind_ativo', 'like', '%' . $search . '%');
             })
-            ->orderBy('nome', 'asc')
+            ->orderBy('nome_categoria', 'asc')
             ->get();
 
         return view('category.categories', compact('categorias'));
@@ -44,10 +44,10 @@ class categoryController extends Controller
 
         $categoria = new Category();
 
-        $categoria->nome = $request->nome;
+        $categoria->nome_categoria = $request->nome_categoria;
         $categoria->descricao = $request->descricao;
-        $categoria->data_inicio = now();
-        $categoria->data_fim = $request->data_fim;
+        $categoria->data_inicio_categoria = now();
+        $categoria->data_fim_categoria = $request->data_fim_categoria;
         $categoria->ind_ativo = $request->ind_ativo ?? true;
 
         $categoria->save();
@@ -64,21 +64,21 @@ class categoryController extends Controller
     public function update(Request $request, $id)
     {
         $request->validate([
-            'nome' => 'required|string|max:255',
+            'nome_categoria' => 'required|string|max:255',
             'descricao' => 'string',
             'ind_ativo' => 'required|boolean'
         ]);
 
         $category = Category::findOrFail($id);
 
-        $category->nome = $request->input('nome');
+        $category->nome_categoria = $request->input('nome_categoria');
         $category->descricao = $request->input('descricao');
         $category->ind_ativo = $request->input('ind_ativo');
 
         if ($request->ind_ativo) {
-            $category->data_fim = null;
+            $category->data_fim_categoria = null;
         } else {
-            $category->data_fim = now();
+            $category->data_fim_categoria = now();
         }
 
         $category->save();
@@ -97,7 +97,7 @@ class categoryController extends Controller
 
         $category = Category::findOrFail($id);
         $category->ind_ativo = 0;
-        $category->data_fim = now();
+        $category->data_fim_categoria = now();
         $category->save();
 
         return redirect()->route('category.index')->with('success', 'Categoria desativada com sucesso!');

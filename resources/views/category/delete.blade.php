@@ -8,13 +8,13 @@
         </div>
 
         <div class="card shadow mx-auto p-4" style="max-width: 500px;">
-            <form action="{{ route('category.destroy', $category->id) }}" method="POST">
+            <form action="{{ route('category.destroy', $category->idCategoria) }}" method="POST">
                 @csrf
                 @method('DELETE')
 
                 <div class="mb-3">
                     <label class="form-label fw-bold">Nome da Categoria</label>
-                    <input type="text" class="form-control" value="{{ $category->nome }}" readonly>
+                    <input type="text" class="form-control" value="{{ $category->nome_categoria }}" readonly>
                 </div>
 
                 <div class="mb-3">
