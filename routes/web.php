@@ -1,5 +1,5 @@
 <?php
-
+use App\Http\Controllers\ReceitaController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\IngredienteController;
 use App\Http\Controllers\MedidaController; // Importe o novo controlador
@@ -24,3 +24,5 @@ Route::resource('ingredientes', IngredienteController::class);
 
 // Novas Rotas para Medidas
 Route::resource('medidas', MedidaController::class); // Esta linha cria todas as rotas CRUD para medidas
+// Rotas para Receitas
+Route::resource('receitas', ReceitaController::class);

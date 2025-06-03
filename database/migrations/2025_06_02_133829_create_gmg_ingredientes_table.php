@@ -12,11 +12,10 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('gmg_ingredientes', function (Blueprint $table) {
-            $table->id('idIngrediente');
-            // Adicionando unique() ao campo nome
-            $table->string('nome', 45)->unique()->comment('Contém o nome único do ingrediente utilizado nas receitas.');
-            $table->text('descricao')->nullable()->comment('Contém a descrição detalhada de alguns ingredientes especiais.');
-            $table->timestamps();
+            $table->smallIncrements('idIngrediente')->comment('Contém o identificador único do ingrediente.');
+            $table->string('nome', 45)->comment('Contém o nome do ingrediente.');
+            $table->string('descricao',1000)->nullable()->comment('Contém a descrição do ingrediente');
+            $table->tinyInteger('ind_ativo')->comment(comment: 'Contém o indicador (status) do ingrediente: 1 - ativo, 0 - inativo.');
         });
     }
 
