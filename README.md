@@ -1,26 +1,5 @@
-#Sequencia para criar o projeto
-Criar o projeto
+#Conexao com o banco é pelo arquivo .env
 
-composer create-project laravel/laravel Acervo_Receitas
+#ORM com eloquent para implementar o crud
 
-cd Acervo_Receitas                 
-
-Iniciar projeto
-
-php artisan serve
-
-acesso padrao
-
-http://127.0.0.1:8000
-
-## Como rodar o projeto baixado
-
-Instalar as dependencias
-
-composer install
-
-Duplicar o arquivo .env.example para .env
-
-Gerar a chave
-
-php artisan key:generate
+#para adicionar tabelas e com o versionamento do banco usamos a migration

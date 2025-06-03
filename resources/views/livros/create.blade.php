@@ -2,7 +2,8 @@
     @csrf
     <label for="titulo">Título:</label>
     <input type="text" name="titulo" required>
-
+    <br>
+    <br>
     <label for="isbn">ISBN:</label>
     <input type="text" name="isbn" required>
 
