@@ -29,15 +29,17 @@
                 <td>{{ $livro->editor->nome ?? 'Sem editor' }}</td>
                 <td>{{ $livro->created_at->format('d/m/Y H:i') }}</td>
                 <td>
-                    <a href="{{ route('livros.edit', $livro->id) }}" class="btn btn-primary">Editar</a>
-                    <form action="{{ route('livros.destroy', $livro->id) }}" method="POST" style="display:inline;">
-                        @csrf
-                        @method('DELETE')
-                        <button type="submit" class="btn btn-danger">Excluir</button>
-                    </form>
+                    <button type="submit" onclick="{{ route('livros.edit', $livro->id) }}" class="btn btn-primary">
+                        <i class="fa-solid fa-pencil-alt"></i></button>
+                    <button type="submit" onclick="{{ route('livros.destroy', $livro->id) }}" class="btn btn-danger">
+                        <i class="fa-solid fa-trash"></i></button>
+                    </button>
+                </td>
             </tr>
         @endforeach
 </tbody>
            
         </table>
     </div>
+
+@endsection

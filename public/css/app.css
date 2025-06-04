@@ -7,6 +7,10 @@ body {
     justify-content: flex-start;
 }
 
+header{
+    background-color: #ffffff;
+    width: 100%;
+}
 
 .container {
     width: 100%;
