@@ -9,5 +9,14 @@ class Livro extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['titulo', 'isbn']; // Permite atribuição em massa
+    protected $table = 'GMG_Livro'; // Define o nome da tabela associada ao modelo
+
+    protected $fillable = ['idlivro','titulo', 'isbn']; // Permite atribuição em massa
+
+    //public $timestamps = false; // Desativa os timestamps, se não forem utilizados
+
+    public function editor() {
+        return $this->belongsTo(Editor::class, 'FKeditor');
+    }
+    
 }

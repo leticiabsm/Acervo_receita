@@ -1,44 +1,43 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Indice</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-</head>
-<body>
-    
-</body>
-</html>
-
 @extends('layouts.app')
 
 
 @section('content')
-    <h2>Consulta de livros</h2>
-
     
-    <table border="1" cellpadding="5" cellspacing="2">
-<tr>
-        <th>Título</th>
-        <th>ISBN</th>
-    </tr>
-    <tr>
-        <td>Livro 1</td>
-        <td>1234567890123</td>
-    </tr>
-</table>
-    <ul>
-        @foreach($livros as $livro)
-            <li>
-                <a href="{{ route('livros.show', $livro->titulo) }}">
-                    {{ $livro->titulo }}
-                </a>
-            </li>
-            <li>
-                <p>ISBN: {{ $livro->isbn }}</p>
-            </li>
-        @endforeach
-    </ul>
+        <h2>Consulta de livros</h2>
+    
+
+
     <a href="{{ route('livros.create') }}" class="btn btn-success">Incluir livro</a>
-@endsection
+
+    <div class="container bg-white p-4 rounded shadow-lg">
+        
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>Título do livro</th>
+                    <th>ISBN</th>
+                    <th>Editor</th>
+                    <th>Data de Criação</th>
+                    <th>Atividades</th>
+</tr>
+            </thead>
+            <tbody>
+                @foreach($livros as $livro)
+            <tr>
+                <td><a href="{{ route('livros.show', $livro->titulo) }}">{{ $livro->titulo }}</a></td>
+                <td>{{ $livro->isbn }}</td>
+                <td>{{ $livro->editor->nome ?? 'Sem editor' }}</td>
+                <td>{{ $livro->created_at->format('d/m/Y H:i') }}</td>
+                <td>
+                    <a href="{{ route('livros.edit', $livro->id) }}" class="btn btn-primary">Editar</a>
+                    <form action="{{ route('livros.destroy', $livro->id) }}" method="POST" style="display:inline;">
+                        @csrf
+                        @method('DELETE')
+                        <button type="submit" class="btn btn-danger">Excluir</button>
+                    </form>
+            </tr>
+        @endforeach
+</tbody>
+           
+        </table>
+    </div>
