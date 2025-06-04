@@ -1,12 +1,16 @@
 <?php
-
+use App\Http\Controllers\ReceitaController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LivroController;
+use App\Http\Controllers\IngredienteController;
+use App\Http\Controllers\MedidaController; // Importe o novo controlador
+
 
 Route::get('/', function () {
     return redirect()->route('livros.index');
 });
 
+// Rotas para Livros
 Route::get('/livros', [LivroController::class, 'index'])->name('livros.index');
 Route::get('/livros/create', [LivroController::class, 'create'])->name('livros.create');
 Route::post('/livros', [LivroController::class, 'store'])->name('livros.store');
@@ -15,7 +19,10 @@ Route::get('/livros/{titulo}/edit', [LivroController::class, 'edit'])->name('liv
 Route::put('/livros/{titulo}', [LivroController::class, 'update'])->name('livros.update');
 Route::delete('livros/{titulo}',[LivroController::class, 'destroy'])->name('livros.destroy');
 
+// Rotas para Ingredientes
+Route::resource('ingredientes', IngredienteController::class);
 
-//Route::resource('livros', LivroController::class)->parameters([
- //  'livros' => 'titulo' // Define que o parâmetro será "titulo" ao invés do ID
-//]); Inclui index, create, store, show, edit, update e destroy, sem precisar definir cada uma manualmente
+// Novas Rotas para Medidas
+Route::resource('medidas', MedidaController::class); 
+// Rotas para Receitas
+Route::resource('receitas', ReceitaController::class);
