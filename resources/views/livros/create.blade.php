@@ -1,8 +1,7 @@
 @extends('layouts.app')
 
-@section('title', 'Livro de Receitas')
-
 @section('content')
+
     <div class="content-wrapper">
         <h2>Adicionar Livro</h2>
     </div>   
@@ -66,4 +65,5 @@
             </div>
     </div>
 </div>
+@endsection
        

@@ -2,9 +2,9 @@
 
 
 @section('content')
-    
+    <div class="content-wrapper">
         <h2>Consulta de livros</h2>
-    
+    </div>
 
 
     <a href="{{ route('livros.create') }}" class="btn btn-success">Incluir livro</a>

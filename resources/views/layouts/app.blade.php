@@ -9,14 +9,21 @@
 </head>
 <body class="bg-primary bg-gradient d-flex flex-column justify-content-start  min-vh-100">
 
-    <header class="text-center">
-        @yield('before_title') <!-- Novo espaço antes do título -->
-        <h1>@yield('title', 'Livro de receitas')</h1>
+    <header>
+        <nav class="navbar navbar-expand-lg navbar-light">
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a href="#" class="nav-link">Painel</a>
+                    </li>
+                    <li class="nav-item">
+                        <h1>Livro de Receitas</h1>
+                    </li>
+                </ul>
+            </div>
+        </nav>
     </header>
-
-    <main class="content-wrapper">
         @yield('content')
-    </main>
 
 </body>
 </html>
