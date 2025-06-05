@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.receitas')
 
 @section('content')
 <div class="container">
@@ -11,7 +11,6 @@
             <div class="card mb-4">
                 <div class="card-header">Informações da Receita</div>
                 <div class="card-body">
-                    <p><strong>ID:</strong> {{ $receita->idReceitas }}</p>
                     <p><strong>Cozinheiro:</strong> {{ $receita->cozinheiro ? $receita->cozinheiro->nome : 'N/A' }}</p>
                     <p><strong>Categoria:</strong> {{ $receita->categoria ? $receita->categoria->nome_categoria : 'N/A' }}</p>
                     <p><strong>Data de Criação:</strong> {{ \Carbon\Carbon::parse($receita->dt_criacao)->format('d/m/Y') }}</p>

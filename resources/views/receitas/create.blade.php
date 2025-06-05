@@ -5,19 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Adicionar Nova Receita</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <style>
-        /* Estilos adicionais, se necessário */
-        .ingrediente-item {
-            border: 1px solid #e0e0e0;
-            padding: 15px;
-            border-radius: 5px;
-            background-color: #f9f9f9;
-            margin-bottom: 15px;
-        }
-    </style>
+
 </head>
 <body>
-@extends('layouts.app')
+@extends('layouts.receitas')
 
 @section('content')
 <div class="container">

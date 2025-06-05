@@ -1,4 +1,4 @@
-@extends('layouts.app') {{-- Assumindo que você tem um layout principal --}}
+@extends('layouts.receitas') {{-- Assumindo que você tem um layout principal --}}
 
 @section('content')
 <div class="container">
@@ -23,28 +23,33 @@
             <table class="table table-bordered">
                 <thead>
                     <tr>
-                        <th>ID</th>
                         <th>Nome da Receita</th>
-                        <th>Cozinheiro</th>
+                        <th>ingredientes</th>
+                        <th>Cozinheiro Resposalvel</th>
                         <th>Categoria</th>
-                        <th>Porções</th>
-                        <th>Dificuldade</th>
-                        <th>Tempo de Preparo</th>
-                        <th>Ações</th>
+                        <th>Data de criação</th>
+                        <th>Atividades</th>
                     </tr>
                 </thead>
                 <tbody>
                     @forelse ($receitas as $receita)
                         <tr>
-                            <td>{{ $receita->idReceitas }}</td>
                             <td>{{ $receita->nome_rec }}</td>
+                            <td>
+                                @if ($receita->ingredientes->isNotEmpty())
+                                    <ul>
+                                        @foreach ($receita->ingredientes as $ingrediente)
+                                            <li>{{ $ingrediente->quantidade }} {{ $ingrediente->medida ? $ingrediente->medida->item : '' }} de {{ $ingrediente->nome }}</li>
+                                        @endforeach
+                                    </ul>
+                                @else
+                                    Nenhum ingrediente adicionado.
+                                @endif
                             <td>{{ $receita->cozinheiro ? $receita->cozinheiro->nome : 'N/A' }}</td>
                             <td>{{ $receita->categoria ? $receita->categoria->nome_categoria : 'N/A' }}</td>
-                            <td>{{ $receita->quat_porcao }}</td>
-                            <td>{{ $receita->dificudade_receitas }}</td>
-                            <td>{{ $receita->tempo_de_preparo }}</td>
+                            <td>{{ \Carbon\Carbon::parse($receita->dt_criacao)->format('d/m/Y') }}</td>
                             <td>
-                                <a href="{{ route('receitas.show', $receita->idReceitas) }}" class="btn btn-info btn-sm">Ver</a>
+                                <a href="{{ route('receitas.show', $receita->nome_rec) }}" class="btn btn-info btn-sm">Ver</a>
                                 <a href="{{ route('receitas.edit', $receita->idReceitas) }}" class="btn btn-warning btn-sm">Editar</a>
                                 <form action="{{ route('receitas.destroy', $receita->idReceitas) }}" method="POST" style="display:inline;">
                                     @csrf
