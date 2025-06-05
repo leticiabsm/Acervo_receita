@@ -12,7 +12,7 @@ class Ingrediente extends Model
 {
     use HasFactory;
 
-    protected $table = 'gmg_ingredientes';
+    protected $table = 'GMG_Ingredientes';
     protected $primaryKey = 'idIngrediente';
 
     protected $fillable = [
@@ -32,7 +32,7 @@ class Ingrediente extends Model
         // O segundo argumento é o nome da tabela pivô.
         // O terceiro argumento é o nome da chave estrangeira do Model que você está definindo (Ingrediente).
         // O quarto argumento é o nome da chave estrangeira do Model que está sendo relacionado (Medida).
-        return $this->belongsToMany(Medida::class, 'gmg_ingrediente_medida', 'idIngrediente', 'idMedida')
+        return $this->belongsToMany(Medida::class, 'GMG_Receitas_Ingrediente', 'idIngrediente', 'idMedida')
                     ->withPivot('quantidade', 'observacao') // Inclui as colunas extras da tabela pivô
                     ->withTimestamps(); // Se a tabela pivô tiver created_at/updated_at
     }

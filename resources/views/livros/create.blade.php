@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.livro')
 
 @section('content')
     <div class="content-wrapper">

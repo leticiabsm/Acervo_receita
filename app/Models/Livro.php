@@ -13,10 +13,10 @@ class Livro extends Model
 
     protected $fillable = ['idlivro','titulo', 'isbn']; // Permite atribuição em massa
 
-    //public $timestamps = false; // Desativa os timestamps, se não forem utilizados
+    public $timestamps = true; // Desativa os timestamps, se não forem utilizados
 
-    public function editor() {
-        return $this->belongsTo(Editor::class, 'FKeditor');
-    }
+//    public function editor() {
+        //return $this->belongsTo(Editor::class, 'FKeditor');
+    //}
     
 }

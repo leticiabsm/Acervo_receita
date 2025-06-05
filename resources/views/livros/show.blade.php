@@ -11,7 +11,7 @@
 </body>
 </html>
 
-@extends('layouts.app')
+@extends('layouts.livro')
 
 @section('content')
     <h3>{{ $livro->titulo }}</h3>

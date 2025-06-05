@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.livro')
 
 
 @section('content')
@@ -19,27 +19,26 @@
                     <th>Editor</th>
                     <th>Data de Criação</th>
                     <th>Atividades</th>
-</tr>
+                </tr>
             </thead>
             <tbody>
                 @foreach($livros as $livro)
-            <tr>
-                <td><a href="{{ route('livros.show', $livro->titulo) }}">{{ $livro->titulo }}</a></td>
-                <td>{{ $livro->isbn }}</td>
-                <td>{{ $livro->editor->nome ?? 'Sem editor' }}</td>
-                <td>{{ $livro->created_at->format('d/m/Y H:i') }}</td>
-                <td>
-                    <button type="submit" onclick="{{ route('livros.edit', $livro->id) }}" class="btn btn-primary">
-                        <i class="fa-solid fa-pencil-alt"></i></button>
-                    <button type="submit" onclick="{{ route('livros.destroy', $livro->id) }}" class="btn btn-danger">
-                        <i class="fa-solid fa-trash"></i></button>
-                    </button>
-                </td>
-            </tr>
-        @endforeach
-</tbody>
+                <tr>
+                    <td><a href="{{ route('livros.show', $livro->titulo) }}">{{ $livro->titulo }}</a></td>
+                    <td>{{ $livro->isbn }}</td>
+                    <td>{{ $livro->editor->nome ?? 'Sem editor' }}</td>
+                    <td>{{ $livro->created_at->format('d/m/Y') }}</td>
+                    <td>
+                        <a href="{{ route('livros.edit', $livro->idlivro) }}" class="btn btn-primary">
+                            <i class="fa-solid fa-pencil-alt"></i></a>
+                        <a href="{{ route('livros.destroy', $livro->idlivro) }}" class="btn btn-danger">
+                            <i class="fa-solid fa-trash"></i></a>
+                    
+                    </td>
+                </tr>
+                @endforeach
+            </tbody>   
            
         </table>
-    </div>
+        </div>
 
-@endsection

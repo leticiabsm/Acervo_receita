@@ -45,9 +45,9 @@ class LivroController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $titulo)
+    public function edit($id)
     {
-        $livro = Livro::where('titulo', $titulo)->firstOrFail();
+        $livro = Livro::where('idlivro', $idlivro)->firstOrFail();
         return view('livros.edit', compact('livro'));
     }
 
@@ -64,9 +64,9 @@ class LivroController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $titulo)
+    public function destroy($id)
     {
-        $livro = Livro::where('titulo', $titulo)->firstOrFail();
+        $livro = Livro::where('idlivro', $idlivro)->firstOrFail();
         $livro->delete();
         return redirect()->route('livros.index')->with('success', 'Livro excluído com sucesso!');
     }
