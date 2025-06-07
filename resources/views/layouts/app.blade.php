@@ -27,7 +27,7 @@
                         <a href="#" class="nav-link">Painel</a>
                     </li>
                     <li class="nav-item">
-                        <a href="/categories" class="nav-link">Categoria</a>
+                        <h3>Categorias</h3>
                     </li>
                 </ul>
             </div>

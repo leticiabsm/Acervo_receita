@@ -13,7 +13,7 @@
         </form>
         <form action="{{ route('category.index') }}" method="GET" class="d-flex mb-4 right" style="gap: 10px;">
         </form>
-        <div class="card shadow">
+        <div class="card shadow rounded-4 p-4">
             <table class="table table-striped table-hover">
                 <thead>
                     <tr>
