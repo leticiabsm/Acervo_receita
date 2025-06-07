@@ -1,11 +1,11 @@
 <?php
-<<<<<<< HEAD
+
+
 use App\Http\Controllers\ReceitaController;
 use Illuminate\Support\Facades\Route;
 
-use App\Http\Controllers\categoryController;
+use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\Controller;
-
 
 use App\Http\Controllers\RestauranteController;
 use App\Http\Controllers\LivroController;
@@ -39,14 +39,14 @@ Route::resource('receitas', ReceitaController::class);
 Route::resource('restaurantes', RestauranteController::class);
 
 // Rotas para Categorias
-Route::get('/', function () {
+/*Route::get('/', function () {
     return view('welcome');
-});
+});*/
 
-Route::get('/categories', [categoryController::class, 'index'])->name('category.index');
+Route::get('/categories', [CategoryController::class, 'index'])->name('category.index');
 
-Route::get('/category/create', [categoryController::class, 'create'])->name('category.create');
-Route::post('/categories', [categoryController::class, 'store'])->name('category.store');
+Route::get('/category/create', [CategoryController::class, 'create'])->name('category.create');
+Route::post('/categories', [CategoryController::class, 'store'])->name('category.store');
 
 Route::get('/category/{id}/edit', [CategoryController::class, 'edit'])->name('category.edit');
 Route::put('/category/{id}', [CategoryController::class, 'update'])->name('category.update');
