@@ -30,5 +30,5 @@ Route::resource('medidas', MedidaController::class);
 Route::resource('receitas', ReceitaController::class);
 
 // Rotas para Restaurantes
-Route::get('/', [RestauranteController::class, 'index']);
+//Route::get('/', [RestauranteController::class, 'index']);
 Route::resource('restaurantes', RestauranteController::class);
