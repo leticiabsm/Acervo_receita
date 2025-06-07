@@ -15,6 +15,7 @@ class Livro extends Model
 
     public $timestamps = true; // Desativa os timestamps, se não forem utilizados
 
+     protected $primaryKey = 'idlivro'; // Define a chave primária da tabela
 //    public function editor() {
         //return $this->belongsTo(Editor::class, 'FKeditor');
     //}
