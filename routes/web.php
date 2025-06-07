@@ -17,8 +17,9 @@ use App\Http\Controllers\IngredienteController;
 use App\Http\Controllers\MedidaController; // Importe o novo controlador
 
 
+// Página inicial (login)
 Route::get('/', function () {
-    return redirect()->route('livros.index');
+    return view('auth.login');
 });
 
 // Rotas para Livros
@@ -62,10 +63,7 @@ Route::get('/category/{id}/show', [CategoryController::class, 'show'])->name('ca
 
 
 
-// Página inicial (login)
-Route::get('/', function () {
-    return view('auth.login');
-});
+
 
 // Rotas de Autenticação
 Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login');
