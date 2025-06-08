@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.categoria')
 @section('title', 'Desativar Categoria')
 
 @section('content')
