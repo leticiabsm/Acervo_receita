@@ -14,9 +14,8 @@ return new class extends Migration
         Schema::create('funcionarios', function (Blueprint $table) {
             $table->id();
             $table->string('nome', 100);
-            $table->string('email', 100)->unique();
+            $table->string('email', 256)->unique();
             $table->string('password');
-            $table->unsignedBigInteger('cargo_id');
             $table->string('rg', 30)->nullable();
             $table->decimal('salario', 10, 2)->nullable();
             $table->date('data_inicio')->nullable();
@@ -25,7 +24,9 @@ return new class extends Migration
             $table->timestamps();
             $table->softDeletes();
 
-            $table->foreign('cargo_id')->references('id')->on('cargos')->onDelete('cascade');
+            $table->foreignId('cargo_id')->constrained('gmg_cargo')->onDelete('cascade');
+
+
         });
     }
 

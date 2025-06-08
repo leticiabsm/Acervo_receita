@@ -15,11 +15,7 @@ return new class extends Migration
             $table->increments('idReceitas')->comment('Contém o identificador da receita.');
             $table->string('nome_rec', 45)->comment('Contém o nome da receita.');
 
-            // Já corrigido: unsignedInteger para FKcozinheiro
-            $table->unsignedInteger('FKcozinheiro')->comment('Contém o identificador do cozinheiro da receita.');
-
-            // AQUI ESTÁ A NOVA MUDANÇA IMPORTANTE
-            // Deve ser unsignedSmallInteger() para corresponder a smallIncrements() de idCategoria
+            $table->unsignedBigInteger('FKcozinheiro')->comment('Contém o identificador do cozinheiro da receita.');
             $table->unsignedSmallInteger('FKCategoria')->comment('Contém o identificador da categoria da receita.');
 
             $table->date('dt_criacao')->comment('Contém a data de criação da receita.');
@@ -29,16 +25,15 @@ return new class extends Migration
             $table->string('dificudade_receitas', 12)->comment('Contém a dificuldade da receita. Ex: Fácil, Médio, Difícil.');
             $table->time('tempo_de_preparo')->comment('Contém o tempo de preparo da receita. Ex: 00:30:00 (HH:MM:SS).');
 
-            // Chaves Estrangeiras
             $table->foreign('FKcozinheiro')
-                  ->references('FK_idFuncionario')->on('gmg_cadastro_de_funcionario')
-                  ->onDelete('no action')
-                  ->onUpdate('no action');
+                ->references('id')->on('funcionarios')
+                ->onDelete('no action')
+                ->onUpdate('no action');
 
             $table->foreign('FKCategoria')
-                  ->references('idCategoria')->on('gmg_categorias')
-                  ->onDelete('no action')
-                  ->onUpdate('no action');
+                ->references('idCategoria')->on('gmg_categoria')
+                ->onDelete('no action')
+                ->onUpdate('no action');
         });
     }
 
