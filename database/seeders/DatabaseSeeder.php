@@ -3,7 +3,6 @@
 namespace Database\Seeders;
 
 
-
 use App\Models\User;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
@@ -20,7 +19,7 @@ class DatabaseSeeder extends Seeder
 
         $this->call([
             // Outros seeders se houver
-            IngredienteMedidaSeeder::class, // Adicione esta linha
+           
         ]);
 
         $this->call(CargosSeeder::class);

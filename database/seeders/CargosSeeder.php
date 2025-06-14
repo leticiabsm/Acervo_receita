@@ -17,7 +17,7 @@ class CargosSeeder extends Seeder
         ];
 
         foreach ($cargos as $cargo) {
-            DB::table('cargos')->updateOrInsert(
+            DB::table('gmg_cargo')->updateOrInsert(
                 ['nome' => $cargo['nome']], // evita duplicatas
                 ['ativo' => $cargo['ativo']]
             );
