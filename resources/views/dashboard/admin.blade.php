@@ -87,7 +87,7 @@
         background: transparent;
         font-weight: 500;
         font-size: 1.05rem;
-        transition: background 0.2s;
+        
     }
 
     .funcoes-list .list-group-item:hover {
