@@ -1,13 +1,13 @@
-@extends('layouts.app')
+@extends('layouts.cargos')
 
 @section('content')
 <div class="container mt-5">
-    <h2 class="mb-4" style="font-weight: bold;">Consulta de Cargos</h2>
+    <h2 class="mb-4 text-white" style="font-weight: bold;">Consulta de Cargos</h2>
     <div class="d-flex mb-3">
         <form class="flex-grow-1 me-2">
-            <input type="text" class="form-control" placeholder="Pesquisar Livros">
+            <input type="text" class="form-control" placeholder="Pesquisar Cargos">
         </form>
-        <a href="{{ route('cargos.adicionar') }}" class="btn btn-success d-flex align-items-center">
+        <a href="{{ route('cargos.create') }}" class="btn btn-success">
             <i class="bi bi-briefcase me-2"></i> Incluir Cargo
         </a>
     </div>
@@ -38,16 +38,19 @@
                         @endif
                     </td>
                     <td class="text-center">
-                        <a href="#" class="btn btn-sm p-1 me-1"
+                        <a href="{{ route('cargos.edit', $cargo->id) }}" class="btn btn-sm p-1 me-1"
                             style="background:#67C0FF; width:32px; height:32px; display:inline-flex; align-items:center; justify-content:center; border-radius:6px;"
                             onclick="event.stopPropagation()">
                             <img src="{{ asset('img/icons/la_pen.png') }}" alt="Editar" style="width:18px; height:18px;">
                         </a>
-                        <a href="#" class="btn btn-sm p-1"
+
+                        <a href="{{ route('cargos.status', $cargo->id) }}" class="btn btn-sm p-1"
                             style="background:#FF7979; width:32px; height:32px; display:inline-flex; align-items:center; justify-content:center; border-radius:6px;"
                             onclick="event.stopPropagation()">
-                            <img src="{{ asset('img/icons/mynaui_trash.png') }}" alt="Excluir" style="width:18px; height:18px;">
+                            <img src="{{ asset('img/icons/mynaui_trash.png') }}" alt="Status" style="width:18px; height:18px;">
                         </a>
+
+
                     </td>
                 </tr>
                 @endforeach

@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Cargo extends Model
 {
-    protected $table = 'cargos';
+    protected $table = 'gmg_cargo';
 
     protected $fillable = [
         'nome',

@@ -52,15 +52,22 @@
                         </button>
                         <ul class="dropdown-menu" aria-labelledby="dropdownStatus">
                             <li>
-                                <button class="dropdown-item text-success" data-url="{{ route('funcionarios.reativar', $funcionario->id)}}" onclick="alterarStatus(this, 'ATIVO', 'text-success')">
+                                <button
+                                    class="dropdown-item text-success"
+                                    data-reativar-url="{{ route('funcionarios.reativar', $funcionario->id) }}"
+                                    onclick="alterarStatus(this, 'ATIVO', 'text-success')">
                                     ATIVO
                                 </button>
                             </li>
                             <li>
-                                <button class="dropdown-item text-danger" data-url="{{ route('funcionarios.destroy', $funcionario->id) }}" onclick="alterarStatus(this, 'INATIVO', 'text-danger')">
+                                <button
+                                    class="dropdown-item text-danger"
+                                    data-inativar-url="{{ route('funcionarios.inativar', $funcionario->id) }}"
+                                    onclick="alterarStatus(this, 'INATIVO', 'text-danger')">
                                     INATIVO
                                 </button>
                             </li>
+
                         </ul>
                     </div>
                 </div>
@@ -91,7 +98,14 @@
 <script>
     function alterarStatus(element, novoStatus, novaClasse) {
         const dropdownButton = document.getElementById("dropdownStatus");
-        const url = element.getAttribute("data-url");
+
+        // Decide URL conforme o status
+        let url;
+        if (novoStatus === 'ATIVO') {
+            url = element.getAttribute("data-reativar-url");
+        } else {
+            url = element.getAttribute("data-inativar-url");
+        }
 
         fetch(url, {
                 method: 'POST',
@@ -106,7 +120,6 @@
                     dropdownButton.innerText = novoStatus;
                     dropdownButton.classList.remove('text-success', 'text-danger');
                     dropdownButton.classList.add(novaClasse);
-
                     alert(`Status alterado para ${novoStatus} com sucesso!`);
                 } else {
                     return response.json().then(data => {

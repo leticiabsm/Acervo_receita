@@ -72,6 +72,18 @@ class FuncionarioController extends Controller
         ]);
     }
 
+    public function inativar($id)
+{
+    $funcionario = Funcionario::findOrFail($id);
+    $funcionario->data_finalizacao = now();
+    $funcionario->save();
+
+    return response()->json([
+        'status' => 'INATIVO',
+        'message' => 'Funcionário inativado com sucesso.'
+    ]);
+}
+
 
     public function reativar($id)
     {

@@ -2,7 +2,7 @@
 
 
 @section('content')
-@if(session('admin_logged_in') && session('funcionario_id'))
+@if(session('admin_logged_in'))
 <!-- Conteúdo protegido -->
 
 <div class="container d-flex justify-content-center align-items-center min-vh-100">
@@ -29,11 +29,11 @@
                 <div class="fw-bold mb-2">Funções</div>
                 <div class="funcoes-card mb-4">
                     <div class="list-group funcoes-list">
-                        <a href="{{ route('funcionarios.lista') }}" class="list-group-item">
+                        <a href="{{ route('funcionarios.index') }}" class="list-group-item">
                             Funcionários
                             <i class="bi bi-gear icon-gear"></i>
                         </a>
-                        <a href="{{ route('cargos.lista') }}" class="list-group-item">
+                        <a href="{{ route('cargos.index') }}" class="list-group-item">
                             Cargos
                             <i class="bi bi-gear icon-gear"></i>
                         </a>

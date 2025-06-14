@@ -5,7 +5,7 @@
 <div class="container mt-5">
     <h2 class="mb-4" style="font-weight: bold; color: #fff;">Consulta de Funcionários</h2>
     <div class="d-flex mb-3">
-        <form class="flex-grow-1 me-2 d-flex" method="GET" action="{{ route('funcionarios.lista') }}">
+        <form class="flex-grow-1 me-2 d-flex" method="GET" action="{{ route('funcionarios.index') }}">
             <input type="text" name="pesquisa" class="form-control" placeholder="Pesquisar" value="{{ request('pesquisa') }}">
             <button type="submit" class="btn" style="background:transparent; border:none; margin-left:-40px;">
                 <img src="{{ asset('img/icons/lupa.png') }}" alt="Pesquisar" style="width:22px; height:22px;">
