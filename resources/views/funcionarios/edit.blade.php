@@ -69,7 +69,7 @@ $corStatus = !$funcionario->data_finalizacao ? '#6DD16F' : '#FF3030';
             </div>
             <div class="d-flex justify-content-between mt-4">
                 <button type="submit" class="btn" style="background:#6DD16F; color:#fff; font-weight:bold; min-width:120px;">EDITAR</button>
-                <a href="{{ route('funcionarios.lista') }}" class="btn" style="background:#BDBDBD; color:#fff; font-weight:bold; min-width:120px;">VOLTAR</a>
+                <a href="{{ route('funcionarios.index') }}" class="btn" style="background:#BDBDBD; color:#fff; font-weight:bold; min-width:120px;">VOLTAR</a>
             </div>
         </form>
     </div>

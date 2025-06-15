@@ -34,15 +34,18 @@ class FuncionarioController extends Controller
         $funcionario->rg = $request->input('rg');
         $funcionario->data_inicio = $request->input('data_inicio'); // Aqui está a correção!
 
-        if ($request->status === 'ativo') {
-            $funcionario->data_finalizacao = null;
-        } else {
-            $funcionario->data_finalizacao = now();
+        if ($request->has('status')) {
+            if ($request->status === 'ativo') {
+                $funcionario->data_finalizacao = null;
+            } else {
+                $funcionario->data_finalizacao = now();
+            }
         }
+
 
         $funcionario->save();
 
-        return redirect()->route('funcionarios.lista')->with('success', 'Funcionário atualizado!');
+        return redirect()->route('funcionarios.index')->with('success', 'Funcionário atualizado!');
     }
 
     public function show($id)
@@ -60,6 +63,8 @@ class FuncionarioController extends Controller
         return view('funcionarios.edit', compact('funcionario', 'cargos'));
     }
 
+
+
     public function destroy($id)
     {
         $funcionario = Funcionario::findOrFail($id);
@@ -73,16 +78,16 @@ class FuncionarioController extends Controller
     }
 
     public function inativar($id)
-{
-    $funcionario = Funcionario::findOrFail($id);
-    $funcionario->data_finalizacao = now();
-    $funcionario->save();
+    {
+        $funcionario = Funcionario::findOrFail($id);
+        $funcionario->data_finalizacao = now();
+        $funcionario->save();
 
-    return response()->json([
-        'status' => 'INATIVO',
-        'message' => 'Funcionário inativado com sucesso.'
-    ]);
-}
+        return response()->json([
+            'status' => 'INATIVO',
+            'message' => 'Funcionário inativado com sucesso.'
+        ]);
+    }
 
 
     public function reativar($id)
@@ -101,6 +106,6 @@ class FuncionarioController extends Controller
     public function confirmDelete($id)
     {
         $funcionario = Funcionario::findOrFail($id);
-        return view('funcionarios.confirmDelete', compact('funcionario'));
+        return view('funcionarios.delete', compact('funcionario'));
     }
 }

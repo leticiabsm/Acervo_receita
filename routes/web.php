@@ -43,20 +43,18 @@ Route::middleware(['auth'])->group(function () {
 
 
     // Funcionários
-
-    Route::post('/funcionarios/{id}/inativar', [FuncionarioController::class, 'inativar'])->name('funcionarios.inativar');
-
+    Route::resource('funcionarios', FuncionarioController::class);
 
     Route::get('/funcionarios', [FuncionarioController::class, 'index'])->name('funcionarios.index');
-    Route::get('/funcionarios/{id}', [FuncionarioController::class, 'show'])->name('funcionarios.show');
+
     Route::get('/funcionarios/{id}/edit', [FuncionarioController::class, 'edit'])->name('funcionarios.edit');
-    Route::put('/funcionarios/{id}', [FuncionarioController::class, 'update'])->name('funcionarios.update');
-    Route::delete('/funcionarios/{id}', [FuncionarioController::class, 'destroy'])->name('funcionarios.destroy');
 
-    Route::post('/funcionarios/{id}/reativar', [FuncionarioController::class, 'reativar'])->name('funcionarios.reativar');
 
-    Route::get('/funcionarios/{id}/confirmar-exclusao', [FuncionarioController::class, 'confirmDelete'])->name('funcionarios.confirmDelete');
-    Route::get('/funcionarios-lista', [FuncionarioController::class, 'index'])->name('funcionarios.lista');
+    Route::get('funcionarios/{id}/delete', [FuncionarioController::class, 'confirmDelete'])->name('funcionarios.delete');
+    Route::post('funcionarios/{id}/inativar', [FuncionarioController::class, 'inativar'])->name('funcionarios.inativar');
+    Route::post('funcionarios/{id}/reativar', [FuncionarioController::class, 'reativar'])->name('funcionarios.reativar');
+
+
 
 
 

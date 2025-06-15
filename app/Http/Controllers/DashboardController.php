@@ -15,8 +15,14 @@ class DashboardController extends Controller
         ]);
     }
 
-    public function funcionario()
+
+    public function cozinheiro()
     {
-        return view('dashboard.funcionario');
+        return view('dashboard.cozinheiro');
     }
+    public function editor()
+    {
+        return view('dashboard.editor');
+    }
+    
 }

@@ -128,7 +128,7 @@
             @php
             $funcionario = \App\Models\Funcionario::find(session('funcionario_id'));
             @endphp
-            <span>{{ $funcionario->nome ?? 'Funcionário' }}</span>
+            <span>{{ auth()->user()->nome ?? 'Funcionário' }}</span>
             <form action="{{ route('logout') }}" method="POST" style="display:inline;">
                 @csrf
                 <button type="submit" style="background:transparent; border:none; padding:0; margin-left:8px;">

@@ -58,11 +58,13 @@
                             onclick="event.stopPropagation()">
                             <img src="{{ asset('img/icons/la_pen.png') }}" alt="Editar" style="width:18px; height:18px;">
                         </a>
-                        <a href="{{ route('funcionarios.confirmDelete', $funcionario->id) }}"
+                        <a href="{{ route('funcionarios.delete', $funcionario->id) }}"
                             class="btn btn-sm p-1"
-                            style="background:#FF7979; width:32px; height:32px; display:inline-flex; align-items:center; justify-content:center; border-radius:6px;">
+                            style="background:#FF7979; width:32px; height:32px; display:inline-flex; align-items:center; justify-content:center; border-radius:6px;"
+                            onclick="event.stopPropagation()">
                             <img src="{{ asset('img/icons/mynaui_trash.png') }}" alt="Excluir" style="width:18px; height:18px;">
                         </a>
+
                     </td>
                 </tr>
                 @endforeach
@@ -70,8 +72,6 @@
         </table>
     </div>
 </div>
-@endsection
-
 <script>
     document.addEventListener('DOMContentLoaded', function() {
         document.querySelectorAll('.clickable-row').forEach(function(row) {
@@ -89,3 +89,4 @@
         }
     }
 </script>
+@endsection
