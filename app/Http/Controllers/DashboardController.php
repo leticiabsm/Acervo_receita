@@ -25,7 +25,7 @@ class DashboardController extends Controller
             //'totalDegustacao' => Degustacao::count(),
         ]);
 
-
+    }
     public function cozinheiro()
     {
         return view('dashboard.cozinheiro');

@@ -37,6 +37,18 @@
                             Cargos
                             <i class="bi bi-gear icon-gear"></i>
                         </a>
+                        <a href="#" class="list-group-item">
+                            Categorias
+                            <i class="bi bi-gear icon-gear"></i>
+                        </a>
+                        <a href="{{ route('receitas.index') }}" class="list-group-item">
+                            Receitas
+                            <i class="bi bi-eye"></i>
+                        </a>
+                        <a href="#" class="list-group-item">
+                            Restaurantes
+                            <i class="bi bi-gear icon-gear"></i>
+                        </a>
                         <!-- Adicione mais itens conforme necessário -->
                     </div>
                 </div>
