@@ -1,5 +1,5 @@
 @extends('layouts.funcionario')
-@extends('layouts.app')
+
 
 @section('content')
 <div class="container d-flex justify-content-center align-items-center min-vh-100">
@@ -49,7 +49,7 @@
                 </div>
             </div>
             <div class="text-center mt-3">
-                <a href="{{ route('funcionarios.lista') }}" class="btn btn-secondary px-5 py-2 fw-bold">VOLTAR</a>
+                <a href="{{ route('funcionarios.index') }}" class="btn btn-secondary px-5 py-2 fw-bold">VOLTAR</a>
             </div>
         </form>
     </div>

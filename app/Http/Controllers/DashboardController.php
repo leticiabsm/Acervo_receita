@@ -16,6 +16,7 @@ class DashboardController extends Controller
         ]);
     }
 
+
     public function editor()
     {
         return view('dashboard.editor', [
@@ -23,5 +24,11 @@ class DashboardController extends Controller
             //'totalPublicacao' => Publicacao::count(),
             //'totalDegustacao' => Degustacao::count(),
         ]);
+
+
+    public function cozinheiro()
+    {
+        return view('dashboard.cozinheiro');
     }
+    
 }

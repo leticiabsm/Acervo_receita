@@ -76,7 +76,7 @@
         </div>
 
         <div class="d-flex justify-content-between mt-4">
-            <a href="{{ route('funcionarios.lista') }}" class="btn" style="background:#BDBDBD; color:#fff; font-weight:bold; min-width:120px;">VOLTAR</a>
+            <a href="{{ route('funcionarios.index') }}" class="btn" style="background:#BDBDBD; color:#fff; font-weight:bold; min-width:120px;">VOLTAR</a>
         </div>
     </div>
 </div>
