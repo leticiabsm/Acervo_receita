@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Models\Funcionario;
 use App\Models\Cargo;
-use App\Models\Receita;
 
 class DashboardController extends Controller
 {
@@ -16,12 +15,8 @@ class DashboardController extends Controller
         ]);
     }
 
-    public function editor()
+    public function funcionario()
     {
-        return view('dashboard.editor', [
-            'totalReceitas' => Receita::count(),
-            //'totalPublicacao' => Publicacao::count(),
-            //'totalDegustacao' => Degustacao::count(),
-        ]);
+        return view('dashboard.funcionario');
     }
 }

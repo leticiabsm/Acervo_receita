@@ -26,4 +26,4 @@
 
     </header>
         @yield('content')
-
+</body>
