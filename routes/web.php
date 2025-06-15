@@ -55,10 +55,6 @@ Route::middleware(['auth'])->group(function () {
     Route::post('funcionarios/{id}/reativar', [FuncionarioController::class, 'reativar'])->name('funcionarios.reativar');
 
 
-
-
-
-
     // Livros
     Route::get('/livros', [LivroController::class, 'index'])->name('livros.index');
     Route::get('/livros/create', [LivroController::class, 'create'])->name('livros.create');
@@ -72,4 +68,12 @@ Route::middleware(['auth'])->group(function () {
     Route::resource('ingredientes', IngredienteController::class);
     Route::resource('medidas', MedidaController::class);
     Route::resource('receitas', ReceitaController::class);
+
+
+    Route::get('/dashboard/cozinheiro', function () {
+        return view('dashboard.cozinheiro', [
+            'totalReceitas' => 5, // teste estático
+            'totalPedidos' => 3   // teste estático
+        ]);
+    })->name('dashboard.cozinheiro')->middleware('auth');
 });

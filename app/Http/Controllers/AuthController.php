@@ -40,11 +40,17 @@ class AuthController extends Controller
                 return redirect()->route('dashboard.admin');
             }
 
+            if ($cargo === 'cozinheiro') {
+                session(['cozinheiro_logged_in' => true]);
+                return redirect()->route('dashboard.cozinheiro');
+            }
+
             return redirect()->route('dashboard.funcionario');
         }
 
         return back()->withErrors(['email' => 'Credenciais inválidas.'])->withInput();
     }
+
 
     // Mostra o formulário de cadastro
     public function showCadastroForm()

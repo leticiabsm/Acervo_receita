@@ -1,49 +1,48 @@
-@extends('layouts.funcionario')
-
+@extends('layouts.cozinheiro')
 
 @section('content')
-@if(session('admin_logged_in'))
-<!-- Conteúdo protegido -->
-
+@if(Auth::check())
 <div class="container d-flex justify-content-center align-items-center min-vh-100">
     <div class="dashboard-card w-100" style="max-width: 700px; position: relative;">
-        <h2 class="text-center mb-4" style="font-weight: bold;">Painel Principal</h2>
+        <h2 class="text-center mb-4" style="font-weight: bold;">Painel do Cozinheiro</h2>
 
         <!-- Resumo -->
         <table class="table table-summary mb-4">
             <tbody>
                 <tr>
-                    <td>Total de Funcionários</td>
-                    <td class="text-end">{{ $totalFuncionarios }}</td>
+                    <td>Receitas Ativas</td>
+                    <td class="text-end">{{ $totalReceitas ?? 0 }}</td>
                 </tr>
                 <tr>
-                    <td>Total de Cargos</td>
-                    <td class="text-end">{{ $totalCargos }}</td>
+                    <td>Pedidos Pendentes</td>
+                    <td class="text-end">{{ $totalPedidos ?? 0 }}</td>
                 </tr>
             </tbody>
         </table>
 
-        <!-- Funções -->
+        <!-- Ações -->
         <div class="row align-items-center">
             <div class="col-md-6">
                 <div class="fw-bold mb-2">Funções</div>
                 <div class="funcoes-card mb-4">
                     <div class="list-group funcoes-list">
-                        <a href="{{ route('funcionarios.index') }}" class="list-group-item">
-                            Funcionários
+                        <a href="#" class="list-group-item">
+                            Visualizar Receitas
+                            <i class="bi bi-eye icon-eye"></i>
+                        </a>
+                        <a href="#" class="list-group-item">
+                            Pedidos em Andamento
                             <i class="bi bi-gear icon-gear"></i>
                         </a>
-                        <a href="{{ route('cargos.index') }}" class="list-group-item">
-                            Cargos
-                            <i class="bi bi-gear icon-gear"></i>
+                        <a href="#" class="list-group-item">
+                            Estoque de Ingredientes
+                            <i class="bi bi-archive icon-gear"></i>
                         </a>
-                        
-                        <!-- Adicione mais itens conforme necessário -->
                     </div>
                 </div>
             </div>
             <div class="col-md-6 d-flex justify-content-center">
-                <img src="{{ asset('img/icons/user_cog.png') }}" alt="Usuário ADM" style="opacity:0.15; max-width:160px; max-height:160px;">
+                <img src="{{ asset('img/icons/chef_hat.png') }}" alt="Ícone Cozinheiro" style="opacity:0.15; max-width:160px; max-height:160px;">
             </div>
         </div>
     </div>
@@ -88,15 +87,10 @@
         background: transparent;
         font-weight: 500;
         font-size: 1.05rem;
-        
     }
 
     .funcoes-list .list-group-item:hover {
         background: #e0e3e7;
-    }
-
-    .funcoes-list .list-group-item.active {
-        background: #e9ecef;
     }
 
     .icon-gear,
@@ -107,14 +101,6 @@
 
     .icon-eye {
         color: #222;
-    }
-
-    .icon-user-gear {
-        opacity: 0.15;
-        font-size: 6rem;
-        position: absolute;
-        right: 30px;
-        bottom: 30px;
     }
 
     @media (max-width: 991px) {
