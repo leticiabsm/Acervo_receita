@@ -47,6 +47,7 @@ class DegustacaoController extends Controller
         $search = $request->input('search');
         /**Após o merge, trocar a Model Degustacao para Receita */
         $receita = Receita::where('nome_rec', 'like', "%$search%")
+
             ->whereNotIn('nome_rec', function ($query) {
                 $query->select('FK_nome_rec')
                     ->from('gmg_degustacao');
