@@ -1,8 +1,8 @@
 <?php
 
-<<<<<<< HEAD
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
+use App\Http\Controllers\DegustacaoController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\CargoController;
@@ -75,9 +75,6 @@ Route::middleware(['auth'])->group(function () {
     Route::resource('medidas', MedidaController::class);
     Route::resource('receitas', ReceitaController::class);
 });
-=======
-use App\Http\Controllers\DegustacaoController;
-use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('welcome');
@@ -98,4 +95,3 @@ Route::get('/degustacao/{id}/delete', [DegustacaoController::class, 'delete'])->
 Route::delete('/degustacao/{id}/destroy', [DegustacaoController::class, 'destroy'])->name('degustacao.destroy');
 
 Route::get('/degustacao/{id}', [DegustacaoController::class,'show'])->name('degustacao.show');
->>>>>>> degustacao
