@@ -1,95 +1,64 @@
-<!DOCTYPE html>
-<html lang="pt-br">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lista de Medidas</title>
-    <style>
-        body { font-family: sans-serif; margin: 20px; background-color: #f4f4f4; color: #333; }
-        .container { max-width: 900px; margin: 30px auto; background-color: #fff; padding: 25px; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
-        h1 { text-align: center; color: #333; margin-bottom: 25px; }
-        .alert-success { background-color: #d4edda; color: #155724; border: 1px solid #c3e6cb; padding: 10px; margin-bottom: 20px; border-radius: 5px; }
-        .top-section { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
-        .btn { padding: 10px 15px; border-radius: 5px; text-decoration: none; color: white; font-size: 16px; cursor: pointer; border: none; transition: background-color 0.3s ease; display: inline-block; }
-        .btn-success { background-color: #28a745; } .btn-success:hover { background-color: #218838; }
-        .btn-info { background-color: #17a2b8; } .btn-info:hover { background-color: #138496; }
-        .btn-warning { background-color:rgb(13, 9, 225); color:rgb(248, 249, 249); } .btn-warning:hover { background-color:rgb(0, 26, 224); }
-        .btn-danger { background-color: #dc3545; } .btn-danger:hover { background-color: #c82333; }
-        table { width: 100%; border-collapse: collapse; margin-top: 20px; }
-        th, td { border: 1px solid #ddd; padding: 10px; text-align: left; }
-        th { background-color: #f2f2f2; font-weight: bold; }
-        td:last-child { text-align: center; }
-        .actions-cell { white-space: nowrap; }
-        .actions-cell form { display: inline-block; margin-left: 5px; }
+@extends('layouts.medidas')
 
-        /* Estilos da barra de pesquisa */
-        .search-form { display: flex; gap: 10px; }
-        .search-form input[type="text"] { flex-grow: 1; padding: 10px; border: 1px solid #ddd; border-radius: 4px; box-sizing: border-box; font-size: 16px; }
-        .search-form button { padding: 10px 15px; border-radius: 5px; background-color: #007bff; color: white; border: none; cursor: pointer; transition: background-color 0.3s ease; }
-        .search-form button:hover { background-color: #0056b3; }
-
-        /* Novo estilo para o link do Tipo */
-        .link-tipo {
-            color:rgb(44, 7, 255); /* Cor amarelo/alaranjado, similar ao btn-warning */
-            text-decoration: none; /* Remove sublinhado padrão do link */
-            font-weight: bold; /* Deixa o texto em negrito, se desejar */
-        }
-        .link-tipo:hover {
-            text-decoration: underline; /* Adiciona sublinhado ao passar o mouse */
-        }
-    </style>
-</head>
-<body>
-    <div class="container">
-        <h1>Lista de Medidas</h1>
-
-        @if (session('success'))
-            <div class="alert-success">
-                {{ session('success') }}
-            </div>
-        @endif
-
-        <div class="top-section">
-            {{-- Formulário de Pesquisa --}}
-            <form action="{{ route('medidas.index') }}" method="GET" class="search-form">
-                <input type="text" name="search" placeholder="Pesquisar medidas..." value="{{ request('search') }}">
-                <button type="submit">Pesquisar</button>
-            </form>
-
-            <a href="{{ route('medidas.create') }}" class="btn btn-success">Adicionar Nova Medida</a>
-        </div>
-
-        <table>
+@section('content')
+<div class="container mt-5">
+    <h2 class="mb-4" style="font-weight: bold; color: #fff;">Consulta de Medidas</h2>
+    <div class="d-flex mb-3">
+        <form class="flex-grow-1 me-2 d-flex" method="GET" action="{{ route('medidas.index') }}">
+            <input type="text" name="pesquisa" class="form-control" placeholder="Pesquisar" value="{{ request('pesquisa') }}">
+            <button type="submit" class="btn" style="background:transparent; border:none; margin-left:-40px;">
+                <img src="{{ asset('img/icons/lupa.png') }}" alt="Pesquisar" style="width:22px; height:22px;">
+            </button>
+        </form>
+        <a href="{{ route('medidas.create') }}" 
+            class="btn d-flex align-items-center"
+            style="background:#83CD71; border:3px solid #25BB00; color:#fff; font-weight:bold;">
+            Adicionar Medida
+            <img src="{{ asset('img/icons/add_measure.png') }}" alt="Adicionar Medida" style="width:22px; height:22px;" class="ms-3">
+        </a>
+    </div>
+    <div class="table-responsive">
+        <table class="table table-bordered align-middle">
             <thead>
                 <tr>
-                    <th>Tipo</th>
-                    <th>Item</th>
-                    <th>Descrição</th>
-                    <th>Ações</th>
+                    <th class="text-center">Tipo</th>
+                    <th class="text-center">Item</th>
+                    <th class="text-center">Descrição</th>
+                    <th class="text-center">Atividades</th>
                 </tr>
             </thead>
             <tbody>
-                @forelse ($medidas as $medida)
-                    <tr>
-                        <td><a href="{{ route('medidas.show', $medida->idMedida) }}" class="link-tipo">{{ $medida->tipo }}</a></td>
-                        <td>{{ $medida->item }}</td>
-                        <td>{{ $medida->descricao }}</td>
-                        <td class="actions-cell">
-                            <a href="{{ route('medidas.edit', $medida->idMedida) }}" class="btn btn-warning">Editar</a>
-                            <form action="{{ route('medidas.destroy', $medida->idMedida) }}" method="POST">
-                                @csrf
-                                @method('DELETE')
-                                <button type="submit" class="btn btn-danger" onclick="return confirm('Tem certeza que deseja excluir esta medida?')">Excluir</button>
-                            </form>
-                        </td>
-                    </tr>
-                @empty
-                    <tr>
-                        <td colspan="6">Nenhuma medida encontrada.</td>
-                    </tr>
-                @endforelse
+                @foreach($medidas as $medida)
+                <tr class="clickable-row" data-href="{{ route('medidas.show', $medida->idMedida) }}" style="cursor:pointer;">
+                    <td>{{ $medida->tipo }}</td>
+                    <td class="text-center">{{ $medida->item }}</td>
+                    <td class="text-center">{{ $medida->descricao ?? '-' }}</td>
+                    <td class="text-center">
+                        <a href="{{ route('medidas.edit', $medida->idMedida) }}" class="btn btn-sm p-1 me-1"
+                            style="background:#67C0FF; width:32px; height:32px; display:inline-flex; align-items:center; justify-content:center; border-radius:6px;"
+                            onclick="event.stopPropagation()">
+                            <img src="{{ asset('img/icons/edit.png') }}" alt="Editar" style="width:18px; height:18px;">
+                        </a>
+                        <a href="{{ route('medidas.delete', $medida->idMedida) }}" 
+                            class="btn btn-sm p-1"
+                            style="background:#FF7979; width:32px; height:32px; display:inline-flex; align-items:center; justify-content:center; border-radius:6px;"
+                            onclick="event.stopPropagation()">
+                            <img src="{{ asset('img/icons/trash.png') }}" alt="Excluir" style="width:18px; height:18px;">
+                        </a>
+                    </td>
+                </tr>
+                @endforeach
             </tbody>
         </table>
     </div>
-</body>
-</html>
+</div>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        document.querySelectorAll('.clickable-row').forEach(function(row) {
+            row.addEventListener('click', function(e) {
+                window.location = this.dataset.href;
+            });
+        });
+    });
+</script>
+@endsection

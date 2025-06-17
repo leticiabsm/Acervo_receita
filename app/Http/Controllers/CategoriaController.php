@@ -2,17 +2,17 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Category;
+use App\Models\Categoria;
 use Illuminate\Http\Request;
 
-class CategoryController extends Controller
+class CategoriaController extends Controller
 {
 
     public function index(Request $request)
     {
         $search = $request->input('search');
 
-        $categorias = Category::query()
+        $categorias = Categoria::query()
             ->when($search, function ($query, $search) {
                 $query->where('nome_categoria', 'like', '%' . $search . '%')
                     ->orWhere('descricao', 'like', '%' . $search . '%')
@@ -23,26 +23,22 @@ class CategoryController extends Controller
             ->orderBy('nome_categoria', 'asc')
             ->get();
 
-        return view('category.categories', compact('categorias'));
+        return view('Categoria.categories', compact('categorias'));
     }
 
 
-    /*public function index()
-    {
-        $categorias = Category::all();
-        return view('category.categories', ['categorias' => $categorias]);
-    }*/
+    
 
     public function create()
     {
-        return view('category.create');
+        return view('Categoria.create');
     }
 
     public function store(Request $request)
     {
         //dd($request->all());
 
-        $categoria = new Category();
+        $categoria = new Categoria();
 
         $categoria->nome_categoria = $request->nome_categoria;
         $categoria->descricao = $request->descricao;
@@ -57,8 +53,8 @@ class CategoryController extends Controller
 
     public function edit($id)
     {
-        $category = Category::findOrFail($id);
-        return view('category.edit', compact('category'));
+        $Categoria = Categoria::findOrFail($id);
+        return view('Categoria.edit', compact('Categoria'));
     }
 
     public function update(Request $request, $id)
@@ -69,43 +65,43 @@ class CategoryController extends Controller
             'ind_ativo' => 'required|boolean'
         ]);
 
-        $category = Category::findOrFail($id);
+        $Categoria = Categoria::findOrFail($id);
 
-        $category->nome_categoria = $request->input('nome_categoria');
-        $category->descricao = $request->input('descricao');
-        $category->ind_ativo = $request->input('ind_ativo');
+        $Categoria->nome_categoria = $request->input('nome_categoria');
+        $Categoria->descricao = $request->input('descricao');
+        $Categoria->ind_ativo = $request->input('ind_ativo');
 
         if ($request->ind_ativo) {
-            $category->data_fim_categoria = null;
+            $Categoria->data_fim_categoria = null;
         } else {
-            $category->data_fim_categoria = now();
+            $Categoria->data_fim_categoria = now();
         }
 
-        $category->save();
+        $Categoria->save();
 
-        return redirect()->route('category.index')->with('success', 'Categoria atualizada com sucesso!');
+        return redirect()->route('Categoria.index')->with('success', 'Categoria atualizada com sucesso!');
     }
 
     public function delete($id)
     {
-        $category = Category::findOrFail($id);
-        return view('category.delete', compact('category'));
+        $Categoria = Categoria::findOrFail($id);
+        return view('Categoria.delete', compact('Categoria'));
     }
 
     public function destroy($id)
     {
 
-        $category = Category::findOrFail($id);
-        $category->ind_ativo = 0;
-        $category->data_fim_categoria = now();
-        $category->save();
+        $Categoria = Categoria::findOrFail($id);
+        $Categoria->ind_ativo = 0;
+        $Categoria->data_fim_categoria = now();
+        $Categoria->save();
 
-        return redirect()->route('category.index')->with('success', 'Categoria desativada com sucesso!');
+        return redirect()->route('Categoria.index')->with('success', 'Categoria desativada com sucesso!');
     }
 
     public function show($id)
     {
-        $categoria = Category::find($id);
-        return view('category.show', compact('categoria'));
+        $categoria = Categoria::find($id);
+        return view('Categoria.show', compact('categoria'));
     }
 }

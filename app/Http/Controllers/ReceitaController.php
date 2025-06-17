@@ -13,44 +13,31 @@ use Illuminate\Validation\Rule; // Para validações mais avançadas
 
 class ReceitaController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     * Exibe uma lista de todas as receitas, com funcionalidade de pesquisa.
-     */
-    public function index(Request $request)
+
+    // Exibe uma lista de todas as receitas, com funcionalidade de pesquisa.
+    public function index()
     {
-        $query = Receita::query();
-
-        // Verifica se há um termo de pesquisa ('search') na requisição
-        if ($request->has('search')) {
-            $searchTerm = $request->input('search');
-
-            // Filtra por nome da receita ou instruções
-            $query->where('nome_rec', 'like', '%' . $searchTerm . '%')
-                  ->orWhere('preparo', 'like', '%' . $searchTerm . '%');
-        }
-
-        // Carrega os relacionamentos necessários para a exibição na lista (cozinheiro e categoria)
-        $receitas = $query->with(['cozinheiro', 'categoria'])->get();
+        $receitas = Receita::all(); // ou com filtros por cozinheiro, se quiser
 
         return view('receitas.index', compact('receitas'));
-    }//fim index
+    }
 
-             //create
-     public function create()
+
+    //create
+    public function create()
     {
         // Precisamos de todos os ingredientes e medidas para os dropdowns dinâmicos
         $ingredientes = Ingrediente::all();
         $medidas = Medida::all();
         $categorias = Categoria::where('ind_ativo', 1)->get(); // Apenas categorias ativas
         $cozinheiros = Funcionario::where('ind_funcionario', 1)
-                                   ->whereHas('cargo', function ($query) {
-                                       $query->where('nome', 'Cozinheiro'); // Filtra por cargo "Cozinheiro"
-                                   })
-                                   ->get(); // Apenas funcionários ativos que são cozinheiros
+            ->whereHas('cargo', function ($query) {
+                $query->where('nome', 'Cozinheiro'); // Filtra por cargo "Cozinheiro"
+            })
+            ->get(); // Apenas funcionários ativos que são cozinheiros
 
         return view('receitas.create', compact('ingredientes', 'medidas', 'categorias', 'cozinheiros'));
-    }//fim create
+    } //fim create
 
     //store
     public function store(Request $request)
@@ -115,7 +102,7 @@ class ReceitaController extends Controller
         }
 
         return redirect()->route('receitas.index')
-                         ->with('success', 'Receita criada com sucesso!');
+            ->with('success', 'Receita criada com sucesso!');
     } //fim store
 
     //show
@@ -149,10 +136,10 @@ class ReceitaController extends Controller
         $medidas = Medida::all();
         $categorias = Categoria::where('ind_ativo', 1)->get();
         $cozinheiros = Funcionario::where('ind_funcionario', 1)
-                                   ->whereHas('cargo', function ($query) {
-                                       $query->where('nome', 'Cozinheiro');
-                                   })
-                                   ->get();
+            ->whereHas('cargo', function ($query) {
+                $query->where('nome', 'Cozinheiro');
+            })
+            ->get();
 
         // Carrega os ingredientes já associados à receita com os dados da tabela pivô
         // e também as medidas associadas a esses ingredientes através do pivot.
@@ -172,7 +159,7 @@ class ReceitaController extends Controller
         }
 
         return view('receitas.edit', compact('receita', 'ingredientes', 'medidas', 'categorias', 'cozinheiros', 'ingredientesReceita'));
-    }// Fim show
+    } // Fim show
 
     //Update
     public function update(Request $request, Receita $receita)
@@ -231,7 +218,7 @@ class ReceitaController extends Controller
 
             // Depois, anexamos os novos/atualizados
             foreach ($validatedData['ingredientes_receita'] as $ingredienteData) {
-                 $receita->ingredientes()->attach(
+                $receita->ingredientes()->attach(
                     $ingredienteData['idIngrediente'],
                     [
                         'idMedida'   => $ingredienteData['idMedida'],
@@ -246,7 +233,7 @@ class ReceitaController extends Controller
         }
 
         return redirect()->route('receitas.index')
-                         ->with('success', 'Receita atualizada com sucesso!');
+            ->with('success', 'Receita atualizada com sucesso!');
     } //Fim Update
 
     //Destroy
@@ -255,6 +242,6 @@ class ReceitaController extends Controller
         $receita->delete(); // Isso também removerá os registros da tabela pivô se onDelete('cascade') estiver configurado
 
         return redirect()->route('receitas.index')
-                         ->with('success', 'Receita excluída com sucesso!');
-    }//fim destroy
+            ->with('success', 'Receita excluída com sucesso!');
+    } //fim destroy
 }

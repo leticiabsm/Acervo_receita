@@ -23,7 +23,7 @@ class IngredienteController extends Controller
             // Adiciona condições 'WHERE' para filtrar por nome ou descrição
             // O operador 'like' com '%' permite buscar por ocorrências parciais
             $query->where('nome', 'like', '%' . $searchTerm . '%')
-                  ->orWhere('descricao', 'like', '%' . $searchTerm . '%');
+                ->orWhere('descricao', 'like', '%' . $searchTerm . '%');
         }
 
         // Executa a query para obter os ingredientes (filtrados ou todos, se não houver pesquisa)
@@ -39,9 +39,9 @@ class IngredienteController extends Controller
      */
     public function create()
     {
-        // Retorna a view 'ingredientes.create' que contém o formulário de criação
         return view('ingredientes.create');
     }
+
 
     /**
      * Store a newly created resource in storage.
@@ -64,7 +64,7 @@ class IngredienteController extends Controller
         // Redireciona o usuário para a rota 'ingredientes.index'
         // e adiciona uma mensagem de sucesso na sessão flash
         return redirect()->route('ingredientes.index')
-                         ->with('success', 'Ingrediente criado com sucesso!');
+            ->with('success', 'Ingrediente criado com sucesso!');
     }
 
     /**
@@ -121,7 +121,7 @@ class IngredienteController extends Controller
         // Redireciona o usuário para a rota 'ingredientes.index'
         // e adiciona uma mensagem de sucesso na sessão flash
         return redirect()->route('ingredientes.index')
-                         ->with('success', 'Ingrediente atualizado com sucesso!');
+            ->with('success', 'Ingrediente atualizado com sucesso!');
     }
 
     /**
@@ -138,6 +138,6 @@ class IngredienteController extends Controller
         // Redireciona o usuário para a rota 'ingredientes.index'
         // e adiciona uma mensagem de sucesso na sessão flash
         return redirect()->route('ingredientes.index')
-                         ->with('success', 'Ingrediente excluído com sucesso!');
+            ->with('success', 'Ingrediente excluído com sucesso!');
     }
 }

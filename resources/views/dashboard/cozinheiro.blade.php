@@ -26,23 +26,28 @@
                 <div class="fw-bold mb-2">Funções</div>
                 <div class="funcoes-card mb-4">
                     <div class="list-group funcoes-list">
-                        <a href="#" class="list-group-item">
+
+                        <a href="{{ route('receitas.index') }}" class="list-group-item">
                             Visualizar Receitas
                             <i class="bi bi-eye icon-eye"></i>
                         </a>
-                        <a href="#" class="list-group-item">
-                            Pedidos em Andamento
-                            <i class="bi bi-gear icon-gear"></i>
+
+                        <a href="{{ route('ingredientes.index') }}" class="list-group-item">
+                            Ingredientes
+                            <i class="bi bi-box-seam icon-gear"></i>
                         </a>
-                        <a href="#" class="list-group-item">
-                            Estoque de Ingredientes
-                            <i class="bi bi-archive icon-gear"></i>
+
+                        <a href="{{ route('medidas.index') }}" class="list-group-item">
+                            Medidas
+                            <i class="bi bi-rulers icon-gear"></i>
                         </a>
+
+
                     </div>
                 </div>
             </div>
             <div class="col-md-6 d-flex justify-content-center">
-                <img src="{{ asset('img/icons/chef_hat.png') }}" alt="Ícone Cozinheiro" style="opacity:0.15; max-width:160px; max-height:160px;">
+                <img src="{{ asset('img/icons/user_cog.png') }}" alt="Ícone Cozinheiro" style="opacity:0.15; max-width:160px; max-height:160px;">
             </div>
         </div>
     </div>

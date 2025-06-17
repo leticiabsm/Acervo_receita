@@ -11,28 +11,12 @@ class MedidaController extends Controller
      * Display a listing of the resource.
      * Exibe uma lista de todas as medidas, agora com funcionalidade de pesquisa.
      */
-    public function index(Request $request) // O método index agora recebe a instância de Request
+    public function index()
     {
-        // Inicia uma nova query para o modelo Medida
-        $query = Medida::query();
-
-        // Verifica se há um termo de pesquisa ('search') na requisição
-        if ($request->has('search')) {
-            $searchTerm = $request->input('search'); // Pega o valor do campo de pesquisa
-
-            // Adiciona condições 'WHERE' para filtrar por 'tipo', 'item' ou 'descricao'
-            // O operador 'like' com '%' permite buscar por ocorrências parciais
-            $query->where('tipo', 'like', '%' . $searchTerm . '%')
-                  ->orWhere('item', 'like', '%' . $searchTerm . '%')
-                  ->orWhere('descricao', 'like', '%' . $searchTerm . '%');
-        }
-
-        // Executa a query para obter as medidas (filtradas ou todas, se não houver pesquisa)
-        $medidas = $query->get();
-
-        // Retorna a view 'medidas.index' e passa a coleção de medidas para ela
+        $medidas = Medida::all(); // ou com filtros se preferir
         return view('medidas.index', compact('medidas'));
     }
+
 
     /**
      * Show the form for creating a new resource.
@@ -62,7 +46,7 @@ class MedidaController extends Controller
         ]);
 
         return redirect()->route('medidas.index')
-                         ->with('success', 'Medida criada com sucesso!');
+            ->with('success', 'Medida criada com sucesso!');
     }
 
     /**
@@ -104,7 +88,7 @@ class MedidaController extends Controller
         ]);
 
         return redirect()->route('medidas.index')
-                         ->with('success', 'Medida atualizada com sucesso!');
+            ->with('success', 'Medida atualizada com sucesso!');
     }
 
     /**
@@ -115,6 +99,6 @@ class MedidaController extends Controller
         $medida->delete();
 
         return redirect()->route('medidas.index')
-                         ->with('success', 'Medida excluída com sucesso!');
+            ->with('success', 'Medida excluída com sucesso!');
     }
 }

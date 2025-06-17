@@ -1,4 +1,4 @@
-@extends('layouts.receita') {{-- Assumindo que você tem um layout principal --}}
+@extends('layouts.receitas') {{-- Assumindo que você tem um layout principal --}}
 
 @section('content')
 <div class="container">

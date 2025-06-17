@@ -14,11 +14,9 @@ use App\Http\Controllers\IngredienteController;
 use App\Http\Controllers\MedidaController;
 
 // Página inicial redireciona para login
-Route::get('/', function () {
-    return redirect()->route('login');
-});
+Route::get('/', fn() => redirect()->route('login'));
 
-// Rotas de Autenticação
+// Autenticação
 Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login');
 Route::post('/login', [AuthController::class, 'login']);
 Route::get('/cadastro', [AuthController::class, 'showCadastroForm'])->name('cadastro.form');
@@ -28,53 +26,37 @@ Route::post('/logout', function () {
     return redirect()->route('login');
 })->name('logout');
 
-// Rotas protegidas
+// Rotas protegidas por autenticação
 Route::middleware(['auth'])->group(function () {
 
-    // Dashboard
+    // Dashboards
+    Route::get('/dashboard', fn() => redirect()->route('dashboard.admin'))->name('dashboard');
     Route::get('/dashboard/admin', [DashboardController::class, 'admin'])->name('dashboard.admin');
     Route::get('/dashboard/editor', [DashboardController::class, 'editor'])->name('dashboard.editor');
-    Route::get('/dashboard', fn() => redirect()->route('dashboard.admin'))->name('dashboard');
+    Route::get('/dashboard/cozinheiro', [DashboardController::class, 'cozinheiro'])->name('dashboard.cozinheiro');
 
     // Cargos
     Route::resource('cargos', CargoController::class);
-
     Route::get('/cargos/{id}/status', [CargoController::class, 'status'])->name('cargos.status');
     Route::put('/cargos/{id}/status', [CargoController::class, 'atualizarStatus'])->name('cargos.atualizarStatus');
 
-
     // Funcionários
     Route::resource('funcionarios', FuncionarioController::class);
-
-    Route::get('/funcionarios', [FuncionarioController::class, 'index'])->name('funcionarios.index');
-
-    Route::get('/funcionarios/{id}/edit', [FuncionarioController::class, 'edit'])->name('funcionarios.edit');
-
-
     Route::get('funcionarios/{id}/delete', [FuncionarioController::class, 'confirmDelete'])->name('funcionarios.delete');
     Route::post('funcionarios/{id}/inativar', [FuncionarioController::class, 'inativar'])->name('funcionarios.inativar');
     Route::post('funcionarios/{id}/reativar', [FuncionarioController::class, 'reativar'])->name('funcionarios.reativar');
 
-
-    // Livros
-    Route::get('/livros', [LivroController::class, 'index'])->name('livros.index');
-    Route::get('/livros/create', [LivroController::class, 'create'])->name('livros.create');
-    Route::post('/livros', [LivroController::class, 'store'])->name('livros.store');
-    Route::get('/livros/{titulo}', [LivroController::class, 'show'])->name('livros.show');
-    Route::get('/livros/{titulo}/edit', [LivroController::class, 'edit'])->name('livros.edit');
-    Route::put('/livros/{titulo}', [LivroController::class, 'update'])->name('livros.update');
-    Route::delete('/livros/{titulo}', [LivroController::class, 'destroy'])->name('livros.destroy');
-
-    // Ingredientes, Medidas e Receitas
-    Route::resource('ingredientes', IngredienteController::class);
-    Route::resource('medidas', MedidaController::class);
+    // Receitas
     Route::resource('receitas', ReceitaController::class);
 
+    // Medidas
+    Route::resource('medidas', MedidaController::class)->only(['index', 'create']);
 
-    Route::get('/dashboard/cozinheiro', function () {
-        return view('dashboard.cozinheiro', [
-            'totalReceitas' => 5, // teste estático
-            'totalPedidos' => 3   // teste estático
-        ]);
-    })->name('dashboard.cozinheiro')->middleware('auth');
+    // Ingredientes
+    Route::resource('ingredientes', IngredienteController::class)->only(['index', 'create']);
+
+    // Livros
+    Route::resource('livros', LivroController::class)->parameters([
+        'livros' => 'titulo' // permite que o nome usado seja o título do livro
+    ]);
 });
