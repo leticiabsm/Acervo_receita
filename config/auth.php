@@ -2,8 +2,6 @@
 
 return [
 
-<<<<<<< HEAD
-=======
     /*
     |--------------------------------------------------------------------------
     | Authentication Defaults
@@ -15,14 +13,11 @@ return [
     |
     */
 
->>>>>>> degustacao
     'defaults' => [
         'guard' => env('AUTH_GUARD', 'web'),
         'passwords' => env('AUTH_PASSWORD_BROKER', 'users'),
     ],
 
-<<<<<<< HEAD
-=======
     /*
     |--------------------------------------------------------------------------
     | Authentication Guards
@@ -40,7 +35,6 @@ return [
     |
     */
 
->>>>>>> degustacao
     'guards' => [
         'web' => [
             'driver' => 'session',
@@ -48,15 +42,6 @@ return [
         ],
     ],
 
-<<<<<<< HEAD
-    'providers' => [
-        'users' => [
-            'driver' => 'eloquent',
-            'model' => env('AUTH_MODEL', App\Models\Funcionario::class),
-        ],
-    ],
-
-=======
     /*
     |--------------------------------------------------------------------------
     | User Providers
@@ -105,7 +90,6 @@ return [
     |
     */
 
->>>>>>> degustacao
     'passwords' => [
         'users' => [
             'provider' => 'users',
@@ -115,20 +99,17 @@ return [
         ],
     ],
 
-<<<<<<< HEAD
-=======
     /*
     |--------------------------------------------------------------------------
     | Password Confirmation Timeout
     |--------------------------------------------------------------------------
     |
-    | Here you may define the number of seconds before a password confirmation
+    | Here you may define the amount of seconds before a password confirmation
     | window expires and users are asked to re-enter their password via the
     | confirmation screen. By default, the timeout lasts for three hours.
     |
     */
 
->>>>>>> degustacao
     'password_timeout' => env('AUTH_PASSWORD_TIMEOUT', 10800),
 
 ];
