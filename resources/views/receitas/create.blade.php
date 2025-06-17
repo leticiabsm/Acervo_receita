@@ -17,7 +17,7 @@
     </style>
 </head>
 <body>
-@extends('layouts.app')
+@extends('layouts.receita')
 
 @section('content')
 <div class="container">

@@ -1,62 +1,65 @@
-/*General*/
-* {
-    font-family: 'Roboto';
-}
+body {
+            background: linear-gradient(180deg, #26BFFF 0%, #0070C0 100%);
+            min-height: 100vh;
+        }
 
-body{
-    min-width: 100vh;
-    padding-bottom: 100px;
-    position: relative;
-    background-color: #20B3F6;
-}
+        .navbar-funcionario {
+            background: #fff;
+            border-bottom: 2px solid #e5e5e5;
+            padding: 0.7rem 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
 
-header{
-    background-color: #FFF;
-    border-bottom: 1px solid #CCC;
-}
+        .navbar-funcionario .left {
+            display: flex;
+            align-items: center;
+        }
 
-h1{
-    color: #FFF;
-}
-h2{
-   color: #FFF; 
-}
-a{
-    color: #FFC300;
-}
-/*navbar*/
-#navbar img{
-    width: 50px;
-}
-#navbar{
-    justify-content: space-between;
-    background-color: #FFF;
-    padding: 5px 0;
-}
+        .navbar-funcionario .title {
+            font-size: 1.7rem;
+            font-weight: bold;
+            margin: 0;
+        }
 
-#navbar a{
-    font-size: 14px;
-    color: #757575;
-}
 
-#navbar a:hover{
-    color: #F2A340;
-}
+        .navbar-funcionario .btn-back {
+            background: #EDEAEA;
+            border-radius: 20px;
+            border: none;
+            font-weight: bold;
+            padding: 0.3rem 1.2rem 0.3rem 0.7rem;
+            display: flex;
+            align-items: center;
+            gap: 0.3rem;
+            box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.15);
+            /* drop shadow */
+        }
 
-/*Search*/
-#search-container h1{
-    color: #F2A340;
-    margin-top: 10px;
-    font-weight: 100;
-}
+        .navbar-funcionario .title {
+            font-size: 1.7rem;
+            font-weight: bold;
+            margin: 0;
+        }
 
-#search-container form{
-    width: 50%;
-    margin: 0 auto;
-}
-#search-container a{
-    color: #FFF;
-    margin-top: 10px;
-    font-weight: 100;
-}
+        .navbar-funcionario .user-info {
+            display: flex;
+            align-items: center;
+            gap: 0.7rem;
+        }
 
+        .navbar-funcionario .user-avatar {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            border: 3px solid #ff9800;
+            object-fit: cover;
+            background: #fff;
+        }
+
+        .navbar-funcionario .logout-icon {
+            width: 22px;
+            height: 22px;
+            margin-left: 0.5rem;
+        }

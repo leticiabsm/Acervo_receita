@@ -33,6 +33,7 @@ Route::middleware(['auth'])->group(function () {
 
     // Dashboard
     Route::get('/dashboard/admin', [DashboardController::class, 'admin'])->name('dashboard.admin');
+    Route::get('/dashboard/editor', [DashboardController::class, 'editor'])->name('dashboard.editor');
     Route::get('/dashboard', fn() => redirect()->route('dashboard.admin'))->name('dashboard');
 
     // Cargos
