@@ -15,7 +15,7 @@
                 class="btn d-flex align-items-center"
                 style="background:#83CD71; border:3px solid #25BB00; color:#fff; font-weight:bold;">
                 Incluir Receita
-                <img src="{{ asset('img/icons/user_plus_add.png') }}" alt="Incluir Funcionário" style="width:22px; height:22px;" class="ms-3">
+                <img src="{{ asset('img/icons/user_plus_add.png') }}" alt="Incluir Receita" style="width:22px; height:22px;" class="ms-3">
             </a>
 
             </div>

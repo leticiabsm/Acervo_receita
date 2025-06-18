@@ -85,7 +85,10 @@
 </head>
 
 <body>
+    <!--condicao para tirar o menu do dashboard-->
+
     <nav class="navbar-funcionario">
+    @if (!Request::is('dashboard/admin'))
         <div class="left d-flex align-items-center">
             <a href="{{ route('dashboard') }}" class="btn-back">
                 <img src="{{ asset('img/icons/voltar.png') }}" alt="Voltar" style="width:22px; height:22px; margin-right:6px;">
@@ -93,6 +96,8 @@
             </a>
             <h1 class="title ms-3 mb-0">Funcionários</h1>
         </div>
+        
+        @endif
         <div class="user-info">
             <img src="{{ asset('img/icons/user_avatar.png') }}" alt="Avatar" class="user-avatar">
             @php
@@ -107,7 +112,7 @@
             </form>
         </div>
     </nav>
-
+    
     <div class="container-fluid p-0">
         @yield('content')
     </div>

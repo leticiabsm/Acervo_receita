@@ -53,12 +53,9 @@ Route::middleware(['auth'])->group(function () {
 
     Route::get('/funcionarios/{id}/edit', [FuncionarioController::class, 'edit'])->name('funcionarios.edit');
 
-
     Route::get('funcionarios/{id}/delete', [FuncionarioController::class, 'confirmDelete'])->name('funcionarios.delete');
     Route::post('funcionarios/{id}/inativar', [FuncionarioController::class, 'inativar'])->name('funcionarios.inativar');
     Route::post('funcionarios/{id}/reativar', [FuncionarioController::class, 'reativar'])->name('funcionarios.reativar');
-
-
 
 
 
@@ -78,9 +75,6 @@ Route::middleware(['auth'])->group(function () {
     Route::resource('receitas', ReceitaController::class);
 });
 
-Route::get('/', function () {
-    return view('welcome');
-});
 
 Route::get('/degustacao', [DegustacaoController::class, 'index'])->name('degustacao.index');
 

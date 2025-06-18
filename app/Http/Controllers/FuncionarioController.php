@@ -108,4 +108,7 @@ class FuncionarioController extends Controller
         $funcionario = Funcionario::findOrFail($id);
         return view('funcionarios.delete', compact('funcionario'));
     }
+
+ 
+
 }

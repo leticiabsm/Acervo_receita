@@ -1,12 +1,13 @@
 @extends('layouts.funcionario')
 
-
 @section('content')
 @if(session('admin_logged_in'))
 <!-- Conteúdo protegido -->
 
+
 <div class="container d-flex justify-content-center align-items-center min-vh-100">
     <div class="dashboard-card w-100" style="max-width: 700px; position: relative;">
+        
         <h2 class="text-center mb-4" style="font-weight: bold;">Painel Principal</h2>
 
         <!-- Resumo -->
@@ -65,6 +66,32 @@
 @push('styles')
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 <style>
+/*mudei*/
+
+.user-info {
+    display: flex;
+    justify-content: flex-end; /* Move os ícones para a direita */
+    align-items: center;
+    padding-right: 2rem; /* Ajusta a posição */
+    gap: 0.7rem; /* Espaçamento entre os elementos */
+    flex-grow: 1; /* Permite que ocupe o espaço restante */
+}
+    .navbar-funcionario .btn-back {
+        display: none;
+    }
+
+    /* Oculta o título "Funcionários" */
+    .navbar-funcionario .title {
+        display: none;
+    }
+    /*até aqui*/
+
+    .logout-icon {
+        width: 22px;
+        height: 22px;
+        margin-left: 0.5rem;
+    }
+    
     .dashboard-card {
         border-radius: 20px;
         box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
