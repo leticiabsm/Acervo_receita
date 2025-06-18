@@ -4,8 +4,15 @@
 <div class="container">
     <div class="row">
         <div class="col-md-12">
-            <h1>Lista de Receitas</h1>
-            <a href="{{ route('receitas.create') }}" class="btn btn-primary mb-3">Adicionar Nova Receita</a>
+            <h1 class="text-primary mb-3">Consulta de Receitas</h1>
+
+            <div class="d-flex justify-content-between mb-3">
+                <form action="{{ route('receitas.index') }}" method="GET" class="d-flex w-50">
+                    <input type="text" name="search" class="form-control" placeholder="Pesquisar receitas..." value="{{ request('search') }}">
+                    <button class="btn btn-outline-secondary" type="submit">Pesquisar</button>
+                </form>
+                <a href="{{ route('receitas.create') }}" class="btn btn-success">Adicionar Receita</a>
+            </div>
 
             @if (session('success'))
                 <div class="alert alert-success">
@@ -13,37 +20,26 @@
                 </div>
             @endif
 
-            <form action="{{ route('receitas.index') }}" method="GET" class="mb-4">
-                <div class="input-group">
-                    <input type="text" name="search" class="form-control" placeholder="Pesquisar receitas..." value="{{ request('search') }}">
-                    <button class="btn btn-outline-secondary" type="submit">Pesquisar</button>
-                </div>
-            </form>
-
-            <table class="table table-bordered">
-                <thead>
+            <table class="table table-striped table-hover">
+                <thead class="table-light">
                     <tr>
-                        <th>ID</th>
                         <th>Nome da Receita</th>
-                        <th>Cozinheiro</th>
+                        <th>Ingredientes</th>
+                        <th>Cozinheiro Responsável</th>
                         <th>Categoria</th>
-                        <th>Porções</th>
-                        <th>Dificuldade</th>
-                        <th>Tempo de Preparo</th>
-                        <th>Ações</th>
+                        <th>Data Criação</th>
+                        <th>Atividades</th>
                     </tr>
                 </thead>
                 <tbody>
                     @forelse ($receitas as $receita)
                         <tr>
-                            <td>{{ $receita->idReceitas }}</td>
                             <td>{{ $receita->nome_rec }}</td>
+                            <td>{{ $receita->ingredientes }}</td>
                             <td>{{ $receita->cozinheiro ? $receita->cozinheiro->nome : 'N/A' }}</td>
                             <td>{{ $receita->categoria ? $receita->categoria->nome_categoria : 'N/A' }}</td>
-                            <td>{{ $receita->quat_porcao }}</td>
-                            <td>{{ $receita->dificudade_receitas }}</td>
-                            <td>{{ $receita->tempo_de_preparo }}</td>
-                            <td>
+                            <td>{{ $receita->data_criacao }}</td>
+                            <td class="d-flex gap-2">
                                 <a href="{{ route('receitas.show', $receita->idReceitas) }}" class="btn btn-info btn-sm">Ver</a>
                                 <a href="{{ route('receitas.edit', $receita->idReceitas) }}" class="btn btn-warning btn-sm">Editar</a>
                                 <form action="{{ route('receitas.destroy', $receita->idReceitas) }}" method="POST" style="display:inline;">
@@ -55,7 +51,7 @@
                         </tr>
                     @empty
                         <tr>
-                            <td colspan="8">Nenhuma receita encontrada.</td>
+                            <td colspan="6">Nenhuma receita encontrada.</td>
                         </tr>
                     @endforelse
                 </tbody>

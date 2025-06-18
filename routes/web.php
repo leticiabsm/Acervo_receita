@@ -7,7 +7,7 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\CargoController;
 use App\Http\Controllers\FuncionarioController;
 use App\Http\Controllers\ReceitaController;
-use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\CategoriaController;
 use App\Http\Controllers\RestauranteController;
 use App\Http\Controllers\LivroController;
 use App\Http\Controllers\IngredienteController;
@@ -46,6 +46,18 @@ Route::middleware(['auth'])->group(function () {
     Route::post('funcionarios/{id}/inativar', [FuncionarioController::class, 'inativar'])->name('funcionarios.inativar');
     Route::post('funcionarios/{id}/reativar', [FuncionarioController::class, 'reativar'])->name('funcionarios.reativar');
 
+    // Categorias
+    Route::resource('categorias', CategoriaController::class);
+
+    Route::get('/categorias', [CategoriaController::class, 'index'])->name('categorias.index');
+    Route::get('/categorias/create', [CategoriaController::class, 'create'])->name('categorias.create');
+    Route::get('categorias/{categoria}/edit', [CategoriaController::class, 'edit'])->name('categorias.edit');
+
+    Route::post('/categorias', [CategoriaController::class, 'store'])->name('categorias.store');
+    Route::get('categorias/{categoria}', [CategoriaController::class, 'show'])->name('categorias.show');
+
+
+
     // Receitas
     Route::resource('receitas', ReceitaController::class);
 
@@ -59,4 +71,8 @@ Route::middleware(['auth'])->group(function () {
     Route::resource('livros', LivroController::class)->parameters([
         'livros' => 'titulo' // permite que o nome usado seja o título do livro
     ]);
+
+    // Restaurantes
+    Route::resource('restaurantes', RestauranteController::class);
+
 });

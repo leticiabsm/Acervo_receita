@@ -12,13 +12,13 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('gmg_categoria', function (Blueprint $table) {
-            $table->smallIncrements('idCategoria')->comment('Contém o identificador único da categoria.');
-            $table->string('nome_categoria', 45)->comment('Contém o nome da categoria da receita. Ex: Massas, Bolos.');
-            $table->date('data_fim_categoria')->comment('Contém a data fim de uma categoria.');
-            $table->string('descricao',45)->comment('Contém a descrição da categoria');
-            $table->tinyInteger('ind_ativo')->comment('Contém o indicador (status) da categoria: 1 - ativo, 0 - inativo.');
+            $table->smallIncrements('id_cat')->comment('Identificador único da categoria.');
+            $table->string('nome_cat', 45)->comment('Nome da categoria. Ex: Massas, Bolos.');
+            $table->string('desc', 45)->comment('Descrição da categoria.');
+            $table->date('dt_fim_cat')->nullable()->comment('Data de fim da categoria.');
+            $table->dateTime('dt_ini_cat')->comment('Data de início da categoria.');
+            $table->tinyInteger('ativo')->comment('Indicador de status: 1 - ativo, 0 - inativo.');
         });
-
     }
 
     /**

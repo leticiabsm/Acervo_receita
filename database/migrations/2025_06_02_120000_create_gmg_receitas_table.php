@@ -31,7 +31,7 @@ return new class extends Migration
                 ->onUpdate('no action');
 
             $table->foreign('FKCategoria')
-                ->references('idCategoria')->on('gmg_categoria')
+                ->references('id_cat')->on('gmg_categoria')
                 ->onDelete('no action')
                 ->onUpdate('no action');
         });

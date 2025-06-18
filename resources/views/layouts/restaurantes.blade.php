@@ -91,7 +91,7 @@
                 <img src="{{ asset('img/icons/voltar.png') }}" alt="Voltar" style="width:22px; height:22px; margin-right:6px;">
                 Painel
             </a>
-            <h1 class="title ms-3 mb-0">Receitas</h1>
+            <h1 class="title ms-3 mb-0">Restaurantes</h1>
         </div>
         <div class="user-info">
             <img src="{{ asset('img/icons/user_avatar.png') }}" alt="Avatar" class="user-avatar">

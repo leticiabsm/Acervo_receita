@@ -38,18 +38,20 @@
                             <i class="bi bi-gear icon-gear"></i>
                         </a>
 
-                        <a href="#" class="list-group-item">
+                        <a href="{{ route('categorias.index') }}" class="list-group-item">
                             Categorias
                             <i class="bi bi-gear icon-gear"></i>
                         </a>
+
                         <a href="{{ route('receitas.index') }}" class="list-group-item">
                             Receitas
                             <i class="bi bi-eye"></i>
                         </a>
-                        <a href="#" class="list-group-item">
+                        <a href="{{ route('restaurantes.index') }}" class="list-group-item">
                             Restaurantes
                             <i class="bi bi-gear icon-gear"></i>
                         </a>
+
 
                         <!-- Adicione mais itens conforme necessário -->
                     </div>
@@ -101,7 +103,7 @@
         background: transparent;
         font-weight: 500;
         font-size: 1.05rem;
-        
+
     }
 
     .funcoes-list .list-group-item:hover {
