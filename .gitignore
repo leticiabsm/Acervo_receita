@@ -1,4 +1,23 @@
+<<<<<<< HEAD
+
 /.phpunit.cache
+
+=======
+*.log
+.DS_Store
+.env
+.env.backup
+.env.production
+.phpactor.json
+.phpunit.result.cache
+/.fleet
+/.idea
+/.nova
+/.phpunit.cache
+/.vscode
+/.zed
+/auth.json
+>>>>>>> degustacao
 /node_modules
 /public/build
 /public/hot
@@ -6,6 +25,8 @@
 /storage/*.key
 /storage/pail
 /vendor
+<<<<<<< HEAD
+
 .env
 .env.backup
 .env.production
@@ -21,3 +42,11 @@ yarn-error.log
 /.nova
 /.vscode
 /.zed
+
+=======
+Homestead.json
+Homestead.yaml
+npm-debug.log
+Thumbs.db
+yarn-error.log
+>>>>>>> degustacao

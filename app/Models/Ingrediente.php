@@ -12,7 +12,7 @@ class Ingrediente extends Model
 {
     use HasFactory;
 
-    protected $table = 'gmg_ingredientes';
+    protected $table = 'GMG_Ingredientes';
     protected $primaryKey = 'idIngrediente';
 
     protected $fillable = [

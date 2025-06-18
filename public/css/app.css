@@ -8,12 +8,53 @@ body {
 }
 
 
-.container {
+header{
+    background-color: #ffffff;
     width: 100%;
-    max-width: 1399px;
+}
+
+.container {
+    background-color: #ffffff;
+    width: 1318px;
+    height: 100%;
     margin: auto;
     padding: 20px;
+    
 }
+
+.flex_container {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+/*testando colocar o texto dentro do underline*/
+.input-wrapper {
+    position: relative;
+    display: inline-block;
+}
+
+.fixed-placeholder {
+    position: absolute;
+    font-size: 14px;
+    color: #000;
+    z-index: 1;
+    pointer-events: none; /* Impede a interação com o placeholder */
+}/*classe para linha undeline do elemento*/
+
+.underline{
+    border: none;
+    border-bottom: 1px solid #000;
+    outline: none;
+    width: 200px;
+    font-size: 12px;
+    z-index: 2;
+    color: #000;
+    text-indent: 135px;
+    overflow-wrap: break-word; /* Permite quebras de linha */
+}
+
+
 
 
 .content-wrapper {
@@ -24,17 +65,14 @@ body {
     justify-content: center;
     width: 100%;
     color: #ffffff; /* Cor do texto */
+
+
 }
 
 
-
-
-.text-sm {
-    font-size: 12px; /* Define um tamanho menor */
+.img-resized {
+    width: 173px;
+    height: 227px;
+    object-fit: cover; /* Mantém a proporção sem distorcer */
 }
-.text-lg {
-    font-size: 18px; /* Define um tamanho maior */
-}
-.text-xl {
-    font-size: 24px; /* Define um tamanho extra grande */
-}   
+

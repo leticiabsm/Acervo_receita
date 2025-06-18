@@ -1,4 +1,6 @@
-@extends('layouts.receitas')
+
+@extends('layouts.receita2')
+
 
 @section('content')
 <div class="container">

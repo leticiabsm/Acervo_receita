@@ -1,4 +1,11 @@
 {
+<<<<<<< HEAD
+
+    "$schema": "https://json.schemastore.org/package.json",
+
+=======
+    "$schema": "https://json.schemastore.org/package.json",
+>>>>>>> degustacao
     "private": true,
     "type": "module",
     "scripts": {
