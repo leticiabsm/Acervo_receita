@@ -1,0 +1,61 @@
+/*General*/
+* {
+    font-family: 'Roboto';
+}
+
+body{
+    min-width: 100vh;
+    padding-bottom: 100px;
+    position: relative;
+    background-color: #20B3F6;
+}
+
+header{
+    background-color: #FFF;
+    border-bottom: 1px solid #CCC;
+}
+
+h1{
+    color: #FFF;
+}
+h2{
+   color: #FFF; 
+}
+a{
+    color: #FFC300;
+}
+/*navbar*/
+#navbar img{
+    width: 50px;
+}
+#navbar{
+    justify-content: space-between;
+    background-color: #FFF;
+    padding: 5px 0;
+}
+
+#navbar a{
+    font-size: 14px;
+    color: #757575;
+}
+
+#navbar a:hover{
+    color: #F2A340;
+}
+
+/*Search*/
+#search-container h1{
+    color: #F2A340;
+    margin-top: 10px;
+    font-weight: 100;
+}
+
+#search-container form{
+    width: 50%;
+    margin: 0 auto;
+}
+#search-container a{
+    color: #FFF;
+    margin-top: 10px;
+    font-weight: 100;
+}

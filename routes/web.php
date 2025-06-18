@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
+use App\Http\Controllers\DegustacaoController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\CargoController;
@@ -32,8 +33,12 @@ Route::middleware(['auth'])->group(function () {
     // Dashboards
     Route::get('/dashboard', fn() => redirect()->route('dashboard.admin'))->name('dashboard');
     Route::get('/dashboard/admin', [DashboardController::class, 'admin'])->name('dashboard.admin');
+
     Route::get('/dashboard/editor', [DashboardController::class, 'editor'])->name('dashboard.editor');
     Route::get('/dashboard/cozinheiro', [DashboardController::class, 'cozinheiro'])->name('dashboard.cozinheiro');
+
+
+
 
     // Cargos
     Route::resource('cargos', CargoController::class);
@@ -49,12 +54,6 @@ Route::middleware(['auth'])->group(function () {
     // Categorias
     Route::resource('categorias', CategoriaController::class);
 
-    Route::get('/categorias', [CategoriaController::class, 'index'])->name('categorias.index');
-    Route::get('/categorias/create', [CategoriaController::class, 'create'])->name('categorias.create');
-    Route::get('categorias/{categoria}/edit', [CategoriaController::class, 'edit'])->name('categorias.edit');
-
-    Route::post('/categorias', [CategoriaController::class, 'store'])->name('categorias.store');
-    Route::get('categorias/{categoria}', [CategoriaController::class, 'show'])->name('categorias.show');
 
 
 
@@ -76,3 +75,20 @@ Route::middleware(['auth'])->group(function () {
     Route::resource('restaurantes', RestauranteController::class);
 
 });
+
+
+Route::get('/degustacao', [DegustacaoController::class, 'index'])->name('degustacao.index');
+
+
+Route::get('/degustacao/search', [DegustacaoController::class, 'search'])->name('degustacao.search');
+Route::get('/degustacao/create', [DegustacaoController::class, 'create'])->name('degustacao.create');
+Route::post('/degustacao', [DegustacaoController::class, 'store'])->name('degustacao.store');
+
+
+Route::get('/degustacao/{id}/edit', [DegustacaoController::class, 'edit'])->name('degustacao.edit');
+Route::put('/degustacao/{id}', [DegustacaoController::class, 'update'])->name('degustacao.update');
+
+Route::get('/degustacao/{id}/delete', [DegustacaoController::class, 'delete'])->name('degustacao.delete');
+Route::delete('/degustacao/{id}/destroy', [DegustacaoController::class, 'destroy'])->name('degustacao.destroy');
+
+Route::get('/degustacao/{id}', [DegustacaoController::class,'show'])->name('degustacao.show');

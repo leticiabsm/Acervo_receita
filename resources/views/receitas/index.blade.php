@@ -1,7 +1,26 @@
-@extends('layouts.receitas') {{-- Assumindo que você tem um layout principal --}}
+@extends('layouts.receita2')
+
 
 @section('content')
-<div class="container">
+<div class="container mt-5">
+    <h2 class="mb-4" style="font-weight: bold; color: #fff;">Lista de Receitas</h2>
+        <div class="d-flex mb-3">
+            <!--botao de incluir funcionário-->
+            <form class="flex-grow-1 me-2 d-flex" method="GET" action="{{ route('funcionarios.index') }}">
+                <input type="text" name="pesquisa" class="form-control" placeholder="Pesquisar" value="{{ request('pesquisa') }}">
+                <button type="submit" class="btn" style="background:transparent; border:none; margin-left:-40px;">
+                    <img src="{{ asset('img/icons/lupa.png') }}" alt="Pesquisar" style="width:22px; height:22px;">
+                </button>
+            </form>
+            <a href="{{ route('receitas.create') }}"
+                class="btn d-flex align-items-center"
+                style="background:#83CD71; border:3px solid #25BB00; color:#fff; font-weight:bold;">
+                Incluir Receita
+                <img src="{{ asset('img/icons/user_plus_add.png') }}" alt="Incluir Funcionário" style="width:22px; height:22px;" class="ms-3">
+            </a>
+
+            </div>
+    <!--
     <div class="row">
         <div class="col-md-12">
             <h1 class="text-primary mb-3">Consulta de Receitas</h1>
@@ -20,14 +39,32 @@
                 </div>
             @endif
 
+
             <table class="table table-striped table-hover">
                 <thead class="table-light">
+
+            <form action="{{ route('receitas.index') }}" method="GET" class="mb-4">
+                <div class="input-group">
+                    <input type="text" name="search" class="form-control" placeholder="Pesquisar receitas..." value="{{ request('search') }}">
+                    <button class="btn btn-outline-secondary" type="submit">Pesquisar</button>
+                </div>
+            </form>
+-->
+            <div class="table-responsive">
+            <table class="table table-bordered align-middle">
+                <thead>
+
                     <tr>
                         <th>Nome da Receita</th>
                         <th>Ingredientes</th>
                         <th>Cozinheiro Responsável</th>
                         <th>Categoria</th>
                         <th>Data Criação</th>
+
+                        <th>Porções</th>
+                        <th>Dificuldade</th>
+                        <th>Tempo de Preparo</th>
+
                         <th>Atividades</th>
                     </tr>
                 </thead>
@@ -56,7 +93,7 @@
                     @endforelse
                 </tbody>
             </table>
-        </div>
+        </div><!--table responsive-->
     </div>
 </div>
 @endsection
