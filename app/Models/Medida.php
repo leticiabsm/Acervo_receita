@@ -1,11 +1,9 @@
 <?php
-// app/Models/Medida.php
-
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\BelongsToMany; // Importe este
+use Illuminate\Database\Eloquent\Relations\BelongsToMany; 
 
 class Medida extends Model
 {
@@ -13,24 +11,16 @@ class Medida extends Model
 
     protected $table = 'gmg_medidas';
     protected $primaryKey = 'idMedida';
+     public $timestamps = false;
 
-    protected $fillable = [
-        'tipo',
-        'item',
-        'descricao', // Agora, 'descricao' é a quantidade
-    ];
+    protected $fillable = ['tipo', 'item', 'descricao', 'ind_ativo'];
 
-    // Se a tabela não usar created_at e updated_at
-    // public $timestamps = false;
 
-    /**
-     * Uma medida pode estar associada a muitos ingredientes.
-     */
     public function ingredientes(): BelongsToMany
     {
-        // Os argumentos são os mesmos, mas as chaves estrangeiras são invertidas
+        
         return $this->belongsToMany(Ingrediente::class, 'gmg_ingrediente_medida', 'idMedida', 'idIngrediente')
-                    ->withPivot('quantidade', 'observacao') // Inclui as colunas extras da tabela pivô
-                    ->withTimestamps(); // Se a tabela pivô tiver created_at/updated_at
+                    ->withPivot('quantidade', 'observacao')
+                    ->withTimestamps();
     }
 }

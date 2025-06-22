@@ -94,7 +94,7 @@
                 <img src="{{ asset('img/icons/voltar.png') }}" alt="Voltar" style="width:22px; height:22px; margin-right:6px;">
                 Painel
             </a>
-            <h1 class="title ms-3 mb-0">Funcionários</h1>
+            <h1 class="title ms-3 mb-0">Administrador</h1>
         </div>
         
         @endif

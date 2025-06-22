@@ -87,11 +87,11 @@
 <body>
     <nav class="navbar-funcionario">
         <div class="left d-flex align-items-center">
-            <a href="{{ route('dashboard.cozinheiro') }}" class="btn-back">
+            <a href="{{ session('admin_logged_in') ? route('dashboard.admin') : route('dashboard.cozinheiro') }}" class="btn-back">
                 <img src="{{ asset('img/icons/voltar.png') }}" alt="Voltar" style="width:22px; height:22px; margin-right:6px;">
                 Painel
             </a>
-            <h1 class="title ms-3 mb-0">Ingredientes</h1>
+            <h1 class="title ms-3 mb-0">Restaurantes</h1>
         </div>
         <div class="user-info">
             <img src="{{ asset('img/icons/user_avatar.png') }}" alt="Avatar" class="user-avatar">

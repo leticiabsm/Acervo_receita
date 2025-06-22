@@ -24,11 +24,10 @@ class DashboardController extends Controller
             //'totalPublicacao' => Publicacao::count(),
             //'totalDegustacao' => Degustacao::count(),
         ]);
-
     }
+
     public function cozinheiro()
     {
         return view('dashboard.cozinheiro');
     }
-    
 }

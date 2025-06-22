@@ -2,7 +2,7 @@
 
 @section('content')
 <div class="container">
-    <h2>Consulta de Restaurantes</h2>
+    <h2 class="text-white">Consulta de Restaurantes</h2>
     <a href="{{ route('restaurantes.create') }}" class="btn btn-primary">Adicionar Restaurante</a>
     <table class="table table-bordered mt-3">
         <thead>
@@ -36,16 +36,3 @@
     </table>
 </div>
 @endsection
-
-
-<!-- resources/views/restaurantes/index.blade.php -->
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Testando View</title>
-</head>
-<body>
-    <h1>View carregada com sucesso!</h1>
-</body>
-</html>
-

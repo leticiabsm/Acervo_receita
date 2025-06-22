@@ -1,5 +1,4 @@
-
-@extends('layouts.receita2')
+@extends('layouts.receitas')
 
 
 @section('content')
@@ -28,7 +27,7 @@
             <div class="card mb-4">
                 <div class="card-header">Ingredientes</div>
                 <div class="card-body">
-                    @if ($ingredientesComMedidas->isNotEmpty())
+                    @if (count($ingredientesComMedidas) > 0)
                         <ul class="list-group">
                             @foreach ($ingredientesComMedidas as $item)
                                 <li class="list-group-item">

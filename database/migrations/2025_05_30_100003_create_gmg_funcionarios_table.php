@@ -21,6 +21,7 @@ return new class extends Migration
             $table->date('data_inicio')->nullable();
             $table->date('data_finalizacao')->nullable();
             $table->string('nome_fantasia', 100)->nullable();
+            $table->tinyInteger('ind_funcionario')->default(1)->comment('1 - Ativo, 0 - Inativo');
             $table->timestamps();
             $table->softDeletes();
 
