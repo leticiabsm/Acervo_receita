@@ -40,8 +40,6 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/dashboard/cozinheiro', [DashboardController::class, 'cozinheiro'])->name('dashboard.cozinheiro');
 
 
-
-
     // Cargos
     Route::resource('cargos', CargoController::class);
     Route::get('/cargos/{id}/status', [CargoController::class, 'status'])->name('cargos.status');
@@ -92,5 +90,4 @@ Route::delete('/degustacao/{id}/destroy', [DegustacaoController::class, 'destroy
 Route::get('/degustacao/{id}', [DegustacaoController::class,'show'])->name('degustacao.show');
 
 // Livro publicacao
-
 Route::resource('livros_publicados', LivroPublicadoController::class);
