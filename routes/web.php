@@ -13,6 +13,8 @@ use App\Http\Controllers\RestauranteController;
 use App\Http\Controllers\LivroController;
 use App\Http\Controllers\IngredienteController;
 use App\Http\Controllers\MedidaController;
+use App\Http\Controllers\LivroPublicadoController;
+
 
 // Página inicial redireciona para login
 Route::get('/', function () {
@@ -91,3 +93,7 @@ Route::get('/degustacao/{id}/delete', [DegustacaoController::class, 'delete'])->
 Route::delete('/degustacao/{id}/destroy', [DegustacaoController::class, 'destroy'])->name('degustacao.destroy');
 
 Route::get('/degustacao/{id}', [DegustacaoController::class,'show'])->name('degustacao.show');
+
+// Livro publicacao
+
+Route::resource('livros_publicados', LivroPublicadoController::class);
