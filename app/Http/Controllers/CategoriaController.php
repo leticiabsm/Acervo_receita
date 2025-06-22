@@ -26,12 +26,15 @@ class CategoriaController extends Controller
         $categoria->desc = $request->desc;
         $categoria->dt_ini_cat = now();
         $categoria->dt_fim_cat = null;
-        $categoria->ativo = $request->ativo ?? true;
+
+        $categoria->ind_ativo = $request->input('ativo', 1);
+
 
         $categoria->save();
 
         return redirect()->route('categorias.index')->with('msg', 'Categoria criada com sucesso!');
     }
+
 
     public function edit($id)
     {
@@ -45,16 +48,16 @@ class CategoriaController extends Controller
         $request->validate([
             'nome_cat' => 'required|string|max:255',
             'desc' => 'nullable|string',
-            'ativo' => 'required|boolean'
+            'ind_ativo' => 'required|boolean'
         ]);
 
         $categoria = Categoria::findOrFail($id);
 
         $categoria->nome_cat = $request->input('nome_cat');
         $categoria->desc = $request->input('desc');
-        $categoria->ativo = $request->input('ativo');
+        $categoria->ind_ativo = $request->input('ind_ativo');
 
-        $categoria->dt_fim_cat = $categoria->ativo ? null : now();
+        $categoria->dt_fim_cat = $categoria->ind_ativo ? null : now();
 
         $categoria->save();
 

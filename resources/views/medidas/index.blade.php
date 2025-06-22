@@ -39,7 +39,7 @@
                             onclick="event.stopPropagation()">
                             <img src="{{ asset('img/icons/edit.png') }}" alt="Editar" style="width:18px; height:18px;">
                         </a>
-                        <a href="{{ route('medidas.delete', $medida->idMedida) }}" 
+                        <a href="{{ route('medidas.destroy', $medida->idMedida) }}" 
                             class="btn btn-sm p-1"
                             style="background:#FF7979; width:32px; height:32px; display:inline-flex; align-items:center; justify-content:center; border-radius:6px;"
                             onclick="event.stopPropagation()">

@@ -17,7 +17,7 @@ return new class extends Migration
             $table->string('desc', 45)->comment('Descrição da categoria.');
             $table->date('dt_fim_cat')->nullable()->comment('Data de fim da categoria.');
             $table->dateTime('dt_ini_cat')->comment('Data de início da categoria.');
-            $table->tinyInteger('ativo')->comment('Indicador de status: 1 - ativo, 0 - inativo.');
+            $table->tinyInteger('ind_ativo')->comment('Indicador de status: 1 - ativo, 0 - inativo.');
         });
     }
 

@@ -1,5 +1,4 @@
-
-@extends('layouts.receita')
+@extends('layouts.receitas')
 
 @section('content')
 <div class="container">
@@ -22,29 +21,86 @@
                 @csrf
                 @method('PUT')
 
-                {{-- Campos da Receita --}}
                 <div class="card mb-4">
                     <div class="card-header">Detalhes da Receita</div>
                     <div class="card-body">
-                        <!-- ...seus campos normais aqui... -->
+
                         <div class="mb-3">
                             <label for="nome_rec" class="form-label">Nome da Receita</label>
-                            <input type="text" class="form-control" id="nome_rec" name="nome_rec" value="{{ old('nome_rec', $receita->nome_rec) }}" required>
+                            <input type="text" class="form-control" id="nome_rec" name="nome_rec"
+                                   value="{{ old('nome_rec', $receita->nome_rec) }}" required>
                         </div>
-                        <!-- ...demais campos... -->
+
                         <div class="mb-3">
                             <label for="tempo_de_preparo" class="form-label">Tempo de Preparo (HH:MM:SS)</label>
-                            <input type="time" step="1" class="form-control" id="tempo_de_preparo" name="tempo_de_preparo" value="{{ old('tempo_de_preparo', $receita->tempo_de_preparo) }}" required>
+                            <input type="time" step="1" class="form-control" id="tempo_de_preparo" name="tempo_de_preparo"
+                                   value="{{ old('tempo_de_preparo', $receita->tempo_de_preparo) }}" required>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="FKcozinheiro" class="form-label">Cozinheiro Responsável</label>
+                            <select class="form-control" id="FKcozinheiro" name="FKcozinheiro" required>
+                                <option value="">Selecione um Cozinheiro</option>
+                                @foreach ($cozinheiros as $cozinheiro)
+                                    <option value="{{ $cozinheiro->id }}"
+                                        {{ old('FKcozinheiro', $receita->FKcozinheiro) == $cozinheiro->id ? 'selected' : '' }}>
+                                        {{ $cozinheiro->nome }}
+                                    </option>
+                                @endforeach
+                            </select>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="FKCategoria" class="form-label">Categoria</label>
+                            <select class="form-control" id="FKCategoria" name="FKCategoria" required>
+                                <option value="">Selecione uma Categoria</option>
+                                @foreach ($categorias as $categoria)
+                                    <option value="{{ $categoria->id_cat }}"
+                                        {{ old('FKCategoria', $receita->FKCategoria) == $categoria->id_cat ? 'selected' : '' }}>
+                                        {{ $categoria->nome_categoria }}
+                                    </option>
+                                @endforeach
+                            </select>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="dt_criacao" class="form-label">Data de Criação</label>
+                            <input type="date" class="form-control" id="dt_criacao" name="dt_criacao"
+                                   value="{{ old('dt_criacao', \Carbon\Carbon::parse($receita->dt_criacao)->format('Y-m-d')) }}" required>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="preparo" class="form-label">Modo de Preparo</label>
+                            <textarea class="form-control" id="preparo" name="preparo" rows="5" required>{{ old('preparo', $receita->preparo) }}</textarea>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="quat_porcao" class="form-label">Quantidade por Porção</label>
+                            <input type="number" step="0.1" class="form-control" id="quat_porcao" name="quat_porcao"
+                                   value="{{ old('quat_porcao', $receita->quat_porcao) }}" required>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label">Receita Inédita?</label>
+                            <select class="form-control" name="ind_rec_inedita" required>
+                                <option value="S" {{ old('ind_rec_inedita', $receita->ind_rec_inedita) == 'S' ? 'selected' : '' }}>Sim</option>
+                                <option value="N" {{ old('ind_rec_inedita', $receita->ind_rec_inedita) == 'N' ? 'selected' : '' }}>Não</option>
+                            </select>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="dificudade_receitas" class="form-label">Dificuldade</label>
+                            <input type="text" class="form-control" id="dificudade_receitas" name="dificudade_receitas"
+                                   value="{{ old('dificudade_receitas', $receita->dificudade_receitas) }}" required>
                         </div>
                     </div>
                 </div>
 
-                {{-- Seção de Ingredientes --}}
+                {{-- Ingredientes --}}
                 <div class="card mb-4">
                     <div class="card-header">Ingredientes da Receita</div>
                     <div class="card-body">
                         <div id="ingredientes-container">
-                            {{-- Ingredientes existentes --}}
                             @foreach ($ingredientesReceita as $index => $ingredienteData)
                                 @include('receitas.partials.ingrediente_form_field', [
                                     'index' => $index,
@@ -56,8 +112,9 @@
                                     'observacao' => $ingredienteData['observacao'],
                                 ])
                             @endforeach
-                            {{-- Campos antigos em caso de erro de validação --}}
-                            @if (old('ingredientes_receita') && !empty(old('ingredientes_receita')))
+
+                            {{-- Campos antigos (validação com erro) --}}
+                            @if (old('ingredientes_receita'))
                                 @foreach (old('ingredientes_receita') as $index => $ingredienteOld)
                                     @if (!isset($ingredientesReceita[$index]))
                                         @include('receitas.partials.ingrediente_form_field', [
@@ -73,6 +130,7 @@
                                 @endforeach
                             @endif
                         </div>
+
                         <button type="button" class="btn btn-success mt-3" id="add-ingrediente">Adicionar Ingrediente</button>
                     </div>
                 </div>
@@ -83,7 +141,7 @@
     </div>
 </div>
 
-{{-- Template oculto para JS --}}
+{{-- Template para JS --}}
 <div id="ingrediente-template" class="d-none">
     <div class="row mb-3 ingrediente-item" data-index="__INDEX__">
         <div class="col-md-4">
@@ -117,9 +175,8 @@
         </div>
     </div>
 </div>
-
 @endsection
 
 @push('scripts')
-    <script src="{{ mix('js/receitas.js') }}"></script>
+    <script src="{{ asset('js/receitas.js') }}"></script>
 @endpush

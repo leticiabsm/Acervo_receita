@@ -42,37 +42,40 @@ class ReceitaController extends Controller
     //store
     public function store(Request $request)
     {
-        // 1. Validação dos dados da Receita principal
-        $validatedData = $request->validate([
+        // Regras de validação
+        $rules = [
             'nome_rec'             => 'required|string|max:45',
-            'FKcozinheiro'         => 'required|exists:gmg_cadastro_de_funcionario,FK_idFuncionario',
-            'FKCategoria'          => 'required|exists:gmg_categoria,idCategoria',
-            // 'idReceitas'           => 'required|integer|unique:gmg_receitas,idReceitas', // Remova se idReceitas for AUTO_INCREMENT
+            'FKcozinheiro'         => 'required|exists:funcionarios,id',
+
+            'FKCategoria'          => 'required|exists:gmg_categoria,id_cat',
             'dt_criacao'           => 'required|date',
             'preparo'              => 'required|string|max:5000',
             'quat_porcao'          => 'required|numeric|min:0.1',
             'ind_rec_inedita'      => 'required|in:S,N',
-            'dificudade_receitas'  => 'required|string|max:12', // Ex: fácil, médio, difícil
-            'tempo_de_preparo'     => 'required|date_format:H:i:s', // Formato H:i:s (ex: 01:30:00)
-            'ingredientes_receita' => 'nullable|array', // Array de ingredientes para a receita
+            'dificudade_receitas'  => 'required|string|max:12',
+            'tempo_de_preparo'     => 'required|date_format:H:i:s',
+            'ingredientes_receita' => 'nullable|array',
             'ingredientes_receita.*.idIngrediente' => 'required_with:ingredientes_receita|exists:gmg_ingredientes,idIngrediente',
             'ingredientes_receita.*.idMedida'      => 'required_with:ingredientes_receita|exists:gmg_medidas,idMedida',
             'ingredientes_receita.*.quantidade'    => 'required_with:ingredientes_receita|numeric|min:0.01',
             'ingredientes_receita.*.observacao'    => 'nullable|string|max:255',
-        ]);
+        ];
 
-        // Se idReceitas for AUTO_INCREMENT no banco de dados, NÃO inclua-o no fillable do modelo
-        // e remova-o do $validatedData antes de criar a receita
-        // Se idReceitas for manual, certifique-se que ele é validado e está presente.
-        // Assumindo que idReceitas é AUTO_INCREMENT ou gerado automaticamente:
-        // Remova $validatedData['idReceitas'] se ele veio do formulário e o banco gera automaticamente.
+        // Mensagens personalizadas
+        $messages = [
+            'FKcozinheiro.required'     => 'O campo Cozinheiro é obrigatório.',
+            'FKCategoria.required'      => 'A categoria é obrigatória.',
+            'nome_rec.required'         => 'O nome da receita é obrigatório.',
+            // (adicione outras mensagens se quiser)
+        ];
 
-        // Cria a receita
+        $validatedData = $request->validate($rules, $messages);
+
+        // Criação da receita
         $receita = Receita::create([
             'nome_rec'             => $validatedData['nome_rec'],
             'FKcozinheiro'         => $validatedData['FKcozinheiro'],
             'FKCategoria'          => $validatedData['FKCategoria'],
-            // 'idReceitas'           => $validatedData['idReceitas'], // Remova se for auto-increment
             'dt_criacao'           => $validatedData['dt_criacao'],
             'preparo'              => $validatedData['preparo'],
             'quat_porcao'          => $validatedData['quat_porcao'],
@@ -81,29 +84,24 @@ class ReceitaController extends Controller
             'tempo_de_preparo'     => $validatedData['tempo_de_preparo'],
         ]);
 
-        // 2. Anexa os ingredientes à receita através da tabela pivô
+        // Ingredientes da receita
         if (isset($validatedData['ingredientes_receita'])) {
             foreach ($validatedData['ingredientes_receita'] as $ingredienteData) {
-                // Prepara os dados para a tabela pivô
-                $pivotData = [
-                    'idMedida'   => $ingredienteData['idMedida'],
-                    'quantidade' => $ingredienteData['quantidade'],
-                    'observacao' => $ingredienteData['observacao'] ?? null,
-                ];
-
-                // Anexa o ingrediente à receita com os dados da tabela pivô
-                // Usamos attach() para adicionar novos registros.
-                // IMPORTANTE: Se a combinação (idReceita, idIngrediente, idMedida) já existe,
-                // attach() vai disparar um erro de PK duplicada.
-                // Você pode usar syncWithoutDetaching para evitar isso ou verificar antes.
-                // Mas a validação de required_with já deve ajudar a evitar submissões vazias.
-                $receita->ingredientes()->attach($ingredienteData['idIngrediente'], $pivotData);
+                $receita->ingredientes()->attach(
+                    $ingredienteData['idIngrediente'],
+                    [
+                        'idMedida'   => $ingredienteData['idMedida'],
+                        'quantidade' => $ingredienteData['quantidade'],
+                        'observacao' => $ingredienteData['observacao'] ?? null,
+                    ]
+                );
             }
         }
 
         return redirect()->route('receitas.index')
             ->with('success', 'Receita criada com sucesso!');
-    } //fim store
+    } //Fim do store
+
 
     //show
     public function show(Receita $receita)
@@ -167,8 +165,8 @@ class ReceitaController extends Controller
         // 1. Validação dos dados da Receita principal
         $validatedData = $request->validate([
             'nome_rec'             => 'required|string|max:45',
-            'FKcozinheiro'         => 'required|exists:gmg_cadastro_de_funcionario,FK_idFuncionario',
-            'FKCategoria'          => 'required|exists:gmg_categoria,idCategoria',
+            'FKcozinheiro'         => 'required|exists:funcionarios,id',
+            'FKCategoria' => 'required|exists:gmg_categoria,id_cat',
             'dt_criacao'           => 'required|date',
             'preparo'              => 'required|string|max:5000',
             'quat_porcao'          => 'required|numeric|min:0.1',

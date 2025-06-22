@@ -82,15 +82,24 @@
         }
     </style>
     @stack('styles')
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 
 <body>
     <nav class="navbar-funcionario">
         <div class="left d-flex align-items-center">
-            <a href="{{ session('admin_logged_in') ? route('dashboard.admin') : route('dashboard.cozinheiro') }}" class="btn-back">
+            @php
+            $cargo = strtolower(auth()->user()->cargo->nome ?? '');
+            @endphp
+
+            <a href="{{ 
+                $cargo === 'adm' ? route('dashboard.admin') : 
+                ($cargo === 'cozinheiro' ? route('dashboard.cozinheiro') : route('dashboard.funcionario')) 
+                }}" class="btn-back">
                 <img src="{{ asset('img/icons/voltar.png') }}" alt="Voltar" style="width:22px; height:22px; margin-right:6px;">
                 Painel
             </a>
+
             <h1 class="title ms-3 mb-0">Receitas</h1>
         </div>
         <div class="user-info">
@@ -98,7 +107,7 @@
             @php
             $funcionario = \App\Models\Funcionario::find(session('funcionario_id'));
             @endphp
-           <span>{{ auth()->user()->nome ?? 'Funcionário' }}</span>
+            <span>{{ auth()->user()->nome ?? 'Funcionário' }}</span>
             <form action="{{ route('logout') }}" method="POST" style="display:inline;">
                 @csrf
                 <button type="submit" style="background:transparent; border:none; padding:0; margin-left:8px;">

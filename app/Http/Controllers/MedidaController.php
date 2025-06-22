@@ -23,7 +23,8 @@ class MedidaController extends Controller
      */
     public function create()
     {
-        return view('medidas.create');
+        $medidas = Medida::where('ind_ativo', 1)->get();
+        return view('medidas.create', compact('medidas'));
     }
 
     /**
@@ -31,23 +32,23 @@ class MedidaController extends Controller
      */
     public function store(Request $request)
     {
-        // Regras de validação para as colunas 'tipo', 'item' e 'descricao'
         $request->validate([
-            'tipo'        => 'required|string|max:45',
-            'item'        => 'required|string|max:45',
-            'descricao'   => 'required|string|max:20', // Verifique se 'descricao' é para a quantidade
+            'tipo'      => 'required|string|max:45',
+            'item'      => 'required|string|max:45',
+            'descricao' => 'required|string|max:20',
         ]);
 
-        // Criação do registro com as novas colunas
         Medida::create([
-            'tipo'        => $request->input('tipo'),
-            'item'        => $request->input('item'),
-            'descricao'   => $request->input('descricao'),
+            'tipo'      => $request->input('tipo'),
+            'item'      => $request->input('item'),
+            'descricao' => $request->input('descricao'),
+            'ind_ativo' => 1, 
         ]);
 
         return redirect()->route('medidas.index')
             ->with('success', 'Medida criada com sucesso!');
     }
+
 
     /**
      * Display the specified resource.

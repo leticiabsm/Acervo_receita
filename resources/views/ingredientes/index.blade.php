@@ -10,7 +10,7 @@
                 <img src="{{ asset('img/icons/lupa.png') }}" alt="Pesquisar" style="width:22px; height:22px;">
             </button>
         </form>
-        <a href="{{ route('ingredientes.create') }}" 
+        <a href="{{ route('ingredientes.create') }}"
             class="btn d-flex align-items-center"
             style="background:#83CD71; border:3px solid #25BB00; color:#fff; font-weight:bold;">
             Adicionar Ingrediente
@@ -28,21 +28,23 @@
             </thead>
             <tbody>
                 @foreach($ingredientes as $ingrediente)
-                <tr class="clickable-row" data-href="{{ route('ingredientes.show', $ingrediente->id) }}" style="cursor:pointer;">
+                <tr class="clickable-row" data-href="{{ route('ingredientes.show', $ingrediente->idIngrediente) }}" style="cursor:pointer;">
                     <td>{{ $ingrediente->nome }}</td>
                     <td class="text-center">{{ $ingrediente->descricao ?? '-' }}</td>
                     <td class="text-center">
-                        <a href="{{ route('ingredientes.edit', $ingrediente->id) }}" class="btn btn-sm p-1 me-1"
+                        <a href="{{ route('ingredientes.edit', $ingrediente->idIngrediente) }}" class="btn btn-sm p-1 me-1"
                             style="background:#67C0FF; width:32px; height:32px; display:inline-flex; align-items:center; justify-content:center; border-radius:6px;"
                             onclick="event.stopPropagation()">
                             <img src="{{ asset('img/icons/edit.png') }}" alt="Editar" style="width:18px; height:18px;">
                         </a>
-                        <a href="{{ route('ingredientes.delete', $ingrediente->id) }}" 
-                            class="btn btn-sm p-1"
-                            style="background:#FF7979; width:32px; height:32px; display:inline-flex; align-items:center; justify-content:center; border-radius:6px;"
-                            onclick="event.stopPropagation()">
-                            <img src="{{ asset('img/icons/trash.png') }}" alt="Excluir" style="width:18px; height:18px;">
-                        </a>
+                        <form action="{{ route('ingredientes.destroy', $ingrediente->idIngrediente) }}" method="POST" style="display:inline;" onsubmit="return confirm('Tem certeza que deseja excluir?')">
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit" class="btn btn-sm p-1" style="background:#FF7979; width:32px; height:32px; border-radius:6px;">
+                                <img src="{{ asset('img/icons/trash.png') }}" alt="Excluir" style="width:18px; height:18px;">
+                            </button>
+                        </form>
+
                     </td>
                 </tr>
                 @endforeach

@@ -61,10 +61,12 @@ Route::middleware(['auth'])->group(function () {
     Route::resource('receitas', ReceitaController::class);
 
     // Medidas
-    Route::resource('medidas', MedidaController::class)->only(['index', 'create']);
+    Route::resource('medidas', MedidaController::class);
+
 
     // Ingredientes
-    Route::resource('ingredientes', IngredienteController::class)->only(['index', 'create']);
+    Route::resource('ingredientes', IngredienteController::class);
+
 
     // Livros
     Route::resource('livros', LivroController::class)->parameters([

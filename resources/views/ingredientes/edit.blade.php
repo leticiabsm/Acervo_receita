@@ -1,73 +1,33 @@
-<!DOCTYPE html>
-<html lang="pt-br">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Editar Ingrediente</title>
-    <style>
-        body { font-family: sans-serif; margin: 20px; background-color: #f4f4f4; color: #333; }
-        .container { max-width: 600px; margin: 30px auto; background-color: #fff; padding: 25px; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
-        h1 { text-align: center; color: #333; margin-bottom: 25px; }
-        form div { margin-bottom: 15px; }
-        label { display: block; margin-bottom: 8px; font-weight: bold; }
-        input[type="text"], textarea {
-            width: calc(100% - 16px);
-            padding: 10px;
-            border: 1px solid #ddd;
-            border-radius: 4px;
-            box-sizing: border-box;
-            font-size: 16px;
-        }
-        textarea { resize: vertical; min-height: 100px; }
-        .btn-group { display: flex; justify-content: flex-end; gap: 10px; margin-top: 20px; }
-        .btn {
-            padding: 10px 20px;
-            border-radius: 5px;
-            text-decoration: none;
-            color: white;
-            font-size: 16px;
-            cursor: pointer;
-            border: none;
-            transition: background-color 0.3s ease;
-        }
-        .btn-primary { background-color: #007bff; }
-        .btn-primary:hover { background-color: #0056b3; }
-        .btn-secondary { background-color: #6c757d; }
-        .btn-secondary:hover { background-color: #5a6268; }
-        .error-message { color: #dc3545; font-size: 0.85em; margin-top: 5px; display: block; }
-    </style>
-</head>
-<body>
-    <div class="container">
-        <h1>Editar Ingrediente</h1>
+@extends('layouts.ingrediente')
 
-        {{-- Formulário para editar ingrediente --}}
-        <form action="{{ route('ingredientes.update', $ingrediente->idIngrediente) }}" method="POST">
-            @csrf
-            @method('PUT') {{-- Informa ao Laravel que esta é uma requisição PUT (para atualização) --}}
+@section('content')
+<div class="container mt-5">
+    <h1>Editar Ingrediente</h1>
 
-            <div>
-                <label for="nome">Nome:</label>
-                {{-- old('nome', $ingrediente->nome) preenche com o valor antigo em caso de erro, ou com o valor atual do ingrediente --}}
-                <input type="text" id="nome" name="nome" value="{{ old('nome', $ingrediente->nome) }}" required>
-                @error('nome')
-                    <span class="error-message">{{ $message }}</span>
-                @enderror
-            </div>
+    <form action="{{ route('ingredientes.update', $ingrediente->idIngrediente) }}" method="POST">
+        @csrf
+        @method('PUT')
 
-            <div>
-                <label for="descricao">Descrição (Opcional):</label>
-                <textarea id="descricao" name="descricao" rows="5">{{ old('descricao', $ingrediente->descricao) }}</textarea>
-                @error('descricao')
-                    <span class="error-message">{{ $message }}</span>
-                @enderror
-            </div>
+        <div class="mb-3">
+            <label for="nome" class="form-label">Nome:</label>
+            <input type="text" id="nome" name="nome" class="form-control" value="{{ old('nome', $ingrediente->nome) }}" required>
+            @error('nome')
+                <span class="text-danger small">{{ $message }}</span>
+            @enderror
+        </div>
 
-            <div class="btn-group">
-                <button type="submit" class="btn btn-primary">Salvar Alterações</button>
-                <a href="{{ route('ingredientes.index') }}" class="btn btn-secondary">Cancelar</a>
-            </div>
-        </form>
-    </div>
-</body>
-</html>
+        <div class="mb-3">
+            <label for="descricao" class="form-label">Descrição (Opcional):</label>
+            <textarea id="descricao" name="descricao" class="form-control" rows="5">{{ old('descricao', $ingrediente->descricao) }}</textarea>
+            @error('descricao')
+                <span class="text-danger small">{{ $message }}</span>
+            @enderror
+        </div>
+
+        <div class="d-flex justify-content-end gap-2">
+            <button type="submit" class="btn btn-primary">Salvar Alterações</button>
+            <a href="{{ route('ingredientes.index') }}" class="btn btn-secondary">Cancelar</a>
+        </div>
+    </form>
+</div>
+@endsection

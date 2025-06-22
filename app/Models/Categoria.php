@@ -15,6 +15,6 @@ class Categoria extends Model
         'desc',
         'dt_ini_cat',
         'dt_fim_cat',
-        'ativo',
+        'ind_ativo',
     ];
 }

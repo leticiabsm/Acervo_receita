@@ -10,11 +10,11 @@
         <table class="table table-summary mb-4">
             <tbody>
                 <tr>
-                    <td>Receitas Ativas</td>
+                    <td>Total de Receitas Criadas</td>
                     <td class="text-end">{{ $totalReceitas ?? 0 }}</td>
                 </tr>
                 <tr>
-                    <td>Pedidos Pendentes</td>
+                    <td>Receitas Aguardando Degustação</td>
                     <td class="text-end">{{ $totalPedidos ?? 0 }}</td>
                 </tr>
             </tbody>
@@ -58,6 +58,11 @@
 @push('styles')
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 <style>
+
+    body{
+        overflow: hidden;
+    }
+
     .dashboard-card {
         border-radius: 20px;
         box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);

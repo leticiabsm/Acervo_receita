@@ -41,15 +41,15 @@
                             <td>
                                 {{ $categoria->dt_fim_cat ? date('d/m/Y', strtotime($categoria->dt_fim_cat)) : '-' }}
                             </td>
-                            <td class="{{ $categoria->ativo ? 'status-active' : 'status-inactive' }}">
-                                {{ $categoria->ativo ? 'ATIVO' : 'INATIVO' }}
+                            <td class="{{ $categoria->ind_ativo ? 'status-active' : 'status-inactive' }}">
+                                {{ $categoria->ind_ativo ? 'ATIVO' : 'INATIVO' }}
                             </td>
                             <td>
                                 <a href="{{ route('categorias.edit', $categoria->id_cat) }}" class="btn btn-primary">
-                                    <i class="fas fa-edit"></i>
+                                    <img src="{{ asset('img/icons/la_pen.png') }}" alt="Editar" style="width:18px; height:18px;">
                                 </a>
                                 <a href="{{ route('categorias.destroy', $categoria->id_cat) }}" class="btn btn-danger">
-                                    <i class="fas fa-trash"></i>
+                                    <img src="{{ asset('img/icons/mynaui_trash.png') }}" alt="Excluir" style="width:18px; height:18px;">
                                 </a>
                             </td>
                         </tr>

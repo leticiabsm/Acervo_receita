@@ -10,21 +10,13 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo; // Para as FKs
 class Receita extends Model
 {
     use HasFactory;
+    public $timestamps = false;
 
     protected $table = 'gmg_receitas';
     protected $primaryKey = 'idReceitas'; // A nova PK
 
-    // Indica que a chave primária não é auto-incrementável (se for definida manualmente)
-    // Se idReceitas for auto-incrementável no BD, remova esta linha:
-    public $incrementing = true; // Se você gerencia idReceitas manualmente no seu DDL, mantenha. Se for AUTO_INCREMENT, remova.
 
-    // Se a PK é auto-incrementável e do tipo INT, o Laravel infere.
-    // Se não for INT (ex: UUID), ou se você está usando um nome diferente de 'id', ou se incrementing=false:
-    // protected $keyType = 'string'; // Exemplo para UUIDs, se não for int
-
-    // Se você usa 'dt_criacao' no lugar de 'created_at' do Laravel
-    // public $timestamps = false; // Desativa os timestamps automáticos do Laravel se não for usá-los
-
+    public $incrementing = true;
     protected $fillable = [
         'idReceitas', // Inclua se você estiver definindo o ID manualmente ou for um campo que pode ser preenchido
         'nome_rec',
@@ -39,12 +31,11 @@ class Receita extends Model
         // 'created_at', 'updated_at' (se public $timestamps = true; )
     ];
 
-    // Se você tem colunas de data/hora que não são created_at/updated_at,
-    // e quer que o Laravel as trate como Carbon instances:
+
     protected $casts = [
         'dt_criacao' => 'date',
-        'tempo_de_preparo' => 'datetime', // Laravel pode ter dificuldade com TIME apenas, datetime é mais flexível
-        'quat_porcao' => 'decimal:1', // Para garantir que o decimal seja tratado corretamente
+        'tempo_de_preparo' => 'datetime',
+        'quat_porcao' => 'decimal:1',
     ];
 
 
@@ -54,9 +45,8 @@ class Receita extends Model
      */
     public function cozinheiro(): BelongsTo
     {
-        // Ajuste 'App\Models\Funcionario' para o nome correto do seu modelo de funcionário/cozinheiro
-        // e 'FK_idFuncionario' se a PK da tabela de funcionários for diferente
-        return $this->belongsTo(Funcionario::class, 'FKcozinheiro', 'FK_idFuncionario');
+
+        return $this->belongsTo(Funcionario::class, 'FKcozinheiro', 'id');
     }
 
     /**
@@ -65,9 +55,9 @@ class Receita extends Model
      */
     public function categoria(): BelongsTo
     {
-        // Ajuste 'App\Models\Categoria' para o nome correto do seu modelo de categoria
-        return $this->belongsTo(Categoria::class, 'FKCategoria', 'idCategoria');
+        return $this->belongsTo(Categoria::class, 'FKCategoria', 'id_cat');
     }
+
 
     /**
      * Uma receita tem muitos ingredientes (com suas medidas e quantidades).
@@ -79,7 +69,7 @@ class Receita extends Model
         // O terceiro é a chave estrangeira do modelo atual (Receita): 'idReceitas'
         // O quarto é a chave estrangeira do modelo relacionado (Ingrediente): 'idIngrediente'
         return $this->belongsToMany(Ingrediente::class, 'gmg_receita_ingrediente', 'idReceitas', 'idIngrediente')
-                    ->withPivot('idMedida', 'quantidade', 'observacao')
-                    ->withTimestamps(); // Se a tabela pivô tiver created_at/updated_at
+            ->withPivot('idMedida', 'quantidade', 'observacao');
+            
     }
 }
