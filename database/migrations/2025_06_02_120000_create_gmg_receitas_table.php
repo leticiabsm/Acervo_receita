@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('gmg_receitas', function (Blueprint $table) {
             $table->increments('idReceitas')->comment('Contém o identificador da receita.');
+            $table->string('status', 30)->nullable()->comment('Status da receita: aguardando degustacao');
             $table->string('nome_rec', 45)->comment('Contém o nome da receita.');
 
             $table->unsignedBigInteger('FKcozinheiro')->comment('Contém o identificador do cozinheiro da receita.');

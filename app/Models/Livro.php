@@ -9,15 +9,12 @@ class Livro extends Model
 {
     use HasFactory;
 
-    protected $table = 'GMG_Livro'; // Define o nome da tabela associada ao modelo
+    protected $table = 'gmg_livro'; // Define o nome da tabela associada ao modelo
 
     protected $fillable = ['idlivro','titulo', 'isbn']; // Permite atribuição em massa
 
     public $timestamps = true; // Desativa os timestamps, se não forem utilizados
 
-     protected $primaryKey = 'idlivro'; // Define a chave primária da tabela
-//    public function editor() {
-        //return $this->belongsTo(Editor::class, 'FKeditor');
-    //}
+     protected $primaryKey = 'idlivro'; 
     
 }

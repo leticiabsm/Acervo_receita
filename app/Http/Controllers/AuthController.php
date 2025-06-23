@@ -44,6 +44,10 @@ class AuthController extends Controller
                 session(['cozinheiro_logged_in' => true]);
                 return redirect()->route('dashboard.cozinheiro');
             }
+            if ($cargo === 'editor') {
+                session(['editor_logged_in' => true]);
+                return redirect()->route('dashboard.editor');
+            }
 
             return redirect()->route('dashboard.funcionario');
         }

@@ -33,12 +33,8 @@ Route::middleware(['auth'])->group(function () {
     // Dashboards
     Route::get('/dashboard', fn() => redirect()->route('dashboard.admin'))->name('dashboard');
     Route::get('/dashboard/admin', [DashboardController::class, 'admin'])->name('dashboard.admin');
-
-    Route::get('/dashboard/editor', [DashboardController::class, 'editor'])->name('dashboard.editor');
+    Route::get('/dashboard/editor', [DashboardController::class, 'dashboardEditor'])->name('dashboard.editor');
     Route::get('/dashboard/cozinheiro', [DashboardController::class, 'cozinheiro'])->name('dashboard.cozinheiro');
-
-
-
 
     // Cargos
     Route::resource('cargos', CargoController::class);
@@ -46,6 +42,9 @@ Route::middleware(['auth'])->group(function () {
     Route::put('/cargos/{id}/status', [CargoController::class, 'atualizarStatus'])->name('cargos.atualizarStatus');
 
     // Funcionários
+    Route::get('/dashboard/funcionario', function () {
+        return view('dashboard.funcionario');
+    })->name('dashboard.funcionario');
     Route::resource('funcionarios', FuncionarioController::class);
     Route::get('funcionarios/{id}/delete', [FuncionarioController::class, 'confirmDelete'])->name('funcionarios.delete');
     Route::post('funcionarios/{id}/inativar', [FuncionarioController::class, 'inativar'])->name('funcionarios.inativar');
@@ -54,43 +53,31 @@ Route::middleware(['auth'])->group(function () {
     // Categorias
     Route::resource('categorias', CategoriaController::class);
 
-
-
-
     // Receitas
     Route::resource('receitas', ReceitaController::class);
 
     // Medidas
     Route::resource('medidas', MedidaController::class);
 
-
     // Ingredientes
     Route::resource('ingredientes', IngredienteController::class);
 
-
-    // Livros
+    // Livros (usando idlivro como parâmetro)
     Route::resource('livros', LivroController::class)->parameters([
-        'livros' => 'titulo' // permite que o nome usado seja o título do livro
+        'livros' => 'idlivro'
     ]);
 
     // Restaurantes
     Route::resource('restaurantes', RestauranteController::class);
-
 });
 
-
+// Degustação (fora do grupo de autenticação)
 Route::get('/degustacao', [DegustacaoController::class, 'index'])->name('degustacao.index');
-
-
 Route::get('/degustacao/search', [DegustacaoController::class, 'search'])->name('degustacao.search');
 Route::get('/degustacao/create', [DegustacaoController::class, 'create'])->name('degustacao.create');
 Route::post('/degustacao', [DegustacaoController::class, 'store'])->name('degustacao.store');
-
-
 Route::get('/degustacao/{id}/edit', [DegustacaoController::class, 'edit'])->name('degustacao.edit');
 Route::put('/degustacao/{id}', [DegustacaoController::class, 'update'])->name('degustacao.update');
-
 Route::get('/degustacao/{id}/delete', [DegustacaoController::class, 'delete'])->name('degustacao.delete');
 Route::delete('/degustacao/{id}/destroy', [DegustacaoController::class, 'destroy'])->name('degustacao.destroy');
-
-Route::get('/degustacao/{id}', [DegustacaoController::class,'show'])->name('degustacao.show');
+Route::get('/degustacao/{id}', [DegustacaoController::class, 'show'])->name('degustacao.show');
