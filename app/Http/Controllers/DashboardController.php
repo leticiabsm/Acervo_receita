@@ -29,7 +29,7 @@ class DashboardController extends Controller
 
         // Exemplo de contagem (ajuste conforme seus modelos)
         $totalReceitas = Receita::count();
-        $totalPublicacao = \App\Models\Livro::count();
+        $totalPublicacao = \App\Models\LivroPublicado::count();
         $totalDegustacao = Receita::where('status', 'aguardando degustacao')->count();
 
         return view('dashboard.editor', [

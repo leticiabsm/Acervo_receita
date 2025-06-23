@@ -28,18 +28,18 @@
                     <div class="list-group funcoes-list">
 
                         <a href="{{ route('receitas.index') }}" class="list-group-item">
-                            Visualizar Receitas
+                            Receitas
                             <i class="bi bi-eye icon-eye"></i>
                         </a>
 
                         <a href="{{ route('ingredientes.index') }}" class="list-group-item">
                             Ingredientes
-                            <i class="bi bi-box-seam icon-gear"></i>
+                            <i class="bi bi-gear icon-gear"></i>
                         </a>
 
                         <a href="{{ route('medidas.index') }}" class="list-group-item">
                             Medidas
-                            <i class="bi bi-rulers icon-gear"></i>
+                            <i class="bi bi-gear icon-gear"></i>
                         </a>
 
 

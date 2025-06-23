@@ -28,8 +28,8 @@ class LivroPublicadoController extends Controller
     {
         $livros = Livro::all();
         $funcionarios = Funcionario::all();
-        /*$notas = Degustacao::all();
-    */
+        $notas = Degustacao::all();
+    
         return view('publicacao.create', [
             'livros' => $livros,
             'funcionarios' => $funcionarios,

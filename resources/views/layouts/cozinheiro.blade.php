@@ -15,6 +15,22 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
+    
+    .user-info {
+    display: flex;
+    justify-content: flex-end; /* Move os ícones para a direita */
+    align-items: center;
+    padding-right: 2rem; /* Ajusta a posição */
+    gap: 0.7rem; /* Espaçamento entre os elementos */
+    flex-grow: 1; /* Permite que ocupe o espaço restante */
+}
+
+    /* Oculta o título "Funcionários" */
+    .navbar-funcionario .title {
+        display: none;
+    }
+    /*para ocultar botoes do menu*/
+
         body {
             background: linear-gradient(180deg, #26BFFF 0%, #0070C0 100%);
             min-height: 100vh;

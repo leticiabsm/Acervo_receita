@@ -1,12 +1,23 @@
 @extends('layouts.publica')
 
 @section('content')
-<div class="container">
-  <h2>Adicionar Livros Publicados</h2>
-  <a href="{{ route('livros_publicados.create') }}" class="btn btn-success mb-3">Novo Livro</a>
-
-  <input type="text" id="busca" class="form-control mb-3" placeholder="Buscar...">
-
+<div class="container mt-5">
+    <h2 class="mb-4" style="font-weight: bold; color: #fff;">Adicionar Publicacao de Livro</h2>
+    <div class="d-flex mb-3">
+        <!--botao de incluir livro publicado-->
+        <form class="flex-grow-1 me-2 d-flex" method="GET" action="{{ route('publicacao.index') }}">
+            <input type="text" name="searchInput" class="form-control" placeholder="Pesquisar" value="{{ request('pesquisa') }}">
+            <button type="submit" class="btn" style="background:transparent; border:none; margin-left:-40px;">
+                <img src="{{ asset('img/icons/lupa.png') }}" alt="Pesquisar" style="width:22px; height:22px;">
+            </button>
+        </form>
+        <a href="{{ route('publicacao.create') }}"
+            class="btn d-flex align-items-center"
+            style="background:#83CD71; border:3px solid #25BB00; color:#fff; font-weight:bold;">
+            Incluir Publicação
+            <img src="{{ asset('img/icons/user_plus_add.png') }}" alt="Incluir Publicacao" style="width:22px; height:22px;" class="ms-3">
+        </a>
+    </div>
   <table class="table table-bordered">
     <thead>
       <tr>

@@ -24,8 +24,5 @@ return new class extends Migration
     {
         Schema::dropIfExists('livros_publicados');
     }
-<<<<<<< HEAD
 };
-=======
-};
->>>>>>> e9320defcaf176619f93a0f4e947b2fe9184fb1f
+

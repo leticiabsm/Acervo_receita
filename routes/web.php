@@ -87,6 +87,9 @@ Route::delete('/degustacao/{id}/destroy', [DegustacaoController::class, 'destroy
 Route::get('/degustacao/{id}', [DegustacaoController::class, 'show'])->name('degustacao.show');
 
 
+// Livros Publicados
+Route::resource('publicacao', LivroPublicadoController::class);
+
 
 // Api
 Route::get('/livros/{id}/download', [LivroDownloadController::class, 'download']);

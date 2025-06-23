@@ -22,7 +22,7 @@
                 </tr>
                 <tr>
                     <td>Receitas Aguardando Degustação</td>
-                    <td class="text-end">{{ $totalDegustacao }}</td>
+                   <td class="text-end">{{ $totalDegustacao }}</td>
                 </tr>
             </tbody>
         </table>

@@ -11,7 +11,7 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
 
-    <title>@yield('title', 'Livros')</title>
+    <title>@yield('title', 'Publica')</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
@@ -88,9 +88,9 @@
     <!--condicao para tirar o menu do dashboard-->
 
     <nav class="navbar-funcionario">
-    @if (!Request::is('dashboard/admin'))
+    @if (!Request::is('dashboard/editor'))
         <div class="left d-flex align-items-center">
-            <a href="{{ route('dashboard') }}" class="btn-back">
+            <a href="{{ route('dashboard.editor') }}" class="btn-back">
                 <img src="{{ asset('img/icons/voltar.png') }}" alt="Voltar" style="width:22px; height:22px; margin-right:6px;">
                 Painel
             </a>
