@@ -13,6 +13,7 @@ use App\Http\Controllers\RestauranteController;
 use App\Http\Controllers\LivroController;
 use App\Http\Controllers\IngredienteController;
 use App\Http\Controllers\MedidaController;
+use App\Http\Controllers\CozinheiroController;
 
 // Página inicial redireciona para login
 Route::get('/', fn() => redirect()->route('login'));
@@ -35,6 +36,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/dashboard/admin', [DashboardController::class, 'admin'])->name('dashboard.admin');
     Route::get('/dashboard/editor', [DashboardController::class, 'dashboardEditor'])->name('dashboard.editor');
     Route::get('/dashboard/cozinheiro', [DashboardController::class, 'cozinheiro'])->name('dashboard.cozinheiro');
+    Route::get('/dashboard/cozinheiro', [CozinheiroController::class, 'dashboard'])->name('dashboard.cozinheiro');
 
     // Cargos
     Route::resource('cargos', CargoController::class);
