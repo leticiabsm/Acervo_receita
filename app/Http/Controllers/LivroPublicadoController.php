@@ -18,7 +18,7 @@ class LivroPublicadoController extends Controller
     {
         $livros = LivroPublicado::with(['funcionario', 'nota'])->get();
 
-    return view('livros_publicados.index', compact('livros'));
+    return view('publicacao.index', compact('livros'));
     }
 
     /**
@@ -28,9 +28,9 @@ class LivroPublicadoController extends Controller
     {
         $livros = Livro::all();
         $funcionarios = Funcionario::all();
-        $notas = Nota::all();
-    
-        return view('livros_publicados.create', [
+        /*$notas = Degustacao::all();
+    */
+        return view('publicacao.create', [
             'livros' => $livros,
             'funcionarios' => $funcionarios,
             'notas' => $notas,
@@ -61,9 +61,9 @@ class LivroPublicadoController extends Controller
     {
         $livros = Livro::all();
         $funcionarios = Funcionario::all();
-        $notas = Nota::all();
+        $notas = Degustacao::all();
     
-        return view('livros_publicados.edit', [
+        return view('publicacao.edit', [
             'livroPublicado' => $livroPublicado,
             'livros' => $livros,
             'funcionarios' => $funcionarios,

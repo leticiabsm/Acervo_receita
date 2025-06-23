@@ -7,5 +7,9 @@
   <i class="bi bi-plus-circle"></i> Novo Livro
 </a>
 
+<a href="{{ route('livros.download', $livro->id) }}" class="btn btn-primary">
+    Download PDF
+</a>
+
 </div>
 @endsection

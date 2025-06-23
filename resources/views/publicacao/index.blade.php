@@ -2,7 +2,7 @@
 
 @section('content')
 <div class="container">
-  <h2>Livros Publicados</h2>
+  <h2>Adicionar Livros Publicados</h2>
   <a href="{{ route('livros_publicados.create') }}" class="btn btn-success mb-3">Novo Livro</a>
 
   <input type="text" id="busca" class="form-control mb-3" placeholder="Buscar...">
@@ -15,7 +15,7 @@
         <th>ISBN</th>
         <th>Cozinheiro</th>
         <th>Degustador</th>
-        <th>Ações</th>
+        <th>Atividades</th>
       </tr>
     </thead>
     <tbody id="tabelaLivros">
@@ -35,6 +35,10 @@
             @method('DELETE')
             <button class="btn btn-danger btn-sm"><i class="bi bi-trash"></i></button>
           </form>
+          <a href="{{ route('livros.download', $livro->id) }}" class="btn btn-primary">
+            Download PDF
+        </a>
+
         </td>
       </tr>
       @endforeach
