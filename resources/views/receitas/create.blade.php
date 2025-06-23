@@ -177,6 +177,4 @@ $ingredienteCount = old('ingredientes_receita') ? count(old('ingredientes_receit
 <script src="{{ asset('js/ingredientes.js') }}"></script>
 
 
-
-
 @endsection

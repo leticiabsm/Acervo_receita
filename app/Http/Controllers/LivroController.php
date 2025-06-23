@@ -3,70 +3,56 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Livro; // Importa o modelo Livro
+use App\Models\Livro;
+use Illuminate\Support\Facades\Auth;
 
 class LivroController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
         $livros = Livro::all();
         return view('livros.index', compact('livros'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
     public function create()
     {
-        return view('livros.create');
+        $editor_nome = Auth::user()->nome; // ou 'name' se for o campo correto
+        $receitas = \App\Models\Receita::all();
+        $funcionarios = \App\Models\Funcionario::whereHas('cargo', function ($q) {
+            $q->where('nome', 'Cozinheiro');
+        })->get();
+
+        return view('livros.create', compact('editor_nome', 'receitas', 'funcionarios'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
         Livro::create($request->all());
         return redirect()->route('livros.index')->with('success', 'Livro criado com sucesso!');
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $titulo)
+    public function show($id)
     {
-        $livro = Livro::where('titulo', $titulo)->firstOrFail();
+        $livro = Livro::findOrFail($id);
         return view('livros.show', compact('livro'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
     public function edit($id)
     {
-        $livro = Livro::where('idlivro', $idlivro)->firstOrFail();
+        $livro = Livro::findOrFail($id);
         return view('livros.edit', compact('livro'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $titulo)
+    public function update(Request $request, $id)
     {
-        $livro = Livro::where('titulo', $titulo)->firstOrFail();
+        $livro = Livro::findOrFail($id);
         $livro->update($request->all());
-        return redirect()->route('livros.index')->with('success', 'Livro atualizado com sucesso!'); 
+        return redirect()->route('livros.index')->with('success', 'Livro atualizado com sucesso!');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy($id)
     {
-        $livro = Livro::where('idlivro', $idlivro)->firstOrFail();
+        $livro = Livro::findOrFail($id);
         $livro->delete();
         return redirect()->route('livros.index')->with('success', 'Livro excluído com sucesso!');
     }

@@ -1,4 +1,4 @@
-@extends('layouts.funcionario')
+@extends('layouts.editor')
 
 
 @section('content')
