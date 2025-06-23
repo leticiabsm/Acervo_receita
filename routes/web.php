@@ -15,6 +15,7 @@ use App\Http\Controllers\IngredienteController;
 use App\Http\Controllers\MedidaController;
 use App\Http\Controllers\LivroPublicadoController;
 use App\Http\Controllers\LivroDownloadController;
+use App\Http\Controllers\CozinheiroController;
 
 // Página inicial redireciona para login
 Route::get('/', function () {
@@ -34,45 +35,46 @@ Route::post('/logout', function () {
 // Rotas protegidas por autenticação
 Route::middleware(['auth'])->group(function () {
 
-// Dashboards
-Route::get('/dashboard', fn() => redirect()->route('dashboard.admin'))->name('dashboard');
-Route::get('/dashboard/admin', [DashboardController::class, 'admin'])->name('dashboard.admin');
-Route::get('/dashboard/editor', [DashboardController::class, 'dashboardEditor'])->name('dashboard.editor');
-Route::get('/dashboard/cozinheiro', [DashboardController::class, 'cozinheiro'])->name('dashboard.cozinheiro');
+    // Dashboards
+    Route::get('/dashboard', fn() => redirect()->route('dashboard.admin'))->name('dashboard');
+    Route::get('/dashboard/admin', [DashboardController::class, 'admin'])->name('dashboard.admin');
+    Route::get('/dashboard/editor', [DashboardController::class, 'dashboardEditor'])->name('dashboard.editor');
+    Route::get('/dashboard/cozinheiro', [DashboardController::class, 'cozinheiro'])->name('dashboard.cozinheiro');
+    Route::get('/dashboard/cozinheiro', [CozinheiroController::class, 'dashboard'])->name('dashboard.cozinheiro');
 
-// Cargos
-Route::resource('cargos', CargoController::class);
-Route::get('/cargos/{id}/status', [CargoController::class, 'status'])->name('cargos.status');
-Route::put('/cargos/{id}/status', [CargoController::class, 'atualizarStatus'])->name('cargos.atualizarStatus');
+    // Cargos
+    Route::resource('cargos', CargoController::class);
+    Route::get('/cargos/{id}/status', [CargoController::class, 'status'])->name('cargos.status');
+    Route::put('/cargos/{id}/status', [CargoController::class, 'atualizarStatus'])->name('cargos.atualizarStatus');
 
-// Funcionários
-Route::get('/dashboard/funcionario', function () {
-    return view('dashboard.funcionario');
-})->name('dashboard.funcionario');
-Route::resource('funcionarios', FuncionarioController::class);
-Route::get('funcionarios/{id}/delete', [FuncionarioController::class, 'confirmDelete'])->name('funcionarios.delete');
-Route::post('funcionarios/{id}/inativar', [FuncionarioController::class, 'inativar'])->name('funcionarios.inativar');
-Route::post('funcionarios/{id}/reativar', [FuncionarioController::class, 'reativar'])->name('funcionarios.reativar');
+    // Funcionários
+    Route::get('/dashboard/funcionario', function () {
+        return view('dashboard.funcionario');
+    })->name('dashboard.funcionario');
+    Route::resource('funcionarios', FuncionarioController::class);
+    Route::get('funcionarios/{id}/delete', [FuncionarioController::class, 'confirmDelete'])->name('funcionarios.delete');
+    Route::post('funcionarios/{id}/inativar', [FuncionarioController::class, 'inativar'])->name('funcionarios.inativar');
+    Route::post('funcionarios/{id}/reativar', [FuncionarioController::class, 'reativar'])->name('funcionarios.reativar');
 
-// Categorias
-Route::resource('categorias', CategoriaController::class);
+    // Categorias
+    Route::resource('categorias', CategoriaController::class);
 
-// Receitas
-Route::resource('receitas', ReceitaController::class);
+    // Receitas
+    Route::resource('receitas', ReceitaController::class);
 
-// Medidas
-Route::resource('medidas', MedidaController::class);
+    // Medidas
+    Route::resource('medidas', MedidaController::class);
 
-// Ingredientes
-Route::resource('ingredientes', IngredienteController::class);
+    // Ingredientes
+    Route::resource('ingredientes', IngredienteController::class);
 
-// Livros (usando idlivro como parâmetro)
-Route::resource('livros', LivroController::class)->parameters([
-    'livros' => 'idlivro'
-]);
+    // Livros (usando idlivro como parâmetro)
+    Route::resource('livros', LivroController::class)->parameters([
+        'livros' => 'idlivro'
+    ]);
 
-// Restaurantes
-Route::resource('restaurantes', RestauranteController::class);
+    // Restaurantes
+    Route::resource('restaurantes', RestauranteController::class);
 });
 
 // Degustação (fora do grupo de autenticação)

@@ -25,9 +25,13 @@ class Funcionario extends Authenticatable
         'password',
     ];
 
-
     public function cargo()
     {
         return $this->belongsTo(Cargo::class);
+    }
+
+    public function receitas()
+    {
+        return $this->hasMany(\App\Models\Receita::class, 'FKcozinheiro', 'id');
     }
 }
