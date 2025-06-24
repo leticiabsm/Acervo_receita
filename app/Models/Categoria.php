@@ -12,9 +12,10 @@ class Categoria extends Model
 
     protected $fillable = [
         'nome_cat',
-        'desc',
+        'descricao_cat', // ← alterado aqui
         'dt_ini_cat',
         'dt_fim_cat',
         'ind_ativo',
     ];
 }
+

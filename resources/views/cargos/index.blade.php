@@ -3,13 +3,15 @@
 @section('content')
 <div class="container mt-5">
     <h2 class="mb-4 text-white" style="font-weight: bold;">Consulta de Cargos</h2>
-    <div class="d-flex mb-3">
-        <form class="flex-grow-1 me-2">
-            <input type="text" class="form-control" placeholder="Pesquisar Cargos">
+    
+        <div class="d-flex mb-3">
+        <form class="flex-grow-1 me-2 d-flex" method="GET" action="{{ route('cargos.index') }}">
+            <input type="text" name="searchInput" class="form-control" placeholder="Pesquisar" value="{{ request('searchInput') }}">
+            <button type="submit" class="btn" style="background:transparent; border:none; margin-left:-40px;">
+                <img src="{{ asset('img/icons/lupa.png') }}" alt="Pesquisar" style="width:22px; height:22px;">
+            </button>
         </form>
-        <!--<a href="{{ route('cargos.create') }}" class="btn btn-success">
-            <i class="bi bi-briefcase me-2"></i> Incluir Cargo
-        </a>-->
+
         <a href="{{ route('cargos.create') }}"
             class="btn d-flex align-items-center"
             style="background:#83CD71; border:3px solid #25BB00; color:#fff; font-weight:bold;">

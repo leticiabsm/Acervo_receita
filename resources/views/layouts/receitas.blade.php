@@ -83,7 +83,7 @@
         }
     </style>
     @stack('styles')
-    @vite(['resources/css/app.css', 'resources/js/app.js'])
+    @vite(['resources/css/login.css', 'resources/js/app.js'])
 </head>
 
 <body>
