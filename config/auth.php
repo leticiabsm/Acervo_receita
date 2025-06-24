@@ -38,7 +38,7 @@ return [
     'guards' => [
         'web' => [
             'driver' => 'session',
-            'provider' => 'users',
+            'provider' => 'funcionarios',
         ],
     ],
 
@@ -60,9 +60,9 @@ return [
     */
 
     'providers' => [
-        'users' => [
+        'funcionarios' => [
             'driver' => 'eloquent',
-            'model' => env('AUTH_MODEL', App\Models\User::class),
+            'model' => env('AUTH_MODEL', App\Models\Funcionario::class),
         ],
 
         // 'users' => [
@@ -88,7 +88,7 @@ return [
     | generating more password reset tokens. This prevents the user from
     | quickly generating a very large amount of password reset tokens.
     |
-    */
+    
 
     'passwords' => [
         'users' => [
@@ -98,6 +98,7 @@ return [
             'throttle' => 60,
         ],
     ],
+    */
 
     /*
     |--------------------------------------------------------------------------

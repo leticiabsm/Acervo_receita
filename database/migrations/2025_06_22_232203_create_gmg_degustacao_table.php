@@ -19,6 +19,7 @@ return new class extends Migration
             $table->unsignedBigInteger('FKcozinheiro');   // FK para cozinheiro (funcionario)
             $table->decimal('nota_degustacao', 4, 2)->nullable();
             $table->date('data_degustacao')->nullable();
+            $table->text('descricao');
             // $table->string('status')->nullable(); // Se quiser status, descomente
 
             // Foreign keys (opcional, se quiser integridade referencial)

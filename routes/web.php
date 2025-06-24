@@ -14,6 +14,7 @@ use App\Http\Controllers\LivroController;
 use App\Http\Controllers\IngredienteController;
 use App\Http\Controllers\MedidaController;
 use App\Http\Controllers\CozinheiroController;
+use App\Http\Controllers\DegustadorController;
 
 // Página inicial redireciona para login
 Route::get('/', fn() => redirect()->route('login'));
@@ -36,6 +37,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/dashboard/admin', [DashboardController::class, 'admin'])->name('dashboard.admin');
     Route::get('/dashboard/editor', [DashboardController::class, 'dashboardEditor'])->name('dashboard.editor');
     Route::get('/dashboard/cozinheiro', [CozinheiroController::class, 'dashboard'])->name('dashboard.cozinheiro');
+    Route::get('/dashboard/degustador', [DegustadorController::class, 'dashboard'])->name('dashboard.degustador'); // Rota para o dashboard do degustador
 
     // Cargos
     Route::resource('cargos', CargoController::class);
@@ -71,15 +73,14 @@ Route::middleware(['auth'])->group(function () {
 
     // Painel do Editor
     Route::get('/dashboard/editor', [\App\Http\Controllers\EditorController::class, 'dashboard'])->name('dashboard.editor');
-});
 
-// Degustação (fora do grupo de autenticação)
-Route::get('/degustacao', [DegustacaoController::class, 'index'])->name('degustacao.index');
-Route::get('/degustacao/search', [DegustacaoController::class, 'search'])->name('degustacao.search');
-Route::get('/degustacao/create', [DegustacaoController::class, 'create'])->name('degustacao.create');
-Route::post('/degustacao', [DegustacaoController::class, 'store'])->name('degustacao.store');
-Route::get('/degustacao/{id}/edit', [DegustacaoController::class, 'edit'])->name('degustacao.edit');
-Route::put('/degustacao/{id}', [DegustacaoController::class, 'update'])->name('degustacao.update');
-Route::get('/degustacao/{id}/delete', [DegustacaoController::class, 'delete'])->name('degustacao.delete');
-Route::delete('/degustacao/{id}/destroy', [DegustacaoController::class, 'destroy'])->name('degustacao.destroy');
-Route::get('/degustacao/{id}', [DegustacaoController::class, 'show'])->name('degustacao.show');
+    // Degustação (fora do grupo de autenticação)
+    Route::get('/degustacao', [DegustacaoController::class, 'index'])->name('degustacao.index');
+    Route::get('/degustacao/search', [DegustacaoController::class, 'search'])->name('degustacao.search');
+    Route::get('/degustacao/create', [DegustacaoController::class, 'create'])->name('degustacao.create');
+    Route::post('/degustacao', [DegustacaoController::class, 'store'])->name('degustacao.store');
+    Route::get('/degustacao/{id}/edit', [DegustacaoController::class, 'edit'])->name('degustacao.edit');
+    Route::put('/degustacao/{id}', [DegustacaoController::class, 'update'])->name('degustacao.update');
+    Route::delete('/degustacao/{id}', [DegustacaoController::class, 'destroy'])->name('degustacao.destroy');
+    Route::get('/degustacao/{id}', [DegustacaoController::class, 'show'])->name('degustacao.show');
+});

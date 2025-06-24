@@ -48,6 +48,10 @@ class AuthController extends Controller
                 session(['editor_logged_in' => true]);
                 return redirect()->route('dashboard.editor');
             }
+            if ($cargo === 'degustador') {
+                session(['degustador_logged_in' => true]);
+                return redirect()->route('dashboard.degustador');
+            }
 
             return redirect()->route('dashboard.funcionario');
         }

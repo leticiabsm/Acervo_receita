@@ -43,4 +43,9 @@ class DashboardController extends Controller
     {
         return view('dashboard.cozinheiro');
     }
+
+    public function degustador()
+    {
+        return view('dashboard.degustador');
+    }
 }
