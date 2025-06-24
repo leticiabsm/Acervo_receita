@@ -26,6 +26,11 @@ return new class extends Migration
             $table->string('dificudade_receitas', 12)->comment('Contém a dificuldade da receita. Ex: Fácil, Médio, Difícil.');
             $table->time('tempo_de_preparo')->comment('Contém o tempo de preparo da receita. Ex: 00:30:00 (HH:MM:SS).');
 
+
+            $table->unsignedBigInteger('FKLivro')->nullable()->comment('Livro ao qual a receita pertence');
+
+            $table->foreign('FKLivro')->references('idlivro')->on('gmg_livro');
+
             $table->foreign('FKcozinheiro')
                 ->references('id')->on('funcionarios')
                 ->onDelete('no action')

@@ -94,7 +94,7 @@
 
             <a href="{{ 
                 $cargo === 'adm' ? route('dashboard.admin') : 
-                ($cargo === 'cozinheiro' ? route('dashboard.cozinheiro') : route('dashboard.funcionario')) 
+                ($cargo === 'cozinheiro' ? route('dashboard.cozinheiro') : route('dashboard.editor')) 
                 }}" class="btn-back">
                 <img src="{{ asset('img/icons/voltar.png') }}" alt="Voltar" style="width:22px; height:22px; margin-right:6px;">
                 Painel
