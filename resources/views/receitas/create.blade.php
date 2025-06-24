@@ -89,7 +89,15 @@
 
                 <div class="mb-3">
                     <label for="tempo_de_preparo" class="form-label">Tempo de Preparo (HH:MM:SS)</label>
-                    <input type="time" step="1" class="form-control" id="tempo_de_preparo" name="tempo_de_preparo" value="{{ old('tempo_de_preparo') }}" required>
+                    <input
+                        type="text"
+                        pattern="^([0-1]?[0-9]|2[0-3]):[0-5][0-9](:[0-5][0-9])?$"
+                        class="form-control"
+                        id="tempo_de_preparo"
+                        name="tempo_de_preparo"
+                        value="{{ old('tempo_de_preparo') }}"
+                        placeholder="HH:MM ou HH:MM:SS"
+                        required>
                 </div>
             </div>
         </div>

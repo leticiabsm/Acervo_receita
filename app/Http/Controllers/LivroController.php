@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Livro;
 use Illuminate\Support\Facades\Auth;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class LivroController extends Controller
 {
@@ -55,5 +56,17 @@ class LivroController extends Controller
         $livro = Livro::findOrFail($id);
         $livro->delete();
         return redirect()->route('livros.index')->with('success', 'Livro excluído com sucesso!');
+    }
+
+    public function download($idlivro)
+    {
+        $livro = Livro::with(['receitas', 'editor']) 
+        
+            ->findOrFail($idlivro);
+
+        $pdf = Pdf::loadView('livros.pdf', compact('livro'));
+
+        $filename = 'livro_' . $livro->idlivro . '.pdf';
+        return $pdf->download($filename);
     }
 }

@@ -39,7 +39,6 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/dashboard', fn() => redirect()->route('dashboard.admin'))->name('dashboard');
     Route::get('/dashboard/admin', [DashboardController::class, 'admin'])->name('dashboard.admin');
     Route::get('/dashboard/editor', [DashboardController::class, 'dashboardEditor'])->name('dashboard.editor');
-    Route::get('/dashboard/cozinheiro', [DashboardController::class, 'cozinheiro'])->name('dashboard.cozinheiro');
     Route::get('/dashboard/cozinheiro', [CozinheiroController::class, 'dashboard'])->name('dashboard.cozinheiro');
 
     // Cargos
@@ -48,9 +47,6 @@ Route::middleware(['auth'])->group(function () {
     Route::put('/cargos/{id}/status', [CargoController::class, 'atualizarStatus'])->name('cargos.atualizarStatus');
 
     // Funcionários
-    Route::get('/dashboard/funcionario', function () {
-        return view('dashboard.funcionario');
-    })->name('dashboard.funcionario');
     Route::resource('funcionarios', FuncionarioController::class);
     Route::get('funcionarios/{id}/delete', [FuncionarioController::class, 'confirmDelete'])->name('funcionarios.delete');
     Route::post('funcionarios/{id}/inativar', [FuncionarioController::class, 'inativar'])->name('funcionarios.inativar');
@@ -72,9 +68,13 @@ Route::middleware(['auth'])->group(function () {
     Route::resource('livros', LivroController::class)->parameters([
         'livros' => 'idlivro'
     ]);
+    Route::get('/livros/{idlivro}/download', [LivroController::class, 'download'])->name('livros.download');
 
     // Restaurantes
     Route::resource('restaurantes', RestauranteController::class);
+
+    // Painel do Editor
+    Route::get('/dashboard/editor', [\App\Http\Controllers\EditorController::class, 'dashboard'])->name('dashboard.editor');
 });
 
 // Degustação (fora do grupo de autenticação)
@@ -89,12 +89,6 @@ Route::delete('/degustacao/{id}/destroy', [DegustacaoController::class, 'destroy
 Route::get('/degustacao/{id}', [DegustacaoController::class, 'show'])->name('degustacao.show');
 
 
+
 // Livros Publicados
 Route::resource('publicacao', LivroPublicadoController::class);
-
-
-// Api
-Route::get('/livros/{id}/download', [LivroDownloadController::class, 'download']);
-
-// Livro Publicado
-Route::get('/publicacao/{id}/download', [LivroDownloadController::class, 'download'])->name('publicacao.download');
