@@ -4,7 +4,12 @@ namespace App\Http\Controllers;
 
 use App\Models\Degustacao;
 use App\Models\Receita;
+use App\Models\Funcionario;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+
+use function Laravel\Prompts\alert;
+use function PHPSTORM_META\type;
 
 class DegustacaoController extends Controller
 {
@@ -15,12 +20,12 @@ class DegustacaoController extends Controller
     {
         $search = $request->input('search');
 
-        $degustacoes = Degustacao::query()
+        $degustacoes = Degustacao::with('receita')
             ->when($search, function ($query, $search) {
-                $query->where('FK_nome_rec', 'like', '%' . $search . '%')
-                    ->orWhere('data_degustacao', 'like', '%' . $search . '%');
+                $query->where('FKReceita', 'like', "%$search%")
+                    ->orWhere('data_degustacao', 'like', "%$search%");
             })
-            ->orderBy('FK_nome_rec', 'asc')
+            ->orderBy('data_degustacao', 'desc')
             ->get();
 
         return view('notas.degustacao', compact('degustacoes'));
@@ -29,80 +34,89 @@ class DegustacaoController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-
     public function create(Request $request)
     {
         $search = $request->input('search');
+
         if ($search) {
-            // Chama o método que trata a busca
             return $this->search($request);
         }
 
-        $degustacao = Degustacao::orderBy('FK_nome_rec', 'desc')->first();
-        return view('notas.create', compact('degustacao', 'search'));
+        $receita = Receita::whereNotIn('idReceitas', function ($query) {
+            $query->select('FKReceita')->from('gmg_degustacao');
+        })->first();
+
+        if (!$receita) {
+            return redirect()->route('degustacao.index')
+                ->with('msg', 'Não há receitas disponíveis para degustação.')->with('alert-type', 'warning');
+        }
+
+        return view('notas.create', ['receita' => $receita, 'search' => $search]);
     }
 
+    /**
+     * Search for a recipe not yet evaluated.
+     */
     public function search(Request $request)
     {
         $search = $request->input('search');
-        /**Após o merge, trocar a Model Degustacao para Receita */
-        $receita = Receita::where('nome_rec', 'like', "%$search%")
 
-            ->whereNotIn('nome_rec', function ($query) {
-                $query->select('FK_nome_rec')
-                    ->from('gmg_degustacao');
+        $receita = Receita::where('nome_rec', 'like', "%$search%")
+            ->whereNotIn('idReceitas', function ($query) {
+                $query->select('FKReceita')->from('gmg_degustacao');
             })
             ->first();
 
         if (!$receita) {
-            return redirect()->route('degustacao.create')->with('msg', 'Não há receitas disponíveis para degustação com esse nome.');
+            return redirect()->route('degustacao.create')
+                ->with('msg', 'Não há receitas disponíveis para degustação com esse nome.')->with('alert-type', 'warning');
         }
 
-        // Aqui você pode montar manualmente um objeto "fake" de degustacao ou adaptar a view
-        return view('notas.create', [
-            'degustacao' => (object)[
-                'FK_nome_rec' => $receita->nome_rec,
-                'FKcozinheiro' => $receita->FKcozinheiro,
-                'tempo_de_preparo' => $receita->tempo_de_preparo,
-            ],
-            'search' => $search,
-        ]);
+        return view('notas.create', ['receita' => $receita, 'search' => $search]);
     }
-
 
     /**
      * Store a newly created resource in storage.
      */
     public function store(Request $request)
     {
-        $avaliacaoExistente = Degustacao::where('FK_nome_rec', $request->FK_nome_rec)
-            ->where('nota_degustacao', '>', 0)
-            ->first();
+        $request->validate([
+            'FKReceita' => 'required|integer|exists:gmg_receitas,idReceitas',
+            'nota_degustacao' => 'required|numeric|min:0|max:10',
+            'FKcozinheiro' => 'required|integer|exists:gmg_receitas,FKcozinheiro',
+            'descricao' => 'required|string|max:1000',
+        ]);
+
+        $avaliacaoExistente = Degustacao::where('FKReceita', $request->FKReceita)->exists();
 
         if ($avaliacaoExistente) {
-            return redirect('/degustacao')
-                ->with('msg', 'Esta receita já foi avaliada anteriormente.');
+            return redirect()->route('degustacao.index')
+                ->with('msg', 'Esta receita já foi avaliada anteriormente.')->with('alert-type', 'warning');
         }
 
         $avaliacao = new Degustacao();
-        $avaliacao->FK_nome_rec = $request->FK_nome_rec;
-        $avaliacao->nota_degustacao = $request->nota;
+        $avaliacao->FKReceita = $request->FKReceita;
+        $avaliacao->nota_degustacao = $request->nota_degustacao;
         $avaliacao->data_degustacao = now();
         $avaliacao->FKcozinheiro = $request->FKcozinheiro;
-        $avaliacao->FK_degustador = $request->FK_degustador; 
+        $avaliacao->descricao = $request->descricao;
+        $avaliacao->FK_degustador = Auth::id();
         $avaliacao->save();
 
-        return redirect('/degustacao')
+        // Atualiza o status da receita para "Avaliada"
+        Receita::where('idReceitas', $request->FKReceita)
+            ->update(['status' => 'Avaliada']);
+
+        return redirect()->route('degustacao.index')
             ->with('msg', 'Receita avaliada com sucesso!');
     }
-
 
     /**
      * Display the specified resource.
      */
     public function show($id)
     {
-        $degustacao = Degustacao::findOrfail($id);
+        $degustacao = Degustacao::findOrFail($id);
         return view('notas.show', compact('degustacao'));
     }
 
@@ -121,23 +135,25 @@ class DegustacaoController extends Controller
     public function update(Request $request, $id)
     {
         $request->validate([
-            'nota_degustacao' => 'int'
+            'nota_degustacao' => 'required|numeric|min:0|max:10',
+            'descricao' => 'nullable|string|max:1000',
         ]);
 
         $degustacao = Degustacao::findOrFail($id);
-
-        $degustacao->nota_degustacao = $request->input('nota_degustacao');
-
+        $degustacao->nota_degustacao = $request->nota_degustacao;
+        $degustacao->descricao = $request->descricao;
         $degustacao->save();
 
-        return redirect()->route('notas.index')->with('msg', 'Nota atualizada com sucesso!');
+        return redirect()->route('degustacao.index')->with('msg', 'Nota atualizada com sucesso!');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Degustacao $degustacao)
+    public function destroy($id)
     {
-        //
+        $degustacao = Degustacao::findOrFail($id);
+        $degustacao->delete();
+        return redirect()->route('degustacao.index')->with('msg', 'Degustação removida com sucesso!');
     }
 }

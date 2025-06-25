@@ -12,7 +12,7 @@
             </button>
         </form>
         @php
-        $cargo = strtolower(auth()->user()->cargo->nome ?? '');
+            $cargo = strtolower(auth()->user()->cargo->nome ?? '');
         @endphp
 
         @if($cargo === 'cozinheiro')
@@ -35,37 +35,44 @@
                     <th>Categoria</th>
                     <th>Data Criação</th>
                     <th>Dificuldade</th>
+                    <th>Status</th>
                     <th>Atividades</th>
                 </tr>
             </thead>
             <tbody>
                 @forelse ($receitas as $receita)
                 <tr>
-                    <td>{{ $receita->nome_rec }}</td> {{-- Nome da Receita --}}
+                    <td>{{ $receita->nome_rec }}</td>
                     <td>{{ $receita->cozinheiro ? $receita->cozinheiro->nome : 'N/A' }}</td>
                     <td>{{ $receita->categoria ? $receita->categoria->nome_cat : 'N/A' }}</td>
                     <td>{{ $receita->dt_criacao->format('d/m/Y') }}</td>
                     <td>{{ $receita->dificudade_receitas }}</td>
-
-                    <td class="d-flex gap-2"> {{-- Atividades --}}
+                    <td>
+                        @if(($receita->avaliada ?? false) || ($receita->status === 'Avaliada'))
+                            🌟 Avaliada!
+                        @else
+                            -
+                        @endif
+                    </td>
+                    <td class="d-flex gap-2">
                         <a href="{{ route('receitas.show', $receita->idReceitas) }}" class="btn btn-info btn-sm">Ver</a>
-                        <a href="{{ route('receitas.edit', $receita->idReceitas) }}" class="btn btn-warning btn-sm">Editar</a>
-                        <form action="{{ route('receitas.destroy', $receita->idReceitas) }}" method="POST" style="display:inline;">
-                            @csrf
-                            @method('DELETE')
-                            <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Tem certeza que deseja excluir esta receita?')">Excluir</button>
-                        </form>
+                        @if($cargo !== 'degustador')
+                            <a href="{{ route('receitas.edit', $receita->idReceitas) }}" class="btn btn-warning btn-sm">Editar</a>
+                            <form action="{{ route('receitas.destroy', $receita->idReceitas) }}" method="POST" style="display:inline;">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Tem certeza que deseja excluir esta receita?')">Excluir</button>
+                            </form>
+                        @endif
                     </td>
                 </tr>
                 @empty
                 <tr>
-                    <td colspan="6">Nenhuma receita encontrada.</td>
+                    <td colspan="7">Nenhuma receita encontrada.</td>
                 </tr>
                 @endforelse
             </tbody>
-
         </table>
     </div><!--table responsive-->
-</div>
 </div>
 @endsection

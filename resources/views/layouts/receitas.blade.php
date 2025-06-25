@@ -11,7 +11,6 @@
 
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-
     <title>@yield('title', 'Funcionários')</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -41,7 +40,6 @@
             margin: 0;
         }
 
-
         .navbar-funcionario .btn-back {
             background: #EDEAEA;
             border-radius: 20px;
@@ -52,13 +50,6 @@
             align-items: center;
             gap: 0.3rem;
             box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.15);
-            /* drop shadow */
-        }
-
-        .navbar-funcionario .title {
-            font-size: 1.7rem;
-            font-weight: bold;
-            margin: 0;
         }
 
         .navbar-funcionario .user-info {
@@ -91,12 +82,15 @@
         <div class="left d-flex align-items-center">
             @php
             $cargo = strtolower(auth()->user()->cargo->nome ?? '');
+            $painelRoute = match($cargo) {
+            'adm' => route('dashboard.admin'),
+            'cozinheiro' => route('dashboard.cozinheiro'),
+            'degustador' => route('dashboard.degustador'),
+            default => route('dashboard.editor'),
+            };
             @endphp
 
-            <a href="{{ 
-                $cargo === 'adm' ? route('dashboard.admin') : 
-                ($cargo === 'cozinheiro' ? route('dashboard.cozinheiro') : route('dashboard.editor')) 
-                }}" class="btn-back">
+            <a href="{{ $painelRoute }}" class="btn-back">
                 <img src="{{ asset('img/icons/voltar.png') }}" alt="Voltar" style="width:22px; height:22px; margin-right:6px;">
                 Painel
             </a>
@@ -121,7 +115,6 @@
     <div class="container-fluid p-0">
         @yield('content')
     </div>
-
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     @stack('scripts')

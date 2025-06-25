@@ -9,10 +9,10 @@ class Degustacao extends Model
     protected $table = 'gmg_degustacao';
     public $timestamps = false;
     protected $primaryKey = 'idDesgustacao';
-    protected $fillable = ['FK_nome_rec','FK_degustador','FKcozinheiro','nota_degustacao', 'data_degustacao'];
+    protected $fillable = ['FKReceita', 'FK_degustador', 'FKcozinheiro', 'nota_degustacao', 'data_degustacao', 'descricao'];
 
     public function receita()
     {
-        return $this->belongsTo(\App\Models\Receita::class, 'FKReceita', 'idReceitas');
+        return $this->belongsTo(Receita::class, 'FKReceita', 'idReceitas'); // ajuste o nome do FK se for diferente
     }
 }

@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('gmg_categoria', function (Blueprint $table) {
             $table->smallIncrements('id_cat')->comment('Identificador único da categoria.');
             $table->string('nome_cat', 45)->comment('Nome da categoria. Ex: Massas, Bolos.');
-            $table->string('descricao_cat', 45)->nullable()->comment('Descrição da categoria.');
+            $table->string('descricao', 255)->nullable()->comment('Descrição da categoria.');
             $table->date('dt_fim_cat')->nullable()->comment('Data de fim da categoria.');
             $table->dateTime('dt_ini_cat')->comment('Data de início da categoria.');
             $table->tinyInteger('ind_ativo')->comment('Indicador de status: 1 - ativo, 0 - inativo.');
