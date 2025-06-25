@@ -22,13 +22,18 @@ class CozinheiroController extends Controller
                 $q->where('nome', 'Cozinheiro');
             })->first();
 
+        // Total de receitas criadas por este cozinheiro
         $totalReceitas = $cozinheiro ? $cozinheiro->receitas()->count() : 0;
 
+        // Só conta receitas deste cozinheiro aguardando degustação
         $totalPedidos = 0;
         if ($cozinheiro) {
-            $totalPedidos = Degustacao::whereHas('receita', function ($q) use ($cozinheiro) {
-                $q->where('FKcozinheiro', $cozinheiro->id);
-            })->count();
+            $totalPedidos = Receita::where('FKcozinheiro', $cozinheiro->id)
+                ->where(function ($query) {
+                    $query->whereNull('status')
+                        ->orWhere('status', '!=', 'Avaliada');
+                })
+                ->count();
         }
 
         return view('dashboard.cozinheiro', compact('totalReceitas', 'totalPedidos'));

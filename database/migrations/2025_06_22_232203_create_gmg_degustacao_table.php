@@ -20,12 +20,7 @@ return new class extends Migration
             $table->decimal('nota_degustacao', 4, 2)->nullable();
             $table->date('data_degustacao')->nullable();
             $table->text('descricao');
-            // $table->string('status')->nullable(); // Se quiser status, descomente
-
-            // Foreign keys (opcional, se quiser integridade referencial)
-            // $table->foreign('FKReceita')->references('idReceitas')->on('gmg_receitas');
-            // $table->foreign('FK_degustador')->references('id')->on('funcionarios');
-            // $table->foreign('FKcozinheiro')->references('id')->on('funcionarios');
+            $table->unique(['FKReceita', 'FK_degustador'], 'unique_receita_degustador'); 
         });
     }
 

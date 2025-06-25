@@ -23,25 +23,22 @@ class CategoriaController extends Controller
         $categoria = new Categoria();
 
         $categoria->nome_cat = $request->nome_cat;
-        $categoria->desc = $request->desc;
+        $categoria->descricao = $request->desc; // Corrigido para 'descricao'
         $categoria->dt_ini_cat = now();
         $categoria->dt_fim_cat = null;
 
         $categoria->ind_ativo = $request->input('ativo', 1);
-
 
         $categoria->save();
 
         return redirect()->route('categorias.index')->with('msg', 'Categoria criada com sucesso!');
     }
 
-
     public function edit($id)
     {
         $categoria = Categoria::findOrFail($id);
         return view('categorias.edit', compact('categoria'));
     }
-
 
     public function update(Request $request, $id)
     {
@@ -54,7 +51,7 @@ class CategoriaController extends Controller
         $categoria = Categoria::findOrFail($id);
 
         $categoria->nome_cat = $request->input('nome_cat');
-        $categoria->desc = $request->input('desc');
+        $categoria->descricao = $request->input('desc'); // Corrigido para 'descricao'
         $categoria->ind_ativo = $request->input('ind_ativo');
 
         $categoria->dt_fim_cat = $categoria->ind_ativo ? null : now();

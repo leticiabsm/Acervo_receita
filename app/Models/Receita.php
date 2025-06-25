@@ -18,7 +18,8 @@ class Receita extends Model
 
     public $incrementing = true;
     protected $fillable = [
-        'idReceitas', // Inclua se você estiver definindo o ID manualmente ou for um campo que pode ser preenchido
+        'idReceitas',
+        'status',
         'nome_rec',
         'FKcozinheiro',
         'FKCategoria',

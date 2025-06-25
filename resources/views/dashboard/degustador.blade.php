@@ -1,4 +1,4 @@
-@extends('layouts.cozinheiro')
+@extends('layouts.degustador')
 
 @section('content')
 @if(Auth::check())

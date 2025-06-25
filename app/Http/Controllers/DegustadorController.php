@@ -33,4 +33,29 @@ class DegustadorController extends Controller
 
         return view('dashboard.degustador', compact('totalReceitas', 'receitasParaAvaliar'));
     }
+
+
+    public function avaliarReceita(Request $request, $receitaId)
+    {
+        $degustadorId = Auth::id();
+
+        // Verifica se já existe avaliação
+        $jaAvaliada = Degustacao::where('receita_id', $receitaId)
+            ->where('degustador_id', $degustadorId)
+            ->exists();
+
+        if (!$jaAvaliada) {
+            Degustacao::create([
+                'receita_id' => $receitaId,
+                'degustador_id' => $degustadorId,
+                // outros campos de avaliação, se houver
+            ]);
+
+            // Atualiza o status da receita para "Avaliada"
+            Receita::where('idReceitas', $receitaId)
+                ->update(['status' => 'Avaliada']);
+        }
+
+        return redirect()->back()->with('success', 'Receita avaliada com sucesso!');
+    }
 }

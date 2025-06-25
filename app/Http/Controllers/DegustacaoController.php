@@ -8,6 +8,9 @@ use App\Models\Funcionario;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
+use function Laravel\Prompts\alert;
+use function PHPSTORM_META\type;
+
 class DegustacaoController extends Controller
 {
     /**
@@ -45,7 +48,7 @@ class DegustacaoController extends Controller
 
         if (!$receita) {
             return redirect()->route('degustacao.index')
-                ->with('msg', 'Não há receitas disponíveis para degustação.');
+                ->with('msg', 'Não há receitas disponíveis para degustação.')->with('alert-type', 'warning');
         }
 
         return view('notas.create', ['receita' => $receita, 'search' => $search]);
@@ -66,7 +69,7 @@ class DegustacaoController extends Controller
 
         if (!$receita) {
             return redirect()->route('degustacao.create')
-                ->with('msg', 'Não há receitas disponíveis para degustação com esse nome.');
+                ->with('msg', 'Não há receitas disponíveis para degustação com esse nome.')->with('alert-type', 'warning');
         }
 
         return view('notas.create', ['receita' => $receita, 'search' => $search]);
@@ -77,7 +80,6 @@ class DegustacaoController extends Controller
      */
     public function store(Request $request)
     {
-
         $request->validate([
             'FKReceita' => 'required|integer|exists:gmg_receitas,idReceitas',
             'nota_degustacao' => 'required|numeric|min:0|max:10',
@@ -89,7 +91,7 @@ class DegustacaoController extends Controller
 
         if ($avaliacaoExistente) {
             return redirect()->route('degustacao.index')
-                ->with('msg', 'Esta receita já foi avaliada anteriormente.');
+                ->with('msg', 'Esta receita já foi avaliada anteriormente.')->with('alert-type', 'warning');
         }
 
         $avaliacao = new Degustacao();
@@ -99,9 +101,11 @@ class DegustacaoController extends Controller
         $avaliacao->FKcozinheiro = $request->FKcozinheiro;
         $avaliacao->descricao = $request->descricao;
         $avaliacao->FK_degustador = Auth::id();
-
-
         $avaliacao->save();
+
+        // Atualiza o status da receita para "Avaliada"
+        Receita::where('idReceitas', $request->FKReceita)
+            ->update(['status' => 'Avaliada']);
 
         return redirect()->route('degustacao.index')
             ->with('msg', 'Receita avaliada com sucesso!');
