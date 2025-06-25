@@ -37,7 +37,7 @@
                             Livros de Receitas
                             <i class="bi bi-gear icon-gear"></i>
                         </a>
-                        <a href="#" class="list-group-item">
+                        <a href="{{ route('publicacao.index') }}" class="list-group-item">
                             Livros Publicados
                             <i class="bi bi-gear icon-gear"></i>
                         </a>
