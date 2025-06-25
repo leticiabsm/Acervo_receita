@@ -16,7 +16,7 @@
                     <input type="text" name="titulo" id="titulo" class="form-control" required>
                 </div>
                 <div class="mb-3">
-                    <label for="autor" class="form-label">Autor:</label>
+                    <label for="autor" class="form-label">Editor:</label>
                     <input type="text" name="autor" id="autor" class="form-control" required>
                 </div>
                 <div class="mb-3">
@@ -46,7 +46,7 @@
         {{-- Botões --}}
         <div class="text-end mt-4">
             <button type="submit" class="btn btn-primary">Publicar</button>
-            <a href="{{ route('publicacoes.index') }}" class="btn btn-secondary">Cancelar</a>
+            <a href="{{ route('publicacao.index') }}" class="btn btn-secondary">Cancelar</a>
         </div>
     </form>
 </div>

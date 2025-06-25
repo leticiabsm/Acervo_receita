@@ -44,9 +44,12 @@
                         <img src="{{ asset('img/icons/mynaui_trash.png') }}" alt="Excluir" style="width:18px; height:18px;">
                     </a>
 
-                    <a href="{{ route('livros.download', $livro->idlivro) }}" class="btn btn-success btn-sm" title="Publicar/Download">
-                        <img src="{{ asset('img/icons/material_download.png') }}" alt="Download" style="width:20px; height:20px;">
-                    </a>
+                    <form action="{{ route('livros.publicar', $livro->idlivro) }}" method="POST" style="display:inline;">
+                        @csrf
+                        <button type="submit" class="btn btn-success btn-sm" title="Publicar Livro">
+                            <img src="{{ asset('img/icons/share.png') }}" alt="Publicar" style="width:20px; height:20px;">
+                        </button>
+                    </form>
                 </td>
             </tr>
             @endforeach

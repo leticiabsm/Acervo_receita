@@ -6,6 +6,8 @@ use App\Models\LivroPublicado;
 use App\Models\Livro;
 use App\Models\Funcionario;
 use App\Models\Degustacao;
+use App\Models\Categoria;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 use Illuminate\Http\Request;
 
@@ -16,9 +18,10 @@ class LivroPublicadoController extends Controller
      */
     public function index()
     {
-        $livros = LivroPublicado::with(['funcionario', 'nota'])->get();
 
-    return view('publicacao.index', compact('livros'));
+        $livros = LivroPublicado::with(['funcionario', 'degustacao'])->get();
+
+        return view('publicacao.index', compact('livros'));
     }
 
     /**
@@ -29,13 +32,15 @@ class LivroPublicadoController extends Controller
         $livros = Livro::all();
         $funcionarios = Funcionario::all();
         $notas = Degustacao::all();
-    
+        $categorias = Categoria::all(); // Buscando as categorias
+
         return view('publicacao.create', [
             'livros' => $livros,
             'funcionarios' => $funcionarios,
             'notas' => $notas,
-            'livroPublicado' => null // importante para o _form saber que é um novo
-        ]); 
+            'categorias' => $categorias, // Passando para a view
+            'livroPublicado' => null
+        ]);
     }
 
     /**
@@ -49,9 +54,10 @@ class LivroPublicadoController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(LivroPublicado $livroPublicado)
+    public function show($id)
     {
-        //
+        $livroPublicado = LivroPublicado::findOrFail($id);
+        return view('publicacao.form', compact('livroPublicado'));
     }
 
     /**
@@ -62,7 +68,7 @@ class LivroPublicadoController extends Controller
         $livros = Livro::all();
         $funcionarios = Funcionario::all();
         $notas = Degustacao::all();
-    
+
         return view('publicacao.edit', [
             'livroPublicado' => $livroPublicado,
             'livros' => $livros,
@@ -71,19 +77,28 @@ class LivroPublicadoController extends Controller
         ]);
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
+
     public function update(Request $request, LivroPublicado $livroPublicado)
     {
         //
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
+
     public function destroy(LivroPublicado $livroPublicado)
     {
         //
+    }
+
+    public function visualizar($id)
+    {
+        $livroPublicado = LivroPublicado::with(['funcionario', 'degustacao'])->findOrFail($id);
+        return view('publicacao.visualizar', compact('livroPublicado'));
+    }
+
+    public function pdf($id)
+    {
+        $livroPublicado = LivroPublicado::findOrFail($id);
+        $pdf = Pdf::loadView('publicacao.pdf', compact('livroPublicado'));
+        return $pdf->stream('livro_publicado.pdf');
     }
 }

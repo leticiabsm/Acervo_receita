@@ -82,8 +82,15 @@ Route::middleware(['auth'])->group(function () {
     // Painel do Editor
     Route::get('/dashboard/editor', [\App\Http\Controllers\EditorController::class, 'dashboard'])->name('dashboard.editor');
 
-// Livros Publicados
-Route::resource('publicacao', LivroPublicadoController::class);
+    // Livros Publicados
+    Route::resource('publicacao', LivroPublicadoController::class);
+    Route::post('/livros/{idlivro}/publicar', [LivroController::class, 'publicar'])->name('livros.publicar');
+
+    Route::get('/publicacao/{id}/visualizar', [LivroPublicadoController::class, 'visualizar'])->name('publicacao.visualizar');
+
+    Route::post('/livros/{idlivro}/publicar', [LivroController::class, 'publicar'])->name('livros.publicar');
+    Route::get('/publicacao/{id}', [LivroPublicadoController::class, 'show'])->name('publicacao.show');
+    Route::get('/publicacao/{id}/pdf', [LivroPublicadoController::class, 'pdf'])->name('publicacao.pdf');
 
 
     // Degustação (fora do grupo de autenticação)
