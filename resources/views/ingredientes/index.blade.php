@@ -34,13 +34,13 @@
                         <a href="{{ route('ingredientes.edit', $ingrediente->idIngrediente) }}" class="btn btn-sm p-1 me-1"
                             style="background:#67C0FF; width:32px; height:32px; display:inline-flex; align-items:center; justify-content:center; border-radius:6px;"
                             onclick="event.stopPropagation()">
-                            <img src="{{ asset('img/icons/edit.png') }}" alt="Editar" style="width:18px; height:18px;">
+                            <img src="{{ asset('img/icons/la_pen.png') }}" alt="Editar" style="width:18px; height:18px;">
                         </a>
                         <form action="{{ route('ingredientes.destroy', $ingrediente->idIngrediente) }}" method="POST" style="display:inline;" onsubmit="return confirm('Tem certeza que deseja excluir?')">
                             @csrf
                             @method('DELETE')
                             <button type="submit" class="btn btn-sm p-1" style="background:#FF7979; width:32px; height:32px; border-radius:6px;">
-                                <img src="{{ asset('img/icons/trash.png') }}" alt="Excluir" style="width:18px; height:18px;">
+                                <img src="{{ asset('img/icons/mynaui_trash.png') }}" alt="Excluir" style="width:18px; height:18px;">
                             </button>
                         </form>
 

@@ -7,11 +7,20 @@ use Illuminate\Http\Request;
 
 class CategoriaController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $categorias = Categoria::all();
+        $query = Categoria::query();
+    
+        if ($request->filled('searchInput')) {
+            $query->where('nome_cat', 'like', '%' . $request->searchInput . '%')
+                  ->orWhere('descricao_cat', 'like', '%' . $request->searchInput . '%');
+        }
+    
+        $categorias = $query->get();
+    
         return view('categorias.index', compact('categorias'));
     }
+    
 
     public function create()
     {
@@ -23,7 +32,7 @@ class CategoriaController extends Controller
         $categoria = new Categoria();
 
         $categoria->nome_cat = $request->nome_cat;
-        $categoria->desc = $request->desc;
+        $categoria->descricao_cat = $request->descricao_cat;
         $categoria->dt_ini_cat = now();
         $categoria->dt_fim_cat = null;
 
@@ -47,14 +56,14 @@ class CategoriaController extends Controller
     {
         $request->validate([
             'nome_cat' => 'required|string|max:255',
-            'desc' => 'nullable|string',
+            'descricao_cat' => 'nullable|string',
             'ind_ativo' => 'required|boolean'
         ]);
 
         $categoria = Categoria::findOrFail($id);
 
         $categoria->nome_cat = $request->input('nome_cat');
-        $categoria->desc = $request->input('desc');
+        $categoria->descricao_cat = $request->input('descricao_cat');
         $categoria->ind_ativo = $request->input('ind_ativo');
 
         $categoria->dt_fim_cat = $categoria->ind_ativo ? null : now();
@@ -67,13 +76,13 @@ class CategoriaController extends Controller
     public function delete($id)
     {
         $categoria = Categoria::findOrFail($id);
-        return view('categorias.delete', compact('categoria'));
+        return view('categorias.destroy', compact('categoria'));
     }
 
     public function destroy($id)
     {
         $categoria = Categoria::findOrFail($id);
-        $categoria->ativo = 0;
+        $categoria->ind_ativo = 0;
         $categoria->dt_fim_cat = now();
         $categoria->save();
 

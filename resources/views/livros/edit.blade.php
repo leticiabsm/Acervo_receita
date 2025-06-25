@@ -1,4 +1,5 @@
 @extends('layouts.livro')
+@section('title', 'Editar')
 
 @section('content')
 <div class="content-wrapper text-center mb-4">

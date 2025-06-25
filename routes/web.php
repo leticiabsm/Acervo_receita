@@ -54,6 +54,7 @@ Route::middleware(['auth'])->group(function () {
 
     // Categorias
     Route::resource('categorias', CategoriaController::class);
+    Route::get('/categorias/{id}/destroy', [CategoriaController::class, 'delete'])->name('categorias.destroy.view'); // Mostra a tela de confirmação
 
     // Receitas
     Route::resource('receitas', ReceitaController::class);
@@ -65,17 +66,20 @@ Route::middleware(['auth'])->group(function () {
     Route::resource('ingredientes', IngredienteController::class);
 
     // Livros (usando idlivro como parâmetro)
+    Route::get('/livros/{idlivro}/destroy', [LivroController::class, 'destroyView'])->name('livros.destroy.view');
     Route::resource('livros', LivroController::class)->parameters([
         'livros' => 'idlivro'
     ]);
     Route::get('/livros/{idlivro}/download', [LivroController::class, 'download'])->name('livros.download');
+    Route::resource('livros', LivroController::class)->parameters(['livros' => 'idlivro']);
+    Route::get('/livros/{idlivro}/deletar', [LivroController::class, 'destroyView'])->name('livros.destroy.view');
 
     // Restaurantes
     Route::resource('restaurantes', RestauranteController::class);
 
     // Painel do Editor
     Route::get('/dashboard/editor', [\App\Http\Controllers\EditorController::class, 'dashboard'])->name('dashboard.editor');
-});
+});//fim auth
 
 // Degustação (fora do grupo de autenticação)
 Route::get('/degustacao', [DegustacaoController::class, 'index'])->name('degustacao.index');

@@ -32,11 +32,12 @@ class LivroController extends Controller
         return redirect()->route('livros.index')->with('success', 'Livro criado com sucesso!');
     }
 
-    public function show($id)
-    {
-        $livro = Livro::findOrFail($id);
+    public function show($idlivro)
+    {   
+        $livro = Livro::with('receitas')->findOrFail($idlivro);
         return view('livros.show', compact('livro'));
     }
+
 
     public function edit($id)
     {
@@ -51,12 +52,19 @@ class LivroController extends Controller
         return redirect()->route('livros.index')->with('success', 'Livro atualizado com sucesso!');
     }
 
-    public function destroy($id)
+    public function destroy($idlivro)
     {
-        $livro = Livro::findOrFail($id);
-        $livro->delete();
-        return redirect()->route('livros.index')->with('success', 'Livro excluído com sucesso!');
+        $livro = Livro::findOrFail($idlivro);
+        return view('livros.destroy', compact('livro'));
     }
+
+
+        public function destroyView($idlivro)
+    {
+        $livro = Livro::findOrFail($idlivro);
+        return view('livros.destroy', compact('livro'));
+    }
+
 
     public function download($idlivro)
     {

@@ -36,13 +36,13 @@
                         <a href="{{ route('medidas.edit', $medida->idMedida) }}" class="btn btn-sm p-1 me-1"
                             style="background:#67C0FF; width:32px; height:32px; display:inline-flex; align-items:center; justify-content:center; border-radius:6px;"
                             onclick="event.stopPropagation()">
-                            <img src="{{ asset('img/icons/edit.png') }}" alt="Editar" style="width:18px; height:18px;">
+                            <img src="{{ asset('img/icons/la_pen.png') }}" alt="Editar" style="width:18px; height:18px;">
                         </a>
                         <a href="{{ route('medidas.destroy', $medida->idMedida) }}" 
                             class="btn btn-sm p-1"
                             style="background:#FF7979; width:32px; height:32px; display:inline-flex; align-items:center; justify-content:center; border-radius:6px;"
                             onclick="event.stopPropagation()">
-                            <img src="{{ asset('img/icons/trash.png') }}" alt="Excluir" style="width:18px; height:18px;">
+                            <img src="{{ asset('img/icons/mynaui_trash.png') }}" alt="Excluir" style="width:18px; height:18px;">
                         </a>
                     </td>
                 </tr>
