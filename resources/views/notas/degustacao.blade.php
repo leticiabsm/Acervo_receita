@@ -3,13 +3,50 @@
 @section('title', 'Degustação')
 
 @section('content')
+    @if (session('msg'))
+        @php
+            // Define o tipo de alerta: success, warning, error ou info (padrão é success)
+            $alertType = session('alert-type') ?? 'success';
+
+            // Mapeia o tipo de alerta para a classe CSS do Bootstrap
+            switch ($alertType) {
+                case 'success':
+                    $alertClass = 'alert-success';
+                    break;
+                case 'warning':
+                    $alertClass = 'alert-warning';
+                    break;
+                case 'error':
+                    $alertClass = 'alert-danger';
+                    break;
+                default:
+                    $alertClass = 'alert-info';
+                    break;
+            }
+        @endphp
+
+        <div id="flash-message" class="alert {{ $alertClass }} alert-dismissible fade show text-center mx-auto" role="alert" style="max-width: 600px;">
+            {{ session('msg') }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+
+        <script>
+            setTimeout(function () {
+                let alertBox = document.getElementById('flash-message');
+                if (alertBox) {
+                    alertBox.classList.remove('show');
+                    alertBox.classList.add('fade');
+                }
+            }, 3000);
+        </script>
+    @endif
+
     <div class="container my-5">
         <h2 class="mb-4">Consulta de Notas</h2>
 
         <div class="d-flex mb-4" style="gap: 10px;">
             <form action="{{ route('degustacao.index') }}" method="GET" class="flex-grow-1">
-                <input type="text" name="search" class="form-control" placeholder="Pesquisar"
-                    value="{{ request('search') }}">
+                <input type="text" name="search" class="form-control" placeholder="Pesquisar" value="{{ request('search') }}">
             </form>
             <a href="{{ route('degustacao.create') }}"
                 class="btn btn-success d-flex align-items-center gap-2 shadow rounded px-3 py-2">
@@ -41,12 +78,10 @@
                             </td>
                             <td>{{ $degustacao->nota_degustacao ?? '-' }}</td>
                             <td>
-                                <a href="{{ route('degustacao.edit', $degustacao->idDesgustacao) }}"
-                                    class="btn btn-primary">
+                                <a href="{{ route('degustacao.edit', $degustacao->idDesgustacao) }}" class="btn btn-primary">
                                     <i class="fas fa-edit"></i>
                                 </a>
-                                <form action="{{ route('degustacao.destroy', $degustacao->idDesgustacao) }}" method="POST"
-                                    style="display:inline;"
+                                <form action="{{ route('degustacao.destroy', $degustacao->idDesgustacao) }}" method="POST" style="display:inline;"
                                     onsubmit="return confirm('Tem certeza que deseja excluir esta degustação?');">
                                     @csrf
                                     @method('DELETE')

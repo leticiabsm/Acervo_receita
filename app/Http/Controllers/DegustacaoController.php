@@ -45,7 +45,7 @@ class DegustacaoController extends Controller
 
         if (!$receita) {
             return redirect()->route('degustacao.index')
-                ->with('msg', 'Não há receitas disponíveis para degustação.');
+                ->with('msg', 'Não há receitas disponíveis para degustação.')->with('alert-type', 'warning');
         }
 
         return view('notas.create', ['receita' => $receita, 'search' => $search]);
@@ -66,7 +66,7 @@ class DegustacaoController extends Controller
 
         if (!$receita) {
             return redirect()->route('degustacao.create')
-                ->with('msg', 'Não há receitas disponíveis para degustação com esse nome.');
+                ->with('msg', 'Não há receitas disponíveis para degustação com esse nome.')->with('alert-type', 'warning');
         }
 
         return view('notas.create', ['receita' => $receita, 'search' => $search]);
@@ -89,7 +89,7 @@ class DegustacaoController extends Controller
 
         if ($avaliacaoExistente) {
             return redirect()->route('degustacao.index')
-                ->with('msg', 'Esta receita já foi avaliada anteriormente.');
+                ->with('msg', 'Esta receita já foi avaliada anteriormente.')->with('alert-type', 'warning');
         }
 
         $avaliacao = new Degustacao();

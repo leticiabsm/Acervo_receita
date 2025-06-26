@@ -20,6 +20,8 @@ return new class extends Migration
             $table->decimal('nota_degustacao', 4, 2)->nullable();
             $table->date('data_degustacao')->nullable();
             $table->text('descricao');
+
+            $table->unique(['FKReceita', 'FK_degustador'], 'unique_receita_degustador');
             // $table->string('status')->nullable(); // Se quiser status, descomente
 
             // Foreign keys (opcional, se quiser integridade referencial)
